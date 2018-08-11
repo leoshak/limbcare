@@ -43,6 +43,12 @@
                 top: 18px;
             }
 
+            .top-left {
+                position: absolute;
+                left: 10px;
+                top: 18px;
+            }
+
             .content {
                 text-align: center;
             }
@@ -80,14 +86,20 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-
+                <div class="top-left brand">
+                    {{ HTML::image('img/logo.png', 'Limb Care') }}
+                </div>
                 <div class="top-right links">
-                    <a href="{{ route('protection.membership') }}">{{ __('views.welcome.member_area') }}</a>
-
+                    <a href="{{ url('/') }}">{{ __('views.welcome.home') }}</a>
+                    <a href="{{ url('/aboutus') }}">{{ __('views.welcome.aboutus') }}</a>
+                    <a href="{{ url('/services') }}">{{ __('views.welcome.services') }}</a>
+                    <a href="{{ url('/contact') }}">{{ __('views.welcome.contacts') }}</a>
+                    {{-- <a href="{{ route('protection.membership') }}">{{ __('views.welcome.member_area') }}</a> --}}
+                    
                     @if (Route::has('login'))
                         @if (!Auth::check())
                             @if(config('auth.users.registration'))
-                                <a href="{{ url('/register') }}">{{ __('views.welcome.register') }}</a>
+                                {{-- <a href="{{ url('/register') }}">{{ __('views.welcome.register') }}</a> --}}
                             @endif
                             <a href="{{ url('/login') }}">{{ __('views.welcome.login') }}</a>
                         @else
@@ -101,11 +113,11 @@
 
             <div class="content">
                 @yield('content')
-                <div class="footer">
+                {{-- <div class="footer">
                     Credits:&nbsp;
                     <a href="http://netlicensing.io/?utm_source=Laravel_Boilerplate&amp;utm_medium=github&amp;utm_campaign=laravel_boilerplate&amp;utm_content=credits" target="_blank" title="Online Software License Management"><i class="fa fa-lock" aria-hidden="true"></i>NetLicensing</a>&nbsp;&bull;&nbsp;
                     <a href="https://photolancer.zone/?utm_source=Laravel_Boilerplate&amp;utm_medium=github&amp;utm_campaign=laravel_boilerplate&amp;utm_content=credits" target="_blank" title="Individual digital content for your next campaign"><i class="fa fa-camera-retro" aria-hidden="true"></i>Photolancer Zone</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>

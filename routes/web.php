@@ -67,6 +67,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
 
 Route::get('/', 'HomeController@index');
+Route::get('/aboutus', 'AboutUsController@aboutus');
+Route::get('/services', 'ServicesController@services');
+Route::get('/contact', 'ContactController@contact');
 
 /**
  * Membership
