@@ -24,75 +24,80 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <h3><?php echo e(__('views.backend.section.navigation.sub_header_0')); ?></h3>
+                
                 <ul class="nav side-menu">
                     <li>
+                        
                         <a href="<?php echo e(route('admin.dashboard')); ?>">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <?php echo e(__('views.backend.section.navigation.menu_0_1')); ?>
-
+                            Home
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="menu_section">
-                <h3><?php echo e(__('views.backend.section.navigation.sub_header_1')); ?></h3>
+                <h3>Management</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="<?php echo e(route('admin.users')); ?>">
+                        <a href="<?php echo e(route('admin.patients')); ?>">
                             <i class="fa fa-users" aria-hidden="true"></i>
-                            <?php echo e(__('views.backend.section.navigation.menu_1_1')); ?>
+                            <?php echo e("Patients"); ?>
 
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo e(route('admin.permissions')); ?>">
-                            <i class="fa fa-key" aria-hidden="true"></i>
-                            <?php echo e(__('views.backend.section.navigation.menu_1_2')); ?>
+                        <a href="<?php echo e(route('admin.employees')); ?>">
+                            <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            <?php echo e("Employees"); ?>
 
                         </a>
                     </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3><?php echo e(__('views.backend.section.navigation.sub_header_2')); ?></h3>
-
-                <ul class="nav side-menu">
                     <li>
-                        <a>
-                            <i class="fa fa-list"></i>
-                            <?php echo e(__('views.backend.section.navigation.menu_2_1')); ?>
+                        <a href="<?php echo e(route('admin.doctors')); ?>">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <?php echo e("Doctors"); ?>
 
-                            <span class="fa fa-chevron-down"></span>
                         </a>
-                        <ul class="nav child_menu">
-                            <li>
-                                <a href="<?php echo e(route('log-viewer::dashboard')); ?>">
-                                    <?php echo e(__('views.backend.section.navigation.menu_2_2')); ?>
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo e(route('log-viewer::logs.list')); ?>">
-                                    <?php echo e(__('views.backend.section.navigation.menu_2_3')); ?>
-
-                                </a>
-                            </li>
-                        </ul>
                     </li>
+                    <li>
+                        <a href="<?php echo e(route('admin.appointments')); ?>">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <?php echo e("Appointments"); ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo e(route('admin.services')); ?>">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <?php echo e("Services"); ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo e(route('admin.financial')); ?>">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <?php echo e("Financial"); ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo e(route('admin.store')); ?>">
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>
+                            <?php echo e("Store"); ?>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo e(route('admin.question_forum')); ?>">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            <?php echo e("Question Forum"); ?>
+
+                        </a>
+                    </li>
+                    
                 </ul>
             </div>
-            <div class="menu_section">
-                <h3><?php echo e(__('views.backend.section.navigation.sub_header_3')); ?></h3>
-                <ul class="nav side-menu">
-                  <li>
-                      <a href="http://netlicensing.io/?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=credits" target="_blank" title="Online Software License Management"><i class="fa fa-lock" aria-hidden="true"></i>NetLicensing</a>
-                  </li>
-                  <li>
-                      <a href="https://photolancer.zone/?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=credits" target="_blank" title="Individual digital content for your next campaign"><i class="fa fa-camera-retro" aria-hidden="true"></i>Photolancer Zone</a>
-                  </li>
-                </ul>
-            </div>
+            
         </div>
         <!-- /sidebar menu -->
     </div>

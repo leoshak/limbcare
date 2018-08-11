@@ -53,6 +53,34 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    // Route::get('users/{user}', 'UserController@show')->name('users.show');
+    // Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+    // Route::put('users/{user}', 'UserController@update')->name('users.update');
+    // Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+
+    //Appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+
+    //Doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+
+    //Financial
+    Route::get('financial', 'FinancialController@index')->name('financial');
+
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //Store
+    Route::get('store', 'StoreController@index')->name('store');
+
+    //Financial
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+
     //Users
     Route::get('users', 'UserController@index')->name('users');
     Route::get('users/{user}', 'UserController@show')->name('users.show');

@@ -92,9 +92,9 @@
                 </div>
                 <div class="top-right links">
                     <a href="<?php echo e(url('/')); ?>"><?php echo e(__('views.welcome.home')); ?></a>
-                    <a href="<?php echo e(url('/aboutus')); ?>"><?php echo e(__('views.welcome.aboutus')); ?></a>
-                    <a href="<?php echo e(url('/services')); ?>"><?php echo e(__('views.welcome.services')); ?></a>
-                    <a href="<?php echo e(url('/contact')); ?>"><?php echo e(__('views.welcome.contacts')); ?></a>
+                    <a href="<?php echo e(url('/aboutus')); ?>">About Us</a>
+                    <a href="<?php echo e(url('/services')); ?>">Services</a>
+                    <a href="<?php echo e(url('/contact')); ?>">Contact</a>
                     
                     
                     <?php if(Route::has('login')): ?>

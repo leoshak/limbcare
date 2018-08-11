@@ -91,9 +91,9 @@
                 </div>
                 <div class="top-right links">
                     <a href="{{ url('/') }}">{{ __('views.welcome.home') }}</a>
-                    <a href="{{ url('/aboutus') }}">{{ __('views.welcome.aboutus') }}</a>
-                    <a href="{{ url('/services') }}">{{ __('views.welcome.services') }}</a>
-                    <a href="{{ url('/contact') }}">{{ __('views.welcome.contacts') }}</a>
+                    <a href="{{ url('/aboutus') }}">About Us</a>
+                    <a href="{{ url('/services') }}">Services</a>
+                    <a href="{{ url('/contact') }}">Contact</a>
                     {{-- <a href="{{ route('protection.membership') }}">{{ __('views.welcome.member_area') }}</a> --}}
                     
                     @if (Route::has('login'))
