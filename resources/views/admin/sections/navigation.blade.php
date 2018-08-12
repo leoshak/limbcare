@@ -42,15 +42,15 @@
                 <h3>Management</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="{{ route('admin.patients') }}">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            {{ "Patients" }}
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin.employees') }}">
                             <i class="fa fa-id-badge" aria-hidden="true"></i>
                             {{ "Employees" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.patients') }}">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            {{ "Patients" }}
                         </a>
                     </li>
                     <li>

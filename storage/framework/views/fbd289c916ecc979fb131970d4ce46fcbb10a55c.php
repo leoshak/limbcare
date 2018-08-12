@@ -39,16 +39,16 @@
                 <h3>Management</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="<?php echo e(route('admin.patients')); ?>">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            <?php echo e("Patients"); ?>
+                        <a href="<?php echo e(route('admin.employees')); ?>">
+                            <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            <?php echo e("Employees"); ?>
 
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo e(route('admin.employees')); ?>">
-                            <i class="fa fa-id-badge" aria-hidden="true"></i>
-                            <?php echo e("Employees"); ?>
+                        <a href="<?php echo e(route('admin.patients')); ?>">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <?php echo e("Patients"); ?>
 
                         </a>
                     </li>
