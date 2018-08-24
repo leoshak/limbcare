@@ -25,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employees.add');
     }
 
     /**
@@ -58,7 +58,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('admin.employees.edit');
     }
 
     /**
@@ -68,9 +68,9 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update()//Request $request, Employee $employee
     {
-        //
+        return view('admin.employees.edit');
     }
 
     /**
@@ -79,8 +79,8 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy()//Employee $employee
     {
-        //
+        return view('admin.employees.delete');
     }
 }

@@ -11,7 +11,8 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{ auth()->user()->avatar }}" alt="..." class="img-circle profile_img">
+                {{-- <img src="{{ auth()->user()->avatar }}" alt="..." class="img-circle profile_img"> --}}
+                <img src="http://203.157.229.35/sis/img/user_icon.png" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <h2>{{ auth()->user()->name }}</h2>

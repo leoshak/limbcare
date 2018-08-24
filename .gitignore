@@ -12,7 +12,6 @@ composer.lock
 phpunit.phar
 
 .env
-vendor
 storage
 
 # IDE exclusions

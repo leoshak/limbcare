@@ -55,7 +55,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
-    // Route::get('users/{user}', 'UserController@show')->name('users.show');
+    Route::get('employees/edit', 'EmployeeController@update')->name('employees.edit');
+    Route::get('employees/add', 'EmployeeController@create')->name('employees.add');
+    Route::get('employees/delete', 'EmployeeController@destroy')->name('employees.delete');
     // Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
     // Route::put('users/{user}', 'UserController@update')->name('users.update');
     // Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');

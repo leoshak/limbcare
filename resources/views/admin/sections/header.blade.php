@@ -9,7 +9,8 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{{ auth()->user()->avatar }}" alt="">{{ auth()->user()->name }}
+                        {{-- <img src="{{ auth()->user()->avatar }}" alt="">{{ auth()->user()->name }} --}}
+                        <img src="http://203.157.229.35/sis/img/user_icon.png" alt="">CEO
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

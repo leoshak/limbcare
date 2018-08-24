@@ -1,5 +1,5 @@
-.topicbar {
-    margin-bottom: 5%;
+.topic-bar {
+    margin-bottom: 10%;
 }
 
 .active-cyan-4 input[type=text]:focus:not([readonly]) {
@@ -28,12 +28,4 @@
 /* Add some padding inside the card container */
 .container {
     padding: 2px 16px;
-}
-
-.card-title {
-    font-size: 18px;
-}
-
-.card-body a {
-    display: block;
 }

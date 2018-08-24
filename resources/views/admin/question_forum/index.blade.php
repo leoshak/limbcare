@@ -1,13 +1,13 @@
 @extends('admin.layouts.admin')
 
-@section('title', "Question Forum")
+@section('title', "Uodate a Question")
 
 @section('content')
     <div class="row">
-        <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-               width="100%">
-            <thead>
-            <tr>
+        {{-- <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+               width="100%"> --}}
+            {{-- <thead>
+            <tr> --}}
                 {{-- <th>@sortablelink('email', __('views.admin.users.index.table_header_0'),['page' => $users->currentPage()])</th>
                 <th>@sortablelink('name',  __('views.admin.users.index.table_header_1'),['page' => $users->currentPage()])</th>
                 <th>{{ __('views.admin.users.index.table_header_2') }}</th>
@@ -15,14 +15,14 @@
                 <th>@sortablelink('confirmed', __('views.admin.users.index.table_header_4'),['page' => $users->currentPage()])</th>
                 <th>@sortablelink('created_at', __('views.admin.users.index.table_header_5'),['page' => $users->currentPage()])</th>
                 <th>@sortablelink('updated_at', __('views.admin.users.index.table_header_6'),['page' => $users->currentPage()])</th> --}}
-                <th>Actions</th>
+                {{-- <th>Actions</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody> --}}
             {{-- @foreach($users as $user) --}}
-                <tr>
+                {{-- <tr> --}}
                         {{-- $user->email --}}
-                    <td>This is quiz forum</td>
+                    {{-- <td>This is quiz forum</td> --}}
                     {{-- <td>{{ $user->name }}</td>
                     <td>{{ $user->roles->pluck('name')->implode(',') }}</td>
                     <td>
@@ -53,11 +53,108 @@
                                 {{--<i class="fa fa-trash"></i>--}}
                             {{--</button>--}}
                         {{--@endif--}}
-                    </td>
-                </tr> --}}
+                    {{-- </td>
+                </tr> --}} 
             {{-- @endforeach --}}
-            </tbody>
-        </table>
+            {{-- </tbody>
+        </table> --}}
+        {{-- <div id="myModal" class="modal fade in" style="display: block; margin-top: 160px; margin-left: 100px;">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="icon-box">
+                                <i class="fa fa-trash"></i>
+                            </div>				
+                            <h4 class="modal-title">Are you sure?</h4>	
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you really want to delete this with id QR321? This process cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            {{-- <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                        width="100%">
+                    <thead> 
+                    <tr>
+                        <th>@sortablelink('question', "Question",['page' => ''])</th>
+                        <th>@sortablelink('replies', "Replies",['page' => ''])</th>
+                        <th>@sortablelink('date', "Date",['page' => ''])</th>
+                        <th>@sortablelink('question type', "Question Type",['page' => ''])</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CEO: How is pateint id P123 product progress</td>
+                            <td>PNO 1: Still working, PNO3: 75%</td>
+                            <td>2017/11/11</td>
+                            <td>Patient</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btn btn-xs btn-info" href="">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                {{--@if(!$user->hasRole('administrator'))--}}
+                                    {{--<button class="btn btn-xs btn-danger user_destroy"--}}
+                                            {{--data-url="{{ route('admin.users.destroy', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.users.index.delete') }}">--}}
+                                        {{--<i class="fa fa-trash"></i>--}}
+                                    {{--</button>--}}
+                                {{--@endif--}}
+                            {{-- </td>
+                        </tr>
+                        <tr>
+                            <td>Doctor: Can I get measurements of patient Kaveen Dasun?</td>
+                            <td>PNO 1: Doctor, you need height and weight?</td>
+                            <td>2018/05/16</td>
+                            <td>Doctor</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btn btn-xs btn-info" href="">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> --}}
+                <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <form>
+                                <div class="form-group">
+                                    <label for="inputAddress">Title</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputAddress2">Question Type</label>
+                                  <select id="inputState" class="form-control">
+                                    <option selected>Choose...</option>
+                                    <option>Doctor</option>
+                                    <option>Patient</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputAddress">Description</label>
+                                  <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                                  {{-- <input type="text" class="form-control" id="inputAddress" placeholder=""> --}}
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                              </form>
+                            </div>
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}
         </div>
