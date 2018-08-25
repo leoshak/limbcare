@@ -15,7 +15,7 @@
             <div class="right_col" role="main">
                 <div class="page-title">
                     <div class="title_left">
-                        <h1 class="h3">@yield('title')</h1>
+                        <h1 class="h3 title-text">@yield('title')</h1>
                     </div>
                     @if(Breadcrumbs::exists())
                         <div class="title_right">

@@ -11,7 +11,8 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{ auth()->user()->avatar }}" alt="..." class="img-circle profile_img">
+                {{-- <img src="{{ auth()->user()->avatar }}" alt="..." class="img-circle profile_img"> --}}
+                <img src="http://203.157.229.35/sis/img/user_icon.png" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <h2>{{ auth()->user()->name }}</h2>
@@ -24,20 +25,72 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <h3>{{ __('views.backend.section.navigation.sub_header_0') }}</h3>
+                {{-- <h3>{{ __('views.backend.section.navigation.sub_header_0') }}</h3> --}}
                 <ul class="nav side-menu">
                     <li>
-                        <a href="{{ route('admin.dashboard') }}">
+                        {{-- <a href="{{ route('admin.dashboard') }}">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             {{ __('views.backend.section.navigation.menu_0_1') }}
+                        </a> --}}
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            Home
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="menu_section">
-                <h3>{{ __('views.backend.section.navigation.sub_header_1') }}</h3>
+                <h3>Management</h3>
                 <ul class="nav side-menu">
                     <li>
+                        <a href="{{ route('admin.employees') }}">
+                            <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            {{ "Employees" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.patients') }}">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            {{ "Patients" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.doctors') }}">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            {{ "Doctors" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.appointments') }}">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ "Appointments" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.services') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            {{ "Services" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.financial') }}">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            {{ "Financial" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.store') }}">
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>
+                            {{ "Store" }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.question_forum') }}">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            {{ "Question Forum" }}
+                        </a>
+                    </li>
+                    {{-- <li>
                         <a href="{{ route('admin.users') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ __('views.backend.section.navigation.menu_1_1') }}
@@ -48,10 +101,10 @@
                             <i class="fa fa-key" aria-hidden="true"></i>
                             {{ __('views.backend.section.navigation.menu_1_2') }}
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
-            <div class="menu_section">
+            {{-- <div class="menu_section">
                 <h3>{{ __('views.backend.section.navigation.sub_header_2') }}</h3>
 
                 <ul class="nav side-menu">
@@ -86,7 +139,7 @@
                       <a href="https://photolancer.zone/?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=credits" target="_blank" title="Individual digital content for your next campaign"><i class="fa fa-camera-retro" aria-hidden="true"></i>Photolancer Zone</a>
                   </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
         <!-- /sidebar menu -->
     </div>
