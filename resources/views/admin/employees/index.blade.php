@@ -26,7 +26,7 @@
                         <img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png" alt="Pic" height="100" width="100">
                         
                         {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
-                        <span class="card-title">Hewage Kasuni</span>
+                        <span class="card-title">Hewage Achini</span>
                     </div>
                     <div class="card-body">
                         <a href="{{ route('admin.employees.edit') }}" class="btn btn-success">Update</a>
