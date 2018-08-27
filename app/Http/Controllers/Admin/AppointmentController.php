@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Role\Role;
 
 class AppointmentController extends Controller
 {
@@ -15,7 +16,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return view('admin.appointments.index');
+        $appointments = Appointment::all();
+        return view('admin.appointments.index', compact('appointments'));
     }
 
     /**
@@ -25,7 +27,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.appointments.add');
     }
 
     /**
@@ -36,7 +38,8 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Appointment::create($request->all());
+        return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
     }
 
     /**
@@ -47,7 +50,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        //
+        return view('admin.appointments.show', ['appointment' => $appointment]);
     }
 
     /**
@@ -58,7 +61,7 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        //
+        return view('admin.appointments.edit', ['appointment' => $appointment, 'roles' => Role::get()]);
     }
 
     /**
@@ -70,7 +73,23 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'date' => 'required',
+            'time' => 'required'
+        ]);
+
+        $appointment->name = $request->get('name');
+        $appointment->type = $request->get('type');
+        $appointment->date = $request->get('date');
+        $appointment->time = $request->get('time');
+
+        $appointment->save();
+
+        $message = 'Successfully updated appointment named '.$appointment->name.' with id '.$appointment->id;
+        return redirect()->intended(route('admin.appointments'))->with('message', $message);
     }
 
     /**
@@ -81,6 +100,8 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        $message = 'Successfully deleted appointment named '.$appointment->name.' with id '.$appointment->id;
+        $appointment->delete();
+        return redirect()->route('admin.appointments')->with('message', $message);
     }
 }

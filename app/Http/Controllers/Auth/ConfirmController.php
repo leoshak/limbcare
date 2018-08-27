@@ -27,7 +27,7 @@ class ConfirmController extends Controller
      */
     public function confirm(User $user)
     {
-        $user->confirmed = true;
+        $user->confirmed = false;
         $user->save();
 
         auth()->login($user);
