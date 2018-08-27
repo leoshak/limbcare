@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Financial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class FinancialController extends Controller
 {
@@ -25,7 +26,7 @@ class FinancialController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.financial.add');
     }
 
     /**
@@ -34,20 +35,30 @@ class FinancialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function stor(Request $request)
     {
-        //
+        DB::insert('INSERT INTO `bill` ( `patientname`, `descrption`, `amount`) VALUES  ( ?, ?, ?)',[$request['bi_name'], $request['bi_note'], $request['bi_am']]);
+        return view('admin.financial.success');
     }
-
+    public function salary(Request $request)
+    { 
+         DB::insert('INSERT INTO `salarypay` (`emp_name`, `amount`) VALUES  ( ?,?)',[$request['emp_name'], $request['emp_am']]);
+        return view('admin.financial.success');
+    }
+    public function other(Request $request)
+    { 
+         DB::insert('INSERT INTO `otherpay` ( `descrption`, `amount`) VALUES   ( ?,?)',[$request['oth_note'], $request['oth_am']]);
+        return view('admin.financial.success');
+    }
     /**
      * Display the specified resource.
      *
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function show(Financial $financial)
+    public function show()
     {
-        //
+        return view('admin.financial.show');
     }
 
     /**
@@ -56,9 +67,9 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function edit(Financial $financial)
+    public function edit()
     {
-        //
+        return view('admin.financial.edit');
     }
 
     /**
@@ -68,9 +79,9 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Financial $financial)
+    public function update()
     {
-        //
+        return view('admin.financial.edit');
     }
 
     /**
@@ -79,8 +90,8 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Financial $financial)
+    public function destroy()
     {
-        //
+        return view('admin.financial.delete');
     }
 }

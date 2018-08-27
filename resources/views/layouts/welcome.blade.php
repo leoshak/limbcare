@@ -87,7 +87,7 @@
     <body>
         <div class="flex-center position-ref full-height">
                 <div class="top-left brand">
-                    {{ HTML::image('img/logo.png', 'Limb Care') }}
+                    {{ HTML::image('img/art.png', 'Limb Care') }}
                 </div>
                 <div class="top-right links">
                     <a href="{{ url('/') }}">{{ __('views.welcome.home') }}</a>

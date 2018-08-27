@@ -6,6 +6,8 @@ use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\DB;
+
 class StoreController extends Controller
 {
     /**
@@ -13,9 +15,10 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.store.index');
+        $store=Store::all();
+        return view('admin.store.index',compact('store') );
     }
 
     /**
@@ -25,7 +28,11 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.store.add');
+    }
+    public function add()
+    {
+        return view('admin.store.add');
     }
 
     /**
@@ -36,7 +43,8 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`, `pic`) VALUES  (?, ?, ?, ?, ? ,?)',[$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_pic']]);
+        return view('admin.store.success');
     }
 
     /**
@@ -45,9 +53,9 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store)
+    public function show(Store  $store)
     {
-        //
+        return view('admin.store.show',['stores' => $store]);
     }
 
     /**
@@ -56,9 +64,9 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit(Store  $store)
     {
-        //
+        return view('admin.store.edit',['stores' => $store]);
     }
 
     /**
@@ -68,10 +76,13 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(Request $request)
     {
-        //
-    }
+        DB::table('store')
+        ->where('id', $request['id'])
+        ->update(['iteamname' => $request['name'],'iteam_quantity' =>$request['quantity'],'iteam_max' =>$request['max'],'iteam_min' =>$request['min']]);
+        return view('admin.store.success');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -79,8 +90,13 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy(Store  $store)
     {
-        //
+        return view('admin.store.delete',['stores' => $store]);
+    }
+    public function sedelete(Request $request)//Request $request, Employee $employee
+    {
+        DB::table('store')->where('id', $request['id'])->delete();
+         return view('admin.store.success');
     }
 }
