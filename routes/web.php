@@ -55,15 +55,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
-    Route::get('employees/edit', 'EmployeeController@update')->name('employees.edit');
     Route::get('employees/add', 'EmployeeController@create')->name('employees.add');
-    Route::get('employees/delete', 'EmployeeController@destroy')->name('employees.delete');
-    // Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
-    // Route::put('users/{user}', 'UserController@update')->name('users.update');
-    // Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+    Route::post('employees/store', 'EmployeeController@store')->name('employees.store');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    Route::get('employees/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
+    Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
+    Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
 
     //Appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+    Route::get('appointments/{appointment}', 'AppointmentController@show')->name('appointments.show');
+    Route::get('appointments/{appointment}/edit', 'AppointmentController@edit')->name('appointments.edit');
+    Route::put('appointments/{appointment}', 'AppointmentController@update')->name('appointments.update');
+    // Route::delete('appointments/{appointment}/delete', 'AppointmentController@destroy')->name('appointments.delete');
+    Route::get('appointments/{appointment}/delete', ['as' => 'appointments.delete', 'uses' => 'AppointmentController@destroy']);
 
     //Diagnosis
     Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
