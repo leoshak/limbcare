@@ -13,7 +13,15 @@ class Employees extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('employees', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('nic');
+            $table->string('employeeType');
+            $table->date('birthday');
+            $table->string('address');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class Employees extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('employees');
     }
 }

@@ -1,9 +1,24 @@
 @extends('admin.layouts.admin')
 
-@section('title', "Patient Management")
+
 
 @section('content')
     <div class="row">
+            <div class="col-12 col-md-8">
+                    @section('title', "Patient Management")
+                    </div>
+            <div class="col-8 col-md-4" style="padding-bottom: 15px;">
+                    <div class="topicbar">
+                        <a href="{{ route('admin.diagnosis.index') }}" class="btn btn-primary"> diagnosis card</a>
+                    </div>
+                    <div class="right-searchbar">
+                        <!-- Search form -->
+                        <form class="form-inline active-cyan-3">
+                            <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </form>
+                    </div>
+                </div>
         {{-- <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
                width="100%">
             <thead>
@@ -58,26 +73,7 @@
             {{-- @endforeach --}}
             </tbody>
         </table> 
-        <div id="myModal" class="modal fade in" style="display: block; margin-top: 160px; margin-left: 100px;">
-                <div class="modal-dialog modal-confirm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div class="icon-box">
-                                <i class="fa fa-trash"></i>
-                            </div>				
-                            <h4 class="modal-title">Are you sure?</h4>	
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Do you really want to delete patient named Prabudda Naveen with id P011? This process cannot be undone.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}
         </div>

@@ -14,7 +14,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'locales' => NULL,
-    'key' => 'base64:V3sRh/K5ALJ+BoP+j6qOMFWjNMQTeSzOKyYdwjkfrKc=',
+    'key' => 'base64:BzclfPTfHko0tN1WoFaZScLFejIFDqMthANniy4ut3U=',
     'cipher' => 'AES-256-CBC',
     'log' => 'daily',
     'log_level' => 'debug',
@@ -215,7 +215,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\framework/cache/data',
+        'path' => 'C:\\limbcare\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -325,7 +325,7 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'limb-care',
+        'database' => 'limbcare',
         'prefix' => '',
       ),
       'mysql' => 
@@ -333,9 +333,9 @@
         'driver' => 'mysql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'limb-care',
+        'database' => 'limbcare',
         'username' => 'root',
-        'password' => '',
+        'password' => '1234',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -348,9 +348,9 @@
         'driver' => 'pgsql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'limb-care',
+        'database' => 'limbcare',
         'username' => 'root',
-        'password' => '',
+        'password' => '1234',
         'charset' => 'utf8',
         'prefix' => '',
         'schema' => 'public',
@@ -377,7 +377,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\debugbar',
+      'path' => 'C:\\limbcare\\storage\\debugbar',
       'connection' => NULL,
       'provider' => '',
     ),
@@ -460,12 +460,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\app',
+        'root' => 'C:\\limbcare\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\app/public',
+        'root' => 'C:\\limbcare\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -501,7 +501,7 @@
     'include_helpers' => false,
     'helper_files' => 
     array (
-      0 => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+      0 => 'C:\\limbcare/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ),
     'model_locations' => 
     array (
@@ -548,7 +548,7 @@
   ),
   'log-viewer' => 
   array (
-    'storage-path' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\logs',
+    'storage-path' => 'C:\\limbcare\\storage\\logs',
     'pattern' => 
     array (
       'prefix' => 'laravel-',
@@ -617,13 +617,13 @@
   ),
   'mail' => 
   array (
-    'driver' => 'smtp',
-    'host' => 'mailgun',
-    'port' => '1025',
+    'driver' => 'sendmail',
+    'host' => 'smtp.gmail.com',
+    'port' => '465',
     'from' => 
     array (
-      'address' => 'laravel-boilerplate@local.local',
-      'name' => 'Laravel Boilerplate',
+      'address' => 'blasanka@local.local',
+      'name' => 'Blasanka',
     ),
     'encryption' => '',
     'username' => '',
@@ -634,7 +634,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\resources\\views/vendor/mail',
+        0 => 'C:\\limbcare\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -873,7 +873,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\framework/sessions',
+    'files' => 'C:\\limbcare\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -892,9 +892,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\resources\\views',
+      0 => 'C:\\limbcare\\resources\\views',
     ),
-    'compiled' => 'C:\\Users\\BLiyanage\\Documents\\xampp\\htdocs\\laravel-boilerplate\\storage\\framework\\views',
+    'compiled' => 'C:\\limbcare\\storage\\framework\\views',
   ),
   'tinker' => 
   array (
