@@ -27,14 +27,6 @@
     margin-bottom: 20px;
 }
 
-.card-header .emp-avatar {
-    width: 40%;
-}
-
-.card-header .emp-details {
-    width: 60%;
-}
-
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -56,3 +48,30 @@
 .container {
     padding: 2px 16px;
 }
+
+.card-header .emp-details {
+    width: 40%;
+}
+
+.card-header .emp-details {
+    width: 60%;
+}
+
+/* @media(max-width: 543px) {
+    .card-header .emp-details {
+        float: right;
+        clear: both;
+    }
+}
+
+@media(max-width: 543px) {
+    .card-body a{
+        display: block;
+        margin-left: 5px;
+    }
+
+    .card-body .btn-danger{
+        margin-left: 5px;
+        min-width: 95%;
+    }
+} */

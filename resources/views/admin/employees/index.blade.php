@@ -27,8 +27,8 @@
             @foreach($employees as $employee)
                 <div class="col-xs-6 col-sm-3">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="row">
+                        <div class="row">
+                            <div class="card-header">
                                 <div class="col-xs-6 col-md-4 col-lg-4 vcenter emp-avator">
                                     <img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png" alt="Pic" height="90" width="90">
                                 </div>
@@ -84,8 +84,6 @@
     @parent
     {{ Html::style('assets/admin/css/my_style.css') }}
 @endsection
-
-
 
 
 {{-- <div class="col-xs-6 col-sm-3">

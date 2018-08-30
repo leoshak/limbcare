@@ -20,55 +20,110 @@
         </div>
     </div>
     <div class="row">
-                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-                        width="100%">
-                    <thead> 
+            <h4>Bills</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                    width="100%">
+                <thead> 
+                <tr>
+                    <th>ID</th>
+                    <th>Patient Name</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bills as $bill)
+                        <tr>
+                            <td>{{ $bill->id }}</td>
+                            <td>{{ $bill->patientname }}</td>
+                            <td>{{ $bill->descrption }}</td>
+                            <td>{{ $bill->amount }}</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$bill->id]) }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                    <i class="fa fa-trash"></i>
+                                </a> --}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>    
+        </div>
+        <div class="row">
+            <h4>Salary Payments</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                width="100%">
+                <thead> 
                     <tr>
                         <th>ID</th>
-                        <th>Pation name</th>
-                        <th>Srvice</th>
-                        <th></th>
-                        <th>Actions</th>
+                        <th>Employee Name</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Action</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
+                    @foreach ($financials as $financial)
                         <tr>
-                            <td>AD06857</td>
-                            <td>2009/05/18</td>
-                            <td>A. Priyadarshani</td>
-                            <td>Repair</td>
+                            <td>{{ $financial->id }}</td>
+                            <td>{{ $financial->emp_name }}</td>
+                            <td>{{ $financial->date }}</td>
+                            <td>{{ $financial->amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show') }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit') }}">
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete') }}">
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
                                     <i class="fa fa-trash"></i>
-                                </a>
-                                
+                                </a> --}}
                             </td>
                         </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <h4>Other payments</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                width="100%">
+                <thead> 
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($otherPayments as $otherPayment)
                         <tr>
-                            <td>AD2217</td>
-                            <td>2014/01/12</td>
-                            <td>C. Rathnayake</td>
-                            <td>New</td>
+                            <td>{{ $otherPayment->id }}</td>
+                            <td>{{ $otherPayment->descrption }}</td>
+                            <td>{{ $otherPayment->amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="">
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="">
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+                    @endforeach
+                </tbody>
+            </table>
         <div class="pull-right">
         </div>
     </div>
