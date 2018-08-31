@@ -19,6 +19,7 @@ class CreateStoreTable extends Migration
             $table->integer('iteam_quantity');
             $table->string('company');
             $table->integer('iteam_max');
+            $table->integer('iteam_min');
             $table->string('pic');
         });
     }
