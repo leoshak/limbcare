@@ -40,7 +40,7 @@
                             <td>{{ $bill->descrption }}</td>
                             <td>{{ $bill->amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$bill->id]) }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showBill', [$bill->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
@@ -76,7 +76,7 @@
                             <td>{{ $financial->date }}</td>
                             <td>{{ $financial->amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showSalary', [$financial->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
@@ -110,7 +110,7 @@
                             <td>{{ $otherPayment->descrption }}</td>
                             <td>{{ $otherPayment->amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showOtherPay', [$otherPayment->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">

@@ -10,6 +10,6 @@ class FinancialBillPayment extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'patientname', 'description', 'amount'
+        'id', 'patientname', 'descrption', 'amount'
     ];
 }
