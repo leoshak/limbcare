@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Financial;
+use App\Models\FinancialSalaryPayment;
+use App\Models\FinancialBillPayment;
+use App\Models\FinancialOtherPayment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class FinancialController extends Controller
 {
@@ -15,7 +19,10 @@ class FinancialController extends Controller
      */
     public function index()
     {
-        return view('admin.financial.index');
+        $financials = FinancialSalaryPayment::all();
+        $bills = FinancialBillPayment::all();
+        $otherpays = FinancialOtherPayment::all();        
+        return view('admin.financial.index', ['financials' => $financials, 'bills' => $bills, 'otherPayments' => $otherpays]);
     }
 
     /**
@@ -25,7 +32,7 @@ class FinancialController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.financial.add');
     }
 
     /**
@@ -34,11 +41,23 @@ class FinancialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function stor(Request $request)
     {
-        //
+        DB::insert('INSERT INTO `bill` ( `patientname`, `descrption`, `amount`) VALUES  ( ?, ?, ?)',[$request['bi_name'], $request['bi_note'], $request['bi_am']]);
+        return view('admin.financial.success');
     }
+    public function salary(Request $request)
+    { 
+        $now = new DateTime();
 
+        DB::insert('INSERT INTO `salarypay` (`emp_name`, `date`, `amount`) VALUES  ( ?, ?, ?)',[$request['emp_name'], $now, $request['emp_am']]);
+        return view('admin.financial.success');
+    }
+    public function other(Request $request)
+    { 
+         DB::insert('INSERT INTO `otherpay` ( `descrption`, `amount`) VALUES   ( ?,?)',[$request['oth_note'], $request['oth_am']]);
+        return view('admin.financial.success');
+    }
     /**
      * Display the specified resource.
      *
@@ -47,7 +66,7 @@ class FinancialController extends Controller
      */
     public function show(Financial $financial)
     {
-        //
+        return view('admin.financial.show', ['financial' => $financial]);
     }
 
     /**
@@ -56,9 +75,9 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function edit(Financial $financial)
+    public function edit()
     {
-        //
+        return view('admin.financial.edit');
     }
 
     /**
@@ -68,9 +87,9 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Financial $financial)
+    public function update()
     {
-        //
+        return view('admin.financial.edit');
     }
 
     /**
@@ -79,8 +98,8 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Financial $financial)
+    public function destroy()
     {
-        //
+        return view('admin.financial.delete');
     }
 }

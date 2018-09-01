@@ -4,6 +4,16 @@
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+    @endif
+
     {{ Form::open(['route'=>['admin.employees.update', $employee->id],'method' => 'put','class'=>'form-horizontal form-label-left']) }}
         <div class="form-group">
           <label for="inputAddress">Name</label>
@@ -14,8 +24,8 @@
           <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder=""  value="{{ $employee->address }}">
         </div>
         <div class="form-group">
-          <label for="inputState">Employee Type</label>
-          <select id="inputState" name="inputState" class="form-control">
+          <label for="empType">Employee Type</label>
+          <select id="empType" name="empType" class="form-control">
             <option @if($employee->employeeType == 'Director') selected @endif>Director</option>
             <option @if($employee->employeeType == 'Receptionist') selected @endif>Receptionist</option>
             <option @if($employee->employeeType == 'PNO') selected @endif>PNO</option>

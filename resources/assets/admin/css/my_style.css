@@ -56,3 +56,15 @@
 .container {
     padding: 2px 16px;
 }
+
+/* ust to stop footer coming up */
+/* body {
+    display: flex;
+    flex-direction: column;
+  }
+.content {
+flex: 1 0 auto;
+}
+.footer {
+flex-shrink: 0;
+} */

@@ -1,85 +1,130 @@
 @extends('admin.layouts.admin')
-
-@section('title', "Financial Management")
-
 @section('content')
-    <div class="row">
-        {{-- <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-               width="100%">
-            <thead>
-            <tr> --}}
-                {{-- <th>@sortablelink('email', __('views.admin.users.index.table_header_0'),['page' => $users->currentPage()])</th>
-                <th>@sortablelink('name',  __('views.admin.users.index.table_header_1'),['page' => $users->currentPage()])</th>
-                <th>{{ __('views.admin.users.index.table_header_2') }}</th>
-                <th>@sortablelink('active', __('views.admin.users.index.table_header_3'),['page' => $users->currentPage()])</th>
-                <th>@sortablelink('confirmed', __('views.admin.users.index.table_header_4'),['page' => $users->currentPage()])</th>
-                <th>@sortablelink('created_at', __('views.admin.users.index.table_header_5'),['page' => $users->currentPage()])</th>
-                <th>@sortablelink('updated_at', __('views.admin.users.index.table_header_6'),['page' => $users->currentPage()])</th> --}}
-                {{-- <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody> --}}
-            {{-- @foreach($users as $user) --}}
-                {{-- <tr> --}}
-                        {{-- $user->email --}}
-                    {{-- <td>This is financial</td> --}}
-                    {{-- <td>{{ $user->name }}</td>
-                    <td>{{ $user->roles->pluck('name')->implode(',') }}</td>
-                    <td>
-                        @if($user->active)
-                            <span class="label label-primary">{{ __('views.admin.users.index.active') }}</span>
-                        @else
-                            <span class="label label-danger">{{ __('views.admin.users.index.inactive') }}</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if($user->confirmed)
-                            <span class="label label-success">{{ __('views.admin.users.index.confirmed') }}</span>
-                        @else
-                            <span class="label label-warning">{{ __('views.admin.users.index.not_confirmed') }}</span>
-                        @endif</td>
-                    <td>{{ $user->created_at }}</td>
-                    <td>{{ $user->updated_at }}</td>
-                    <td>
-                        <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.users.index.show') }}">
-                            <i class="fa fa-eye"></i>
-                        </a>
-                        <a class="btn btn-xs btn-info" href="{{ route('admin.users.edit', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.users.index.edit') }}">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                        {{--@if(!$user->hasRole('administrator'))--}}
-                            {{--<button class="btn btn-xs btn-danger user_destroy"--}}
-                                    {{--data-url="{{ route('admin.users.destroy', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.users.index.delete') }}">--}}
-                                {{--<i class="fa fa-trash"></i>--}}
-                            {{--</button>--}}
-                        {{--@endif--}}
-                    {{-- </td>
-                </tr> --}}
-            {{-- @endforeach --}}
-            {{-- </tbody>
-        </table> --}}
-        <div id="myModal" class="modal fade in" style="display: block; margin-top: 160px; margin-left: 100px;">
-                <div class="modal-dialog modal-confirm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div class="icon-box">
-                                <i class="fa fa-trash"></i>
-                            </div>				
-                            <h4 class="modal-title">Are you sure?</h4>	
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Do you really want to delete this financial record with id F32? This process cannot be undone.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="row title-section">
+        <div class="col-12 col-md-8">
+        @section('title', "Financial Management")
+        </div>
+        <div class="col-8 col-md-4" style="padding-bottom: 15px;">
+            <div class="topicbar">
+                <a href="{{ route('admin.financial.add') }}" class="btn btn-primary">Add Bill</a>
+                <a href="{{ route('admin.financial.add') }}" class="btn btn-primary">Add Salary Payment</a>
+                <a href="{{ route('admin.financial.add') }}" class="btn btn-primary">Add Other Payment</a>
             </div>
+            <div class="right-searchbar">
+                <!-- Search form -->
+                <form class="form-inline active-cyan-3">
+                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <h4>Bills</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                    width="100%">
+                <thead> 
+                <tr>
+                    <th>ID</th>
+                    <th>Patient Name</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bills as $bill)
+                        <tr>
+                            <td>{{ $bill->id }}</td>
+                            <td>{{ $bill->patientname }}</td>
+                            <td>{{ $bill->descrption }}</td>
+                            <td>{{ $bill->amount }}</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$bill->id]) }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                    <i class="fa fa-trash"></i>
+                                </a> --}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>    
+        </div>
+        <div class="row">
+            <h4>Salary Payments</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                width="100%">
+                <thead> 
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee Name</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($financials as $financial)
+                        <tr>
+                            <td>{{ $financial->id }}</td>
+                            <td>{{ $financial->emp_name }}</td>
+                            <td>{{ $financial->date }}</td>
+                            <td>{{ $financial->amount }}</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                    <i class="fa fa-trash"></i>
+                                </a> --}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <h4>Other payments</h4>
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                width="100%">
+                <thead> 
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($otherPayments as $otherPayment)
+                        <tr>
+                            <td>{{ $otherPayment->id }}</td>
+                            <td>{{ $otherPayment->descrption }}</td>
+                            <td>{{ $otherPayment->amount }}</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.show', [$financial->id]) }}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                    <i class="fa fa-trash"></i>
+                                </a> --}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         <div class="pull-right">
-            {{-- {{ $users->links() }} --}}
         </div>
     </div>
 @endsection

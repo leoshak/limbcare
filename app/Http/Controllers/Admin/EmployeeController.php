@@ -38,6 +38,16 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'nic' => 'required',
+            'inputName' => 'required',
+            'empType' => 'required',
+            'inputAddress' => 'required',
+            'birthday' => 'required'
+        ]);
+
         Employee::create($request->all());
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }
@@ -87,9 +97,18 @@ class EmployeeController extends Controller
 
         // if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
 
+        $validatedData = $request->validate([
+            // 'id' => 'required',
+            // 'nic' => 'required',
+            'inputName' => 'required',
+            'empType' => 'required',
+            'inputAddress' => 'required',
+            // 'birthday' => 'required'
+        ]);
+
         $employee->name = $request->get('inputName');
         $employee->address = $request->get('inputAddress');
-        $employee->employeeType = $request->get('inputState');
+        $employee->employeeType = $request->get('empType');
 
         // if ($request->has('password')) {
         //     $user->password = bcrypt($request->get('password'));
