@@ -93,13 +93,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('financial/edit', 'FinancialController@update')->name('financial.edit');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
     Route::get('financial/delete', 'FinancialController@destroy')->name('financial.delete');
-    Route::get('financial/show', 'FinancialController@show')->name('financial.show');
     
     Route::post('financial/addbill','FinancialController@stor');
     Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
 
-    Route::get('financial/{financial}', 'FinancialController@show')->name('financial.show');
+    Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
+    Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
+    Route::get('financial/otherpay//{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
     // Route::delete('financial/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');

@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', $financial->id)
+@section('title',  "Salary ID: " . $financialSalaryPayment->id)
 
 @section('content')
 <div class="row">
@@ -14,22 +14,22 @@
     
                 <tr>
                     <th>Date</th>
-                    <td>{{ $financial->date }}</td>
+                    <td>{{ $financialSalaryPayment->date }}</td>
                 </tr>
     
                 <tr>
-                    <th>Patient Name</th>
+                    <th>Employee Name</th>
                     <td>
                         {{-- <a href="mailto:{{ $employee->employeeType }}"> --}}
-                        {{ $financial->patientName }}
+                        {{ $financialSalaryPayment->emp_name }}
                         {{-- </a> --}}
                     </td>
                 </tr>
     
                 <tr>
-                    <th>Service Type</th>
+                    <th>Amount</th>
                     <td>
-                        {{ $financial->serviceType }}
+                        {{ $financialSalaryPayment->amount }}
                     </td>
                 </tr>
                 <tr>
