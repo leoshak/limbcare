@@ -7,7 +7,7 @@
             <tbody>
             <tr>
                 <th>{{ __('views.admin.users.show.table_header_0') }}</th>
-                <td><img src="C:\Users\janith\Pictures{{ $stores->pic }}" class="user-profile-image"></td>
+                <td><img height="200" width="200" src="\image\store\item\{{ $stores->pic }}" class="user-profile-image"></td>
             </tr>
 
             <tr>
@@ -25,20 +25,20 @@
             <tr>
                 <th>Iteam quantity</th>
                 <td>
-                    {{ $stores->iteam_quantity }}
+                    {{ ($stores->iteam_quantity)}} {{($stores->quantity_type) }}
                 </td>
             </tr>
             <tr>
                 <th>Iteam max</th>
                 <td>
-                        {{ ($stores->iteam_max)}}
+                        {{ ($stores->iteam_max)}}{{($stores->quantity_type) }}
                         
                 </td>
             </tr>
             <tr>
                 <th>Iteam min</th>
                 <td>
-                        {{ ($stores->iteam_min)}}
+                        {{ ($stores->iteam_min)}}{{($stores->quantity_type) }}
                         
                 </td>
             </tr>

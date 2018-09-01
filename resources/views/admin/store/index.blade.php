@@ -35,7 +35,7 @@
                                 <td>{{ $stores->id }}</td>
                                 <td>{{ $stores->iteamname }}</td>
                                 <td>{{ $stores->company }}</td>
-                                <td>{{ $stores->iteam_max }}</td>
+                                <td>{{ $stores->iteam_max }}{{($stores->quantity_type) }}</td>
                                 <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.store.show',[$stores->id]) }}">
                                     <i class="fa fa-eye"></i>
