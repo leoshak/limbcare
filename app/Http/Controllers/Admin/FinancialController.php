@@ -64,11 +64,19 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function show(Financial $financial)
+    public function show(FinancialBillPayment $financialBill)
     {
-        return view('admin.financial.show', ['financial' => $financial]);
+        //echo FinancialBillPayment::find('1');
+        return view('admin.financial.showBill', ['financialBill' => $financialBill]);
     }
 
+    public function showSalaryPayment(FinancialSalaryPayment $financialSalaryPayment) {
+        return view('admin.financial.showSalary', ['financialSalaryPayment' => $financialSalaryPayment]);
+    }
+
+    public function showOtherPayment(FinancialOtherPayment $financialOtherPayment) {
+        return view('admin.financial.showOtherPay', ['financialOtherPayment' => $financialOtherPayment]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

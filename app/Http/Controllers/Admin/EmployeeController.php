@@ -40,11 +40,10 @@ class EmployeeController extends Controller
     {
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = $request->validate([
-            'id' => 'required',
-            'nic' => 'required',
-            'inputName' => 'required',
-            'empType' => 'required',
-            'inputAddress' => 'required',
+            'nic' => 'required|min:10',
+            'name' => 'required',
+            'employeeType' => 'required',
+            'address' => 'required',
             'birthday' => 'required'
         ]);
 

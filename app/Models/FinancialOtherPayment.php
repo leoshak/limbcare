@@ -10,6 +10,6 @@ class FinancialOtherPayment extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'description', 'amount'
+        'id', 'descrption', 'amount'
     ];
 }
