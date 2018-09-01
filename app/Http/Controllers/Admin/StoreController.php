@@ -52,6 +52,11 @@ class StoreController extends Controller
             return redirect()->intended(route('admin.store.add'))->with('message', $message);
               
         }
+        if($request['it_max']<$request['it_min'])
+        {
+            $message = 'Max < min ';
+            return redirect()->intended(route('admin.store.add'))->with('message', $message);
+        }
         $file=$request ->file('it_pic');
        $Store=Store::all();
        
@@ -60,6 +65,8 @@ class StoreController extends Controller
         foreach($Store as $Stores)
         {
             $lastid=$Stores->id;
+
+            
         }
         $lastid=$lastid+1;
         $name=$lastid."item.".$type;
@@ -109,11 +116,17 @@ class StoreController extends Controller
                $maxque=$stores->iteam_max;
                 $minque=$stores->iteam_min;
                 
-              if((($iname==$request['iteamname']) and ($ique==$request['iteam_quantity'])) and(($maxque==$request['iteam_max']) and ($minque==$request['iteam_min'])))
+              if((($iname==$request['name']) and ($ique==$request['quantity'])) and(($maxque==$request['max']) and ($minque==$request['min'])))
               {
               $message = 'Nothig update';
               return redirect()->intended(route('admin.store.edit',[$stores->id]))->with('message', $message);
               }
+              
+          }
+          if($request['max']<$request['min'])
+          {
+              $message = 'Max < min ';
+              return redirect()->intended(route('admin.store.edit',[$stores->id]))->with('message', $message);
           }
         DB::table('store')
         ->where('id', $request['id'])
