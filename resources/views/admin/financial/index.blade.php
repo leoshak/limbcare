@@ -21,6 +21,9 @@
     </div>
     <div class="row">
             <h4>Bills</h4>
+            @if(Session::has('message'))
+                <div class="alert alert-success">{{ Session::get('message') }}</div>
+            @endif
             <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
                     width="100%">
                 <thead> 
@@ -43,12 +46,12 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showBill', [$bill->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$bill->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteBill', $bill->id) }}">
                                     <i class="fa fa-trash"></i>
-                                </a> --}}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -79,17 +82,17 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showSalary', [$financial->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit_salary', [$financial->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
                                     <i class="fa fa-trash"></i>
-                                </a> --}}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
             </table>
+                </tbody>
         </div>
         <div class="row">
             <h4>Other payments</h4>
@@ -113,12 +116,12 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showOtherPay', [$otherPayment->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$financial->id]) }}">
+                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit_otherpay', [$otherPayment->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
+                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteOtherPay', $otherPayment->id) }}">
                                     <i class="fa fa-trash"></i>
-                                </a> --}}
+                                </a>
                             </td>
                         </tr>
                     @endforeach

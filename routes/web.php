@@ -90,10 +90,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Financial
     Route::get('financial', 'FinancialController@index')->name('financial');
     Route::get('financial', 'FinancialController@index')->name('financial');
-    Route::get('financial/edit', 'FinancialController@update')->name('financial.edit');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
-    Route::get('financial/delete', 'FinancialController@destroy')->name('financial.delete');
-    
+    //financial bill edit
+    Route::get('financial/{financialBill}/edit', 'FinancialController@edit')->name('financial.edit');
+    Route::post('financial/{financialBill}/update', 'FinancialController@update');
+    //financial salary edit
+    Route::get('financial/{financialSalary}/edit_salary', 'FinancialController@editSalary')->name('financial.edit_salary');
+    Route::post('financial/{financialSalary}/updateSalary', 'FinancialController@updateSalary');
+    //financial otherpay edit
+    Route::get('financial/{financialOtherPay}/edit_otherpay', 'FinancialController@editOtherPay')->name('financial.edit_otherpay');
+    Route::post('financial/{financialOtherPay}/updateOtherPay', 'FinancialController@updateOtherPay');
+    //financial salary delete
+    Route::get('financial/delete/{financialSalary}', 'FinancialController@destroyRequest')->name('financial.delete');
+    Route::post('financial/delete/destroy','FinancialController@destroy');
+    //financial bill delete
+    Route::get('financial/deleteBill/{financialBill}', 'FinancialController@destroyBillRequest')->name('financial.deleteBill');
+    Route::post('financial/deleteBill/destroy','FinancialController@destroyBill');
+    //financial otherpay delete
+    Route::get('financial/deleteOtherPay/{financialOtherPay}', 'FinancialController@destroyOtherpayRequest')->name('financial.deleteOtherPay');
+    Route::post('financial/deleteOtherPay/destroy','FinancialController@destroyOtherPay');
+
     Route::post('financial/addbill','FinancialController@stor');
     Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
@@ -103,7 +119,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('financial/otherpay//{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
-    // Route::delete('financial/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
 
     //Patient
     Route::get('patient', 'PatientController@index')->name('patients');
