@@ -39,14 +39,25 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
-        $validatedData = $request->validate([
-            'nic' => 'required|min:10',
-            'name' => 'required',
+        $validatedData = [
+            'avator' => 'required',
+            //'name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:users,name,'.$user->id,
+            'name' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
+            'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
-            'address' => 'required',
-            'birthday' => 'required'
-        ]);
+            'birthday' => 'required|date_format:Y-m-d|before:today',
+            'address' => 'required|regex:/^[a-zA-Z0-9 ]*$/'
+        ];
 
+        $customMessages = [
+            'name.regex' => 'Name cannot contain numbers and special characters',
+            'nic.digits' => 'NIC must contains only 9 numbers',
+            'birthday.before' => 'Funny! Birthday can not be today or future',
+            'address.regex' => 'Address cannot contain special characters like . / @'
+        ];
+
+        $this->validate($request, $validatedData, $customMessages);
+        
         Employee::create($request->all());
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }
@@ -96,15 +107,19 @@ class EmployeeController extends Controller
 
         // if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
 
-        $validatedData = $request->validate([
-            // 'id' => 'required',
-            // 'nic' => 'required',
-            'inputName' => 'required',
+        $validatedData = [
+            'inputName' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
             'empType' => 'required',
-            'inputAddress' => 'required',
-            // 'birthday' => 'required'
-        ]);
+            'inputAddress' => 'required|regex:/^[a-zA-Z0-9 ,]*$/',
+        ];
+        
+        $customMessages = [
+            'inputName.regex' => 'Name cannot contain numbers and special characters',
+            'inputAddress.regex' => 'Address cannot contain special characters like . / @'
+        ];
 
+        $this->validate($request, $validatedData, $customMessages);
+        
         $employee->name = $request->get('inputName');
         $employee->address = $request->get('inputAddress');
         $employee->employeeType = $request->get('empType');

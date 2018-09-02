@@ -14,7 +14,16 @@
       </div>
     @endif
 
-    {{ Form::open(['route'=>['admin.employees.update', $employee->id],'method' => 'put','class'=>'form-horizontal form-label-left']) }}
+    {{ Form::open(['route'=>['admin.employees.update', $employee->id],'method' => 'put','class'=>'form-horizontal form-label-left', 'enctype'=>"multipart/form-data"]) }}
+        {{-- <div class="form-group">
+            @if ("/storage/public/images/{{ $employee->avator }}")
+                <img src="{{ $employee->avator }}">
+            @else
+                <p>No image found</p>
+            @endif
+            <label for="avator">Current Avator: {{ $employee->avator }}</label>
+            <input type="file" class="form-control-file" id="avator" name="avator" placeholder="" value="{{ $employee->avator }}">
+        </div> --}}
         <div class="form-group">
           <label for="inputAddress">Name</label>
           <input type="text" class="form-control" id="inputName" name="inputName" placeholder="" value="{{ $employee->name }}">

@@ -61,7 +61,7 @@ class StoreController extends Controller
        $Store=Store::all();
        
        $type=$file->guessExtension();
-       
+       $lastid = 0;
         foreach($Store as $Stores)
         {
             $lastid=$Stores->id;

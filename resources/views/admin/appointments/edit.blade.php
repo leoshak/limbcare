@@ -35,7 +35,7 @@
                 {!! Form::select('type', ['Repair' => 'Repair', 'Checkup' => 'Checkup', 'New'=> 'New'],  $appointment->type, ['placeholder' => 'Choose...', 'class'=> 'form-control']) !!}
             </div>
 
-            <button type="reset" class="btn btn-primary">Clear</button>
+            <a class="btn btn-danger" href="{{ URL::previous() }}"> {{ __('views.admin.users.edit.cancel') }}</a>
             {!! Form::button('Update', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
             {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
         {!! Form::close() !!}

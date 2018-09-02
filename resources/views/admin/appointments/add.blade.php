@@ -26,7 +26,8 @@
                 {!! Form::select('type', ['Repair' => 'Repair', 'Checkup' => 'Checkup', 'New'=> 'New'], null, ['placeholder' => 'Choose...', 'class'=> 'form-control']) !!}
             </div>
 
-            <button type="reset" class="btn btn-primary">Clear</button>
+            <a href="{{ URL::previous() }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
+            {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
             {!! Form::button('Add', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
             {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
         {!! Form::close() !!}
