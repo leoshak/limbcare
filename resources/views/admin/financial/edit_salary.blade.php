@@ -1,24 +1,24 @@
 @extends('admin.layouts.admin')
 
-@section('title', "Financial Bill id: ".$financialBill->id) 
+@section('title', "Financial Salary Pay id: ".$financialSalary->id) 
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-<form action="update" method="post">
+<form action="updateSalary" method="post">
     {{ csrf_field() }}
         <div class="form-group">
-                <label for="patientname">Patient Name</label>
-                <input type="text" class="form-control" id="patientname" name="patientname" value="{{$financialBill->patientname}}">
+                <label for="patientname">Employee Name</label>
+                <input type="text" class="form-control" id="emp_name" name="emp_name" value="{{$financialSalary->emp_name}}">
               </div>
         <div class="form-group">
-          <label for="descrption">Description</label>
-          <input type="text" class="form-control" id="descrption" name="descrption" value="{{$financialBill->descrption}}">
+          <label for="descrption">Date</label>
+          <input type="text" class="form-control" id="date" name="date" value="{{$financialSalary->date}}">
         </div>
         <div class="form-group">
           <label for="amount">Amount</label>
-          <input type="text" class="form-control" id="amount" name="amount" value="{{$financialBill->amount}}">
+          <input type="text" class="form-control" id="amount" name="amount" value="{{$financialSalary->amount}}">
         </div>
-        <input type="hidden" id="id" name="id" value="{{$financialBill->id}}">
+        <input type="hidden" id="id" name="id" value="{{$financialSalary->id}}">
         <a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
