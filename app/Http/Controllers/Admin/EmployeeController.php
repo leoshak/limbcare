@@ -153,6 +153,7 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Employee $employee)//Employee $employee
     {
         $message = 'Successfully deleted employee named '.$employee->name.' with id '.$employee->id;

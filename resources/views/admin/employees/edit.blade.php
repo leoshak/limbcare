@@ -40,7 +40,7 @@
             <option @if($employee->employeeType == 'PNO') selected @endif>PNO</option>
           </select>
         </div>
-        <a class="btn btn-danger" href="{{ URL::previous() }}"> {{ __('views.admin.users.edit.cancel') }}</a>
+        <a class="btn btn-danger" href="{{ route('admin.employees') }}"> {{ __('views.admin.users.edit.cancel') }}</a>
         {{-- <button type="submit" class="btn btn-primary">Clear</button> --}}
         <button type="submit" class="btn btn-success">Update</button>
       {{ Form::close() }}
