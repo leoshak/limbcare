@@ -41,7 +41,7 @@ class EmployeeController extends Controller
         $lastid=0;
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = [
-            'avator' => 'required',
+            'emp_pic' => 'required',
             //'name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:users,name,'.$user->id,
             'name' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
