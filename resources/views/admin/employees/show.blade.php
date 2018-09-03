@@ -8,7 +8,7 @@
             <tbody>
             <tr>
                 <th>{{ __('views.admin.users.show.table_header_0') }}</th>
-                <td><img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png"  alt="Pic" height="90" width="90" class="user-profile-image"></td>
+                <td><img src="\image\emp\profile\{{ $employee->emp_pic }}"  alt="Pic" height="90" width="90" class="user-profile-image "></td>
                 {{-- {{ $employee->avatar }} --}}
             </tr>
 

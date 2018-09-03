@@ -36,8 +36,9 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Employee $employee)
     {
+        $lastid=0;
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = [
             'avator' => 'required',
@@ -58,7 +59,37 @@ class EmployeeController extends Controller
 
         $this->validate($request, $validatedData, $customMessages);
         
-        Employee::create($request->all());
+        // Employee::create($request->all());
+
+        $file=$request ->file('emp_pic');
+       
+        $employees=Employee::all();
+        
+        $type=$file->guessExtension();
+        
+         foreach($employees as $employeess)
+         {
+             $lastid=$employeess->id;
+             
+         }
+         if ($lastid==0)
+         {
+             $lastid=0;
+         }
+         $lastid=$lastid+1;
+         
+         $name=$lastid."pic.".$type;
+         $file->move('image/emp/profile',$name);
+         $request['emp_pic']=$name;
+
+         
+        $employee->name = $request->get('name');
+        $employee->nic = $request->get('nic');
+        $employee->employeeType = $request->get('employeeType');
+        $employee->emp_pic = $name;
+        $employee->birthday = $request->get('birthday');
+        $employee->address = $request->get('address');
+        $employee->save();
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }
 

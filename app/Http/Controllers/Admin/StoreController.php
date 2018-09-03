@@ -32,11 +32,6 @@ class StoreController extends Controller
     {
         return view('admin.store.add');
     }
-    public function add()
-    {
-        return view('admin.store.add');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,6 +40,7 @@ class StoreController extends Controller
      */
     public function store(Storeval $request)
     {
+        $lastid=0;
         $em=$request->it_type;
         if($em=="")
         {
@@ -57,7 +53,9 @@ class StoreController extends Controller
             $message = 'Max < min ';
             return redirect()->intended(route('admin.store.add'))->with('message', $message);
         }
-        $file=$request ->file('it_pic');
+
+       $file=$request ->file('it_pic');
+       
        $Store=Store::all();
        
        $type=$file->guessExtension();
@@ -65,10 +63,14 @@ class StoreController extends Controller
         foreach($Store as $Stores)
         {
             $lastid=$Stores->id;
-
             
         }
+        if ($lastid==0)
+        {
+            $lastid=0;
+        }
         $lastid=$lastid+1;
+        
         $name=$lastid."item.".$type;
         $file->move('image/store/item',$name);
         
@@ -118,14 +120,14 @@ class StoreController extends Controller
                 
               if((($iname==$request['name']) and ($ique==$request['quantity'])) and(($maxque==$request['max']) and ($minque==$request['min'])))
               {
-              $message = 'Nothig update';
+              $message = 'Nothing to update';
               return redirect()->intended(route('admin.store.edit',[$stores->id]))->with('message', $message);
               }
               
           }
           if($request['max']<$request['min'])
           {
-              $message = 'Max < min ';
+              $message = 'Item maximum size should be greater than minimum size';
               return redirect()->intended(route('admin.store.edit',[$stores->id]))->with('message', $message);
           }
         DB::table('store')

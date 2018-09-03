@@ -23,9 +23,9 @@
                     <thead> 
                     <tr>
                         <th>ID</th>
-                        <th>Pation name</th>
-                        <th>Srvice</th>
-                        <th>Doctor namee</th>
+                        <th>Patient name</th>
+                        <th>Service</th>
+                        <th>Doctor name</th>
                         <th>Actions</th>
                     </tr>
                     </thead>

@@ -32,7 +32,6 @@
                 <option value="kg">KG</option>
                 <option value="cm">CM</option>
                 <option value="Ft">Feet</option>
-                <option value="cm">CM</option>
             </select>
         </div>
         <div class="form-group">

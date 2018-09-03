@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ItemMin extends Migration
+class CreateOutcomeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class ItemMin extends Migration
      */
     public function up()
     {
-        Schema::table('store', function($table) {
-            $table->integer('iteam_min');
+        Schema::create('Outcome', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('amount');
         });
     }
 
@@ -25,6 +26,6 @@ class ItemMin extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('Outcome');
     }
 }

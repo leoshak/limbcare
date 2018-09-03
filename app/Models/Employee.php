@@ -15,6 +15,6 @@ class Employee extends Model
 
     protected $primarykey = 'id';
     protected $fillable = [
-        'id', 'avator', 'nic', 'name', 'employeeType', 'address', 'birthday'
+        'id', 'nic', 'name', 'employeeType','emp_pic', 'address', 'birthday'
     ];
 }

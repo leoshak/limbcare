@@ -24,7 +24,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Question</th>
-                        <th>replay</th>
+                        <th>title</th>
                         <th>replay</th>
                         <th>Actions</th>
                     </tr>
@@ -34,8 +34,8 @@
                         <tr>
                                 <td>{{ $questionsforum->id }}</td>
                                 <td>{{ $questionsforum->Queston }}</td>
+                                <td>{{ $questionsforum->question_title }}</td>
                                 <td>{{ $questionsforum->replay1 }}</td>
-                                <td>{{ $questionsforum->replay2 }}</td>
                             <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.question_forum.show',[$questionsforum->id]) }}">
                                     <i class="fa fa-eye"></i>

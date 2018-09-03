@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-    {!! Form::open(array('route' => 'admin.employees.store')) !!}
+    {!! Form::open(array('route' => 'admin.employees.store','enctype' =>'multipart/form-data')) !!}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -52,6 +52,12 @@
                         </div> --}}
                 </div>
             </div>
+            <div class="container">
+            <div class="form-group">
+                    {!! Form::label('emp_pic', 'Profile picture') !!}
+                    {!! Form::file('emp_pic',  ['class'=> 'form-control','accept' =>'image/*']) !!}
+                </div>
+                </div>
         <div class="form-group">
          {!! Form::label('address', 'Address') !!}
          {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
