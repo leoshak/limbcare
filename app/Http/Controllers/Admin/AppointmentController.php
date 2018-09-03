@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
+use DB;
 
 class AppointmentController extends Controller
 {
@@ -38,8 +39,36 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = [
+            'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/u|max:255',
+            'type' => 'required',
+            'date' => 'required|date_format:Y-m-d|after:today',
+            //'time' => 'required|after:now',
+            // 'time_start' => 'date_format:date',
+            // 'required|date_format:H:i|after:time_start',
+            'time' => 'required',
+        ];
+
+        $customMessages = [
+            'name.regex' => 'Name cannot contain numbers and special characters',
+            'date.after' => 'Appointment Date can not be today, tomorrow onward',
+            'time.after' => 'Appointment Time cannot be now or past'
+        ];
+
+        $this->validate($request, $validatedData, $customMessages);
+        
+        // $count = DB::table('appointments')->where('id', $request->id)
+        //                         ->count();
+        // $message = "";
+        // if($count > 0){
+        //     $message = 'Appointment id exist';
+        // }else{
+        //     Appointment::create($request->all());
+        //     return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
+        // }
+
         Appointment::create($request->all());
-        return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
+            return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
     }
 
     /**

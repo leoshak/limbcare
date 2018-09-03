@@ -13,6 +13,7 @@ class Employee extends Model
     */
     protected $table = 'employees';
 
+    protected $primarykey = 'id';
     protected $fillable = [
         'id', 'nic', 'name', 'employeeType','emp_pic', 'address', 'birthday'
     ];
