@@ -18,7 +18,7 @@
                         <p>Success done Edit Patients</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="{{ route('admin.Patients') }}" class="btn btn-primary">Ok</a>
+                        <a href="{{ route('admin.patients') }}" class="btn btn-primary">Ok</a>
                     </div>
                 </div>
             </div>

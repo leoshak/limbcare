@@ -65,12 +65,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Doctor
     Route::get('doctors', 'DoctorController@index')->name('doctors');
+    //edit doctor
+    // Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
 
     //Financial
     Route::get('financial', 'FinancialController@index')->name('financial');
 
     //Patient
     Route::get('patient', 'PatientController@index')->name('patients');
+    Route::get('patient/add', 'PatientController@create')->name('patient.add');
+    //Route::post('patient/store', 'PatientController@store')->name('patient.store');
+    Route::get('patient/{patient}', 'PatientController@show')->name('patient.show');
+    Route::get('patient/{patient}/edit', 'PatientController@edit')->name('patient.edit');
+    Route::put('patient/{employee}', 'PatientController@update')->name('patient.update');
+    Route::delete('patient/{patient}/delete', 'PatientController@destroy')->name('patient.delete');
+    Route::post('patient/patient','PatientController@store');
+    Route::post('patient/{patient}/editpat','PatientController@update');
+
+
 
     //Services
     Route::get('services', 'ServiceController@index')->name('services');
