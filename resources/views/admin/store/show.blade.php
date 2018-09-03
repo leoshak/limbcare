@@ -11,32 +11,32 @@
             </tr>
 
             <tr>
-                <th>Iteam name</th>
+                <th>Item name</th>
                 <td>{{ $stores->iteamname }}</td>
             </tr>
 
             <tr>
-                <th>Iteam company</th>
+                <th>Item company</th>
                 <td>
                         {{ $stores->company }}
                     </a>
                 </td>
             </tr>
             <tr>
-                <th>Iteam quantity</th>
+                <th>Item quantity</th>
                 <td>
                     {{ ($stores->iteam_quantity)}} {{($stores->quantity_type) }}
                 </td>
             </tr>
             <tr>
-                <th>Iteam max</th>
+                <th>Item maximum</th>
                 <td>
                         {{ ($stores->iteam_max)}}{{($stores->quantity_type) }}
                         
                 </td>
             </tr>
             <tr>
-                <th>Iteam min</th>
+                <th>Item minimum</th>
                 <td>
                         {{ ($stores->iteam_min)}}{{($stores->quantity_type) }}
                         
@@ -46,6 +46,6 @@
             </tbody>
         </table>
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Store home</a>
-        <a class="btn btn-info" href="{{ route('admin.store.edit',[$stores->id]) }}">edit</a>
+        <a class="btn btn-info" href="{{ route('admin.store.edit',[$stores->id]) }}">Edit</a>
     </div>
 @endsection

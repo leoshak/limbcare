@@ -18,9 +18,9 @@ class CreateStoreTable extends Migration
             $table->string('iteamname');
             $table->integer('iteam_quantity');
             $table->string('company');
-            $table->integer('iteam_max');
-            $table->integer('iteam_min');
-            $table->string('quantity_type');
+            $table->integer('iteam_max')->nullable();
+            $table->integer('iteam_min')->nullable();
+            $table->string('quantity_type')->nullable();
             $table->string('pic');
         });
     }

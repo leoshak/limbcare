@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="card-header">
                                 <div class="col-xs-6 col-md-4 col-lg-4 vcenter emp-avator">
-                                    <img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png" alt="Pic" height="90" width="90">
+                                    <img src="\image\emp\profile\{{ $employee->emp_pic }}" alt="Pic" height="90" width="90"class="img-circle">
                                 </div>
                                 {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
                                 <div class="col-xs-6 col-md-8 col-lg-8 vcenter emp-details">

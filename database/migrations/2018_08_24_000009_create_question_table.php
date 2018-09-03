@@ -15,12 +15,20 @@ class CreateQuestionTable extends Migration
     {
         Schema::create('queston', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('question_title');
+            $table->string('question_type');
             $table->string('Queston');
-            $table->string('replay1');
-            $table->string('replay2');
-            $table->string('replay3');
-            $table->string('replay4');
-            $table->string('replay5');
+            $table->string('question_pic')->nullable();
+            $table->text('replay1')->nullable();
+            $table->string('replay1_pic')->nullable();
+            $table->text('replay2')->nullable();
+            $table->string('replay2_pic')->nullable();
+            $table->text('replay3')->nullable();
+            $table->string('replay3_pic')->nullable();
+            $table->text('replay4')->nullable();
+            $table->string('replay4_pic')->nullable();
+            $table->text('replay5')->nullable();
+            $table->string('replay5_pic')->nullable();
         });
     }
 

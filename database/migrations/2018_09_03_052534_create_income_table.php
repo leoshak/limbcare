@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Employees extends Migration
+class CreateIncomeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class Employees extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('Income', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('nic');	
-            $table->string('employeeType');	
-            $table->string('emp_pic');
-            $table->date('birthday');
-            $table->string('address');
-            $table->timestamps();
+            $table->integer('amount');
         });
     }
 
@@ -32,6 +26,6 @@ class Employees extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('Income');
     }
 }
