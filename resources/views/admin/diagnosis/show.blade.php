@@ -6,9 +6,9 @@
     <div class="row">
         <table class="table table-striped table-hover">
             <tbody>
-            <tr>
+            <tr> 
                 <th>{{ __('views.admin.users.show.table_header_0') }}</th>
-                <td><img src="C:\Users\janith\Pictures{{ $diagnosis->skech }}" class="user-profile-image"></td>
+                <td><img height="200" width="200" src="\image\diagnosis\sketch\{{ $diagnosis->skech }}" class="user-profile-image"></td>
             </tr>
 
             <tr>
@@ -39,14 +39,14 @@
             <tr>
                 <th>Hight</th>
                 <td>
-                        {{ ($diagnosis->hight)}}
+                        {{ ($diagnosis->hight)}} cm
                         
                 </td>
             </tr>
             <tr>
                 <th>Weight</th>
                 <td>
-                        {{ ($diagnosis->weight)}}
+                        {{ ($diagnosis->weight)}} kg
                         
                 </td>
             </tr>

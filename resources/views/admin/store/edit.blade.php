@@ -6,6 +6,15 @@
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 <form action="updatestore" method="post">
     {{ csrf_field() }}
+    @if (!$errors->isEmpty())
+        <div class="alert alert-danger" role="alert">
+            {!! $errors->first() !!}
+        </div>
+    @endif
+
+    @if(Session::has('message'))
+        <div class="alert alert-danger">{{ Session::get('message') }}</div>
+    @endif
         <div class="form-group">
                 <label for="name">Iteam name</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ $stores->iteamname }}">

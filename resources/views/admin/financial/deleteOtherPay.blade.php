@@ -15,14 +15,14 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        {{ "Sallary Payment record with id ". $financialSalary->id . " will be permanently deleted!" }}
+                        {{ "Other Pay record with id ". $financialOtherPay->id . " will be permanently deleted!" }}
                     </p>
                 </div>
                 <div class="modal-footer">
                     <form action="destroy" method="post">
                         <a href="{{ URL::previous() }}" class="btn btn-primary">Cancel</a>
                         {{ csrf_field() }}
-                        <input type="hidden" id="id" name="id" value="{{ $financialSalary->id }}">
+                        <input type="hidden" id="id" name="id" value="{{ $financialOtherPay->id }}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>

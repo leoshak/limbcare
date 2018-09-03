@@ -16,10 +16,10 @@ class CreateDiagnosisTable extends Migration
         Schema::create('diagnosis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('patientname');
-            $table->string('service');
-            $table->string('hight');
+            $table->integer('service');
+            $table->integer('hight');
             $table->string('weight');
-            $table->string('discription');
+            $table->text('discription');
             $table->string('skech');
             $table->string('consultant_dr');
         });

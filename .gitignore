@@ -11,8 +11,9 @@ composer.phar
 composer.lock
 phpunit.phar
 
-.env
-storage
+/.env
+/storage
+/bootstrap
 
 # IDE exclusions
 .DS_Store

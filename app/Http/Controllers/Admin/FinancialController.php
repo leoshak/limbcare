@@ -83,9 +83,9 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(FinancialBillPayment $financialBill)
     {
-        return view('admin.financial.edit');
+        return view('admin.financial.edit', ['financialBill' => $financialBill]);
     }
 
     /**
@@ -95,9 +95,38 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(Request $request)
     {
-        return view('admin.financial.edit');
+        DB::table('bill')
+        ->where('id', $request['id'])
+        ->update(['patientname' =>$request['patientname'],'descrption' =>$request['descrption'],'amount' =>$request['amount']]);
+        return view('admin.financial.success');
+    }
+
+    //financial salary edit
+    public function editSalary(FinancialSalaryPayment $financialSalary)
+    {
+        return view('admin.financial.edit_salary', ['financialSalary' => $financialSalary]);
+    }
+    public function updateSalary(Request $request)
+    {
+        DB::table('salarypay')
+        ->where('id', $request['id'])
+        ->update(['emp_name' =>$request['emp_name'],'date' =>$request['date'],'amount' =>$request['amount']]);
+        return view('admin.financial.success');
+    }
+
+    //financial otherpay edit
+    public function editOtherPay(FinancialOtherPayment $financialOtherPay)
+    {
+        return view('admin.financial.edit_otherpay', ['financialOtherPay' => $financialOtherPay]);
+    }
+    public function updateOtherPay(Request $request)
+    {
+        DB::table('otherpay')
+        ->where('id', $request['id'])
+        ->update(['descrption' =>$request['descrption'], 'amount' =>$request['amount']]);
+        return view('admin.financial.success');
     }
 
     /**
@@ -106,8 +135,39 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    //delete salay record
+    public function destroyRequest(FinancialSalaryPayment $financialSalary)
     {
-        return view('admin.financial.delete');
+        return view('admin.financial.delete', ['financialSalary' => $financialSalary]);
+    }
+
+    public function destroy(Request $request)
+    {
+        DB::table('salarypay')->where('id', $request['id'])->delete();
+        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
+    }
+
+    //delete bill record
+    public function destroyBillRequest(FinancialBillPayment $financialBill)
+    {
+        return view('admin.financial.deleteBill', ['financialBill' => $financialBill]);
+    }
+
+    public function destroyBill(Request $request)
+    {
+        DB::table('bill')->where('id', $request['id'])->delete();
+        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
+    }
+    
+    //delete other record
+    public function destroyOtherPayRequest(FinancialOtherPayment $financialOtherPay)
+    {
+        return view('admin.financial.deleteOtherPay', ['financialOtherPay' => $financialOtherPay]);
+    }
+
+    public function destroyOtherPay(Request $request)
+    {
+        DB::table('otherpay')->where('id', $request['id'])->delete();
+        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
     }
 }

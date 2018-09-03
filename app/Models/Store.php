@@ -8,6 +8,6 @@ class Store extends Model
 {
     protected $table='store';
     protected $fillable=[
-        'id', 'iteamname', 'iteam_quantity', 'company', 'iteam_max', 'iteam_min', 'pic'
+        'id', 'iteamname', 'iteam_quantity', 'company', 'iteam_max', 'iteam_min','quantity_type', 'pic'
     ];
 }
