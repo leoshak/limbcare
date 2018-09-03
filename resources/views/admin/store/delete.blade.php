@@ -12,7 +12,7 @@
                    
                 </div>
                 <div class="modal-body">
-                    <p>Do you really want to delete iteam named {{ $stores->iteamname }} with id {{ $stores->id }}? This process cannot be undone.</p>
+                    <p>Do you really want to delete item named {{ $stores->iteamname }} with id {{ $stores->id }}? This process cannot be undone.</p>
                 </div>
                 <div class="modal-footer">
                         <a href="{{ route('admin.store') }}" class="btn btn-primary">Cancel</a>

@@ -28,7 +28,7 @@ class DiagnosisVal extends FormRequest
             'pa_name'=>'required|max:191',
             'pa_service'=>'required|max:191'
             ,'pa_height'=>'required|numeric|digits_between:2,3'
-            ,'pa_weight'=>'required|max:5'
+            ,'pa_weight'=>'required|numeric|digits_between:2,3'
             ,'pa_discription'=>'required'
             ,'pa_sketch'=>'required|file|image|mimes:jpeg,png,gif,webp'
             ,'pa_dr'=>'required|max:191'

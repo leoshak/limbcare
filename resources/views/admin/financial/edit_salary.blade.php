@@ -14,12 +14,9 @@
           <label for="descrption">Date</label>
           <input type="text" class="form-control" id="date" name="date" value="{{$financialSalary->date}}">
         </div>
-        <div class="form-group">
-          <label for="amount">Amount</label>
-          <input type="text" class="form-control" id="amount" name="amount" value="{{$financialSalary->amount}}">
-        </div>
+        
         <input type="hidden" id="id" name="id" value="{{$financialSalary->id}}">
-        <a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
+        <a class="btn btn-danger" href="{{ URL::previous() }}">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </div>
