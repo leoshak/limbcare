@@ -51,7 +51,7 @@
                                 <a class="btn btn-xs btn-info" href="{{ route('admin.appointments.edit', [$appointment->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.appointments.delete', $appointment->id) }}">
+                                <a class="btn btn-xs btn-danger" onclick="return confirm('Will be permanently deleted?')" href="{{ route('admin.appointments.delete', $appointment->id) }}">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 {{-- {!! Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit', 'style'=> 'width: 18px; height: 22px;']) !!}

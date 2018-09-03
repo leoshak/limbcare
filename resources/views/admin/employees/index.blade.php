@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            {!! Form::open(array('route' => ['admin.employees.delete', $employee->id], 'method' => 'DELETE')) !!}
+                            {!! Form::open(array('route' => ['admin.employees.delete', $employee->id], 'method' => 'DELETE', 'onSubmit'=> 'return confirm("Do you really want to delete?");')) !!}
                                 <a href="{{ route('admin.employees.show', [$employee->id]) }}" class="btn btn-link">View</a>
                                 <a href="{{ route('admin.employees.edit', [$employee->id]) }}" class="btn btn-success">Update</a>
                                 {{-- <a href="{{ route('admin.employees.delete') }}" class="btn btn-danger">Delete</a> --}}
@@ -72,8 +72,6 @@
                 @endif --}}
             @endforeach
         </div>
-        {{-- @yield('alert-delete') --}}
-        {{-- @endforeach --}}
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}
         </div>
@@ -84,32 +82,3 @@
     @parent
     {{ Html::style('assets/admin/css/my_style.css') }}
 @endsection
-
-
-{{-- <div class="col-xs-6 col-sm-3">
-        <div class="card">
-            <div class="card-header">
-                <img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png" alt="Pic" height="100" width="100">
-                
-                {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
-                {{-- <span class="card-title">Hewage Achini</span>
-            </div>
-            <div class="card-body">
-                <a href="{{ route('admin.employees.edit') }}" class="btn btn-success">Update</a>
-                <a href="{{ route('admin.employees.delete') }}" class="btn btn-danger">Delete</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-        <div class="card">
-            <div class="card-header">
-                    <img src="https://png.icons8.com/ios/1600/user-male-circle-filled.png" alt="Pic" height="100" width="100">
-                {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
-                {{-- <span class="card-title">Nalaka D. Jaya</span> --}}
-            {{-- </div>
-            <div class="card-body">
-                <a href="{{ route('admin.employees.edit') }}" class="btn btn-success">Update</a>
-                <a href="{{ route('admin.employees.delete') }}" class="btn btn-danger">Delete</a>
-            </div>
-        </div>
-    </div> --}}

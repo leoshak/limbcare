@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('nic', 'NIC') !!}
-            {!! Form::text('nic', null, ['class' => 'form-control']) !!}
+            {!! Form::text('nic',  null, ['class' => 'form-control', 'placeholder'=>'Without V']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('employeeType', 'Employee Type') !!}
@@ -57,7 +57,8 @@
          {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
           {{-- <textarea class="form-control" name="address" id="address" cols="30" rows="10"></textarea> --}}
         </div>
-        <button type="reset" class="btn btn-primary">Clear</button>
+        <a href="{{ route('admin.employees') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
+        {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
         {!! Form::button('Add', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
         {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
       {!! Form::close() !!}
