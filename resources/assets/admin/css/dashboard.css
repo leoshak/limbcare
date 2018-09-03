@@ -115,3 +115,33 @@
     opacity: .5;
     cursor: default;
 }
+<<<<<<< HEAD
+=======
+.emptable {
+    float: right;
+}
+.emptable input{
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+}
+.searchbutton{
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-bottom: 30px;
+    width: 70%;
+
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+.emptable {
+    float: right;
+}
+>>>>>>> 8ea50ccd9cdf3c0d69aa506252da27b9a1dd939c

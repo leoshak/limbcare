@@ -16,12 +16,6 @@
         @endif
         <div class="form-group">
             {{-- <label for="inputName">Name</label> --}}
-            {!! Form::label('avator', 'Avator') !!}
-            {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
-            {!! Form::file('avator', null, ['class' => 'form-control-file']) !!}
-        </div>
-        <div class="form-group">
-            {{-- <label for="inputName">Name</label> --}}
             {!! Form::label('name', 'Name') !!}
             {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -53,21 +47,21 @@
                 </div>
             </div>
             <div class="container">
-            <div class="form-group">
+                <div class="form-group">
                     {!! Form::label('emp_pic', 'Profile picture') !!}
                     {!! Form::file('emp_pic',  ['class'=> 'form-control','accept' =>'image/*']) !!}
                 </div>
-                </div>
-        <div class="form-group">
-         {!! Form::label('address', 'Address') !!}
-         {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
-          {{-- <textarea class="form-control" name="address" id="address" cols="30" rows="10"></textarea> --}}
-        </div>
-        <a href="{{ route('admin.employees') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
-        {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
-        {!! Form::button('Add', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
-        {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
-      {!! Form::close() !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('address', 'Address') !!}
+                {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
+                {{-- <textarea class="form-control" name="address" id="address" cols="30" rows="10"></textarea> --}}
+            </div>
+            <a href="{{ route('admin.employees') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
+            {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
+            {!! Form::button('Add', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+            {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
+        {!! Form::close() !!}
     </div>
 @endsection
 

@@ -25,8 +25,8 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->roles->pluck('name')->implode(',') }}</td>
                     <td>
-                        @if($user->active)
-                            <span class="label label-primary">{{ __('views.admin.users.index.active') }}</span>
+                        @if($user->active
+                            <span class="label label-primary">{{ __('view)s.admin.users.index.active') }}</span>
                         @else
                             <span class="label label-danger">{{ __('views.admin.users.index.inactive') }}</span>
                         @endif
