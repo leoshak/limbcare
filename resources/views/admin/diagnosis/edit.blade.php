@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title',"Diagnosis Employee", "Diagnosis") 
+@section('title',"Diagnosis Management") 
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

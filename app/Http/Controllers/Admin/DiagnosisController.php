@@ -75,7 +75,7 @@ class DiagnosisController extends Controller
 
               if((($pname==$request['name']) and ($phight==$request['hight'])) and(($pweight==$request['Weight']) and ($pdiscription==$request['discription'])))
               {
-              $message = 'Nothig update ';
+              $message = 'Nothing to update ';
               return redirect()->intended(route('admin.diagnosis.edit',[$diagnosis->id]))->with('message', $message);
               }
           }

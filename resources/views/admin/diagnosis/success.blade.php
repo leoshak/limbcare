@@ -11,7 +11,7 @@
                             <div class="icon-box">
                                 <i class="fa fa-trash"></i>
                             </div>				
-                            <h4 class="modal-title">success</h4>	
+                            <h4 class="modal-title">Success</h4>	
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">

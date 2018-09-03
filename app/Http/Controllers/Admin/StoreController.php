@@ -32,11 +32,6 @@ class StoreController extends Controller
     {
         return view('admin.store.add');
     }
-    public function add()
-    {
-        return view('admin.store.add');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
