@@ -16,12 +16,6 @@
         @endif
         <div class="form-group">
             {{-- <label for="inputName">Name</label> --}}
-            {!! Form::label('avator', 'Avator') !!}
-            {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
-            {!! Form::file('avator', null, ['class' => 'form-control-file']) !!}
-        </div>
-        <div class="form-group">
-            {{-- <label for="inputName">Name</label> --}}
             {!! Form::label('name', 'Name') !!}
             {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
