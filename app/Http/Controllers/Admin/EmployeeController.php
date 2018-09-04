@@ -6,6 +6,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -63,8 +64,17 @@ class EmployeeController extends Controller
 
         $file=$request ->file('emp_pic');
        
-        $employees=Employee::all();
+        $employees=DB::select('select * from employees ORDER BY id DESC LIMIT 1');
         
+        $name="panding";
+        $employee->name = $request->get('name');
+        $employee->nic = $request->get('nic');
+        $employee->employeeType = $request->get('employeeType');
+        $employee->emp_pic = $name;
+        $employee->birthday = $request->get('birthday');
+        $employee->address = $request->get('address');
+        $employee->save();
+
         $type=$file->guessExtension();
         
          foreach($employees as $employeess)
@@ -72,23 +82,13 @@ class EmployeeController extends Controller
              $lastid=$employeess->id;
              
          }
-         if ($lastid==0)
-         {
-             $lastid=0;
-         }
-         $lastid=$lastid+1;
+         
+         $lastid=$lastid;
          
          $name=$lastid."pic.".$type;
          $file->move('image/emp/profile',$name);
-         $request['emp_pic']=$name;
-
          
-        $employee->name = $request->get('name');
-        $employee->nic = $request->get('nic');
-        $employee->employeeType = $request->get('employeeType');
         $employee->emp_pic = $name;
-        $employee->birthday = $request->get('birthday');
-        $employee->address = $request->get('address');
         $employee->save();
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }

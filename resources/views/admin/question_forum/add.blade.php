@@ -16,11 +16,11 @@
     <div class="alert alert-danger">{{ Session::get('message') }}</div>
 @endif
 <div class="form-group">
-        <label for="qu_title">Question title</label>
+        <label for="qu_title">Question title *</label>
         <input type="text" class="form-control" name="qu_title" id="qu_title" placeholder="what's....." >
     </div>
     <div class="form-group">
-        <label for="qu_type">Question type</label>
+        <label for="qu_type">Question type *</label>
         <select name="qu_type" class="form-control" >
             <option value="">Select one</option>
             <option value="doctors">Doctors</option>
@@ -28,11 +28,11 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="qu_pic">Question image</label>
+        <label for="qu_pic">Question image (optional)</label>
         <input type="file" class="form-control" name="qu_pic" id="qu_pic" >
     </div>
     <div class="form-group">
-        <label for="question">Question</label>
+        <label for="question">Question *</label>
         <textarea class="form-control" name="question" id="question" cols="30" rows="10" placeholder="question " ></textarea>
     </div>
         <a href="{{ route('admin.question_forum') }}" class="btn btn-danger">Cancel</a>
