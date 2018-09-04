@@ -44,37 +44,33 @@ class StoreController extends Controller
         $em=$request->it_type;
         if($em=="")
         {
-            $message = 'Nothig select in quantity type ';
-            return redirect()->intended(route('admin.store.add'))->with('message', $message);
-              
+            $message = 'Nothing selected in quantity type ';
+            return redirect()->intended(route('admin.store.add'))->with('message', $message);   
         }
         if($request['it_max']<$request['it_min'])
         {
-            $message = 'Max < min ';
+            $message = 'Item maximum size should be greater than minimum size';
             return redirect()->intended(route('admin.store.add'))->with('message', $message);
         }
-
+        $name="panding";
        $file=$request ->file('it_pic');
-       
-       $Store=Store::all();
-       
+       DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`,`quantity_type`, `pic`) VALUES  (?, ?, ?, ?, ? ,?,?)',[$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_type'],$name]);
+       $store = DB::select('select * from store ORDER BY id DESC LIMIT 1');
+        
        $type=$file->guessExtension();
        $lastid = 0;
-        foreach($Store as $Stores)
+        foreach($store as $Stores)
         {
             $lastid=$Stores->id;
             
         }
-        if ($lastid==0)
-        {
-            $lastid=0;
-        }
-        $lastid=$lastid+1;
-        
         $name=$lastid."item.".$type;
         $file->move('image/store/item',$name);
         
-        DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`,`quantity_type`, `pic`) VALUES  (?, ?, ?, ?, ? ,?,?)',[$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_type'],$name]);
+            DB::table('store')
+            ->where('id', $lastid)
+            ->update(['pic'=> $name]);
+        
         return view('admin.store.success');
     }
 

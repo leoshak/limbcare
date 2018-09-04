@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><font size="+2"><i class="fa fa-dollar "></i> Total outcome</font></span>
+                    <span class="count_top"><font size="+2"><i class="fa fa-dollar "></i> Total expenses</font></span>
                     <div>
                         <span class="count green">RS.</span>
                         <span class="count">{{$outcomes}}</span>
