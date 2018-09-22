@@ -6,6 +6,9 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
+use Ramsey\Uuid\Uuid;
+use App\Models\Auth\User\User;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -47,14 +50,14 @@ class EmployeeController extends Controller
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
-            'address' => 'required|regex:/^[a-zA-Z0-9 ]*$/'
+            'address' => 'required|regex:/^[a-zA-Z0-9 ]+$/'
         ];
 
         $customMessages = [
             'name.regex' => 'Name cannot contain numbers and special characters',
             'nic.digits' => 'NIC must contains only 9 numbers',
             'birthday.before' => 'Funny! Birthday can not be today or future',
-            'address.regex' => 'Address cannot contain special characters like . / @'
+            'address.regex' => 'Address cannot contain special characters like # . @'
         ];
 
         $this->validate($request, $validatedData, $customMessages);
@@ -83,13 +86,39 @@ class EmployeeController extends Controller
          $request['emp_pic']=$name;
 
          
+        //find the role by id
+        if ($request->get('employeeType') == 'Receptionist') {
+            $role = Role::findOrFail(3);
+        } elseif ($request->get('employeeType') == 'Director') {
+            $role = Role::findOrFail(4);
+        } elseif ($request->get('employeeType') == 'PNO') {
+            $role = Role::findOrFail(5);
+        } else {
+            $role = Role::findOrFail(1);
+        }
+
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('nic')),
+            'confirmation_code' => Uuid::uuid4(),
+            'confirmed' => true,
+            'usertype' => $request->get('employeeType')
+        ]);
+        // assign the role to a user based on the select box from the form.
+        $user->roles()->attach($role);
+        // return a view
+
         $employee->name = $request->get('name');
+        $employee->email = $request->get('email');
+        $employee->contactNo = $request->get('contact');
         $employee->nic = $request->get('nic');
         $employee->employeeType = $request->get('employeeType');
         $employee->emp_pic = $name;
         $employee->birthday = $request->get('birthday');
         $employee->address = $request->get('address');
         $employee->save();
+        
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }
 
@@ -188,6 +217,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)//Employee $employee
     {
         $message = 'Successfully deleted employee named '.$employee->name.' with id '.$employee->id;
+        $user = DB::table('users')->where('email',$employee->email)->delete();
         $employee->delete();
         return redirect()->route('admin.employees')->with('message', $message);
     }

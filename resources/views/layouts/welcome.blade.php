@@ -103,8 +103,10 @@
                             @endif
                             <a href="{{ url('/login') }}">{{ __('views.welcome.login') }}</a>
                         @else
-                            @if(auth()->user()->hasRole('administrator'))
+                            @if(auth()->user()->usertype == 'Admin'){{--->hasRole('administrator')--}}
                                 <a href="{{ url('/admin') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'Receptionist')
+                                <a href="{{ url('/receptionist') }}">{{ __('views.welcome.admin') }}</a>
                             @endif
                             <a href="{{ url('/logout') }}">{{ __('views.welcome.logout') }}</a>
                         @endif

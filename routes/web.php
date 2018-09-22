@@ -20,6 +20,10 @@ Route::group(['namespace' => 'Auth'], function () {
     // Authentication Routes...
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');
+    // Route::post('/login/custom', [
+    //     'uses' => 'LoginController@logedin',
+    //     'as' => 'login.custom'
+    // ]);
     Route::get('logout', 'LoginController@logout')->name('logout');
 
     // Registration Routes...
@@ -44,6 +48,15 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::get('social/redirect/{provider}', 'SocialLoginController@redirect')->name('social.redirect');
     Route::get('social/login/{provider}', 'SocialLoginController@login')->name('social.login');
 });
+
+// Route::group(['middleware' => 'receptionist'], function() {
+//     Route::get('home', function(){
+//         return view('home');
+//     })->name('home');
+//     Route::get('dashboard', function(){
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
 
 /**
  * Backend routes
@@ -163,6 +176,42 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 });
 
+Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' => 'employee\receptionist', 'middleware' => 'admin'], function () {
+
+    // Dashboard
+    Route::get('/', 'RecepDashboardController@index')->name('dashboard');
+    
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    
+    //appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    
+    //question
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    
+    //store
+    Route::get('store', 'StoreController@index')->name('store');
+    Route::get('store/add', 'StoreController@create')->name('store.add');
+    
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    
+    //Diagnosis
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/aboutus', 'AboutUsController@aboutus');

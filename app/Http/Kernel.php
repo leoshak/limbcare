@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'receptionist' => \App\Http\Middleware\ReceptionistMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'authorize' => \App\Http\Middleware\Authorize::class,
         'protection' => \App\Http\Middleware\Protection::class
