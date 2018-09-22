@@ -17,7 +17,6 @@ class CreatePatientTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email');
-
             $table->string('nic');
             $table->string('password');
             $table->string('mobile');
@@ -28,7 +27,10 @@ class CreatePatientTable extends Migration
         });
     }
 
-    /**
+             $table->timestamps();
+        });
+    }
+     /**
      * Reverse the migrations.
      *
      * @return void

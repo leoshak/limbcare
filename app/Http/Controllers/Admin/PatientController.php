@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-
 class PatientController extends Controller
 {
     /**
@@ -18,7 +17,8 @@ class PatientController extends Controller
     public function index()
     {
         $patients = patient::all();
-        return view('admin.patients.index', compact('patients'));    }
+        return view('admin.patients.index', compact('patients'));    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +27,6 @@ class PatientController extends Controller
      */
     public function create()
     {
-
         return view('admin.patients.add');
     }
 
@@ -39,7 +38,6 @@ class PatientController extends Controller
      */
     public function store(Request $request, patient $patient)
     {
-
         $validatedData = $request->validate([
             // 'id' => 'required',
             // 'nic' => 'required',
@@ -75,7 +73,6 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-
         return view('admin.patients.show', ['patient' => $patient]);
     }
 
@@ -99,7 +96,6 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-
         $validatedData = $request->validate([
             // 'id' => 'required',
             // 'nic' => 'required',
@@ -139,6 +135,5 @@ class PatientController extends Controller
         $patient->delete();
         //careturn view('admin.patients.delete',['patient' => $patient]);
         return redirect()->route('admin.patients')->with('message', $message);
-
     }
 }

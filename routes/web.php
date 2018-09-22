@@ -114,7 +114,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Financial
     Route::get('financial', 'FinancialController@index')->name('financial');
-    Route::get('financial', 'FinancialController@index')->name('financial');
+    Route::get('financial/index_bill', 'FinancialController@indexbill')->name('financial.index_bill');
+    Route::get('financial/index_salary', 'FinancialController@indexsalary')->name('financial.index_salary');
+    Route::get('financial/index_other', 'FinancialController@indexother')->name('financial.index_other');
+    
+    Route::get('financial/add_bill', 'FinancialController@addbill')->name('financial.add_bill');
+    Route::get('financial/add_salary', 'FinancialController@addsalary')->name('financial.add_salary');
+    
+    Route::get('financial/add_other', 'FinancialController@addother')->name('financial.add_other');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
 
     //financial bill edit
@@ -143,7 +150,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
     Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
-    Route::get('financial/otherpay//{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
+    Route::get('financial/otherpay/{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
 

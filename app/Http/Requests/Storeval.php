@@ -22,9 +22,9 @@ class Storeval extends FormRequest
         return [
             'it_name'=>'required|max:191',
             'it_company'=>'required|max:191'
-            ,'it_quantity'=>'required|numeric|digits_between:1,5'
-            ,'it_max'=>'required|numeric|digits_between:1,5'
-            ,'it_min'=>'required|numeric|digits_between:1,5'
+            ,'it_quantity'=>'required|integer|min:0'
+            ,'it_max'=>'required|integer|min:0'
+            ,'it_min'=>'required|integer|min:0'
             ,'it_pic'=>'required|file|image|mimes:jpeg,png,gif,webp'
         ];
     }
@@ -42,9 +42,13 @@ class Storeval extends FormRequest
 
             'it_name.max'=>'Item name may not be greater than 191 characters.!',
             'it_company.max'=>'Item'.$de.'s company may not be greater than 191 characters!',
-            'it_quantity.digits_between'=>'Item'.$de.'s quantity may not be greater than 5 number!',
-            'it_max.digits_between'=>'Item'.$de.'s max quantity may not be greater than 5 number!',
-            'it_min.digits_between'=>'Item'.$de.'s min quantity may not be greater than 5 number!',
+            'it_quantity.min'=>'Item'.$de.'s quantity may not be negative number!',
+            'it_max.min'=>'Item'.$de.'s max quantity may not be negative number!',
+            'it_min.min'=>'Item'.$de.'s min quantity may not be negative number!',
+            
+            'it_min.integer'=>'Item'.$de.'s min quantity must be integer!',
+            'it_max.integer'=>'Item'.$de.'s max quantity must be integer!',
+            'it_quantity.integer'=>'Item'.$de.'s min quantity must be integer!',
 
             'it_pic.image'=>'Item'.$de.'s image must be an image.!'
         ];

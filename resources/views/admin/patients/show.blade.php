@@ -2,6 +2,7 @@
 
 @section('title', __('views.admin.users.show.title', ['name' => $patient->name]))
 
+
 @section('content')
     <div class="row">
         <table class="table table-striped table-hover">
@@ -45,7 +46,6 @@
                     {{ $patient->mobile }}
                 </td>
             </tr>
-
 
             <tr>
                 <th></th>

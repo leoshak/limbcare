@@ -17,7 +17,6 @@
                 </div>
             @endif
             <div>
-
             </div>
             <div class="form-group">
                 <label for="inputAddress">Patient Name</label>
@@ -48,11 +47,7 @@
                 <textarea name="address" class="form-control" id="inputAddress" >
                 </textarea>
             </div>
-
-
-
-
-
+            
             <button type="reset" class="btn btn-primary">Clear</button>
             <button type="submit" class="btn btn-primary">Add</button>
 

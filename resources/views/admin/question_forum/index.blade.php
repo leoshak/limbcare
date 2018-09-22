@@ -25,7 +25,7 @@
                         <th>ID</th>
                         <th>Question</th>
                         <th>title</th>
-                        <th>replay</th>
+                        <th>reply</th>
                         <th>Actions</th>
                     </tr>
                     </thead>

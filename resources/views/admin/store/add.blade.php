@@ -16,15 +16,15 @@
     <div class="alert alert-danger">{{ Session::get('message') }}</div>
 @endif
         <div class="form-group">
-            <label for="it_name">Item name</label>
+            <label for="it_name">Item name *</label>
             <input type="text" class="form-control" name="it_name" id="it_name" placeholder="Name" >
         </div>
         <div class="form-group">
-            <label for="it_company">Item company</label>
+            <label for="it_company">Item company *</label>
             <input type="text" class="form-control" name="it_company" id="it_company" placeholder="'ossur'" >
         </div>
         <div class="form-group">
-            <label for="it_type">quantity type</label>
+            <label for="it_type">Quantity type *</label>
             <select name="it_type" class="form-control" >
                 <option value="">Select one</option>
                 <option value="pieces">Pieces</option>
@@ -35,20 +35,20 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="it_quantity">Item quantity</label>
+            <label for="it_quantity">Item quantity *</label>
             <input type="text" class="form-control" name="it_quantity" id="it_quantity" placeholder="quantity" >
         </div>
        
         <div class="form-group">
-            <label for="it_max">Item max quantity</label>
+            <label for="it_max">Item maximum quantity *</label>
             <input type="text" class="form-control" name="it_max" id="it_max" placeholder="eg:-30kg" >
         </div>
         <div class="form-group">
-            <label for="it_min">Item min quantity</label>
+            <label for="it_min">Item minimum quantity *</label>
             <input type="text" class="form-control" name="it_min" id="it_min" placeholder="eg:-3kg" >
         </div>
         <div class="form-group">
-            <label for="it_pic">Item image</label>
+            <label for="it_pic">Item image *</label>
             <input type="file" class="form-control" name="it_pic" id="it_pic" >
         </div>
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
