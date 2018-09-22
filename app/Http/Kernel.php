@@ -64,6 +64,9 @@ class Kernel extends HttpKernel
         'receptionist' => \App\Http\Middleware\ReceptionistMiddleware::class,
         'administrator' => \App\Http\Middleware\AdminMiddleware::class,
         'pno' => \App\Http\Middleware\PnoMiddleware::class,
+        'director' => \App\Http\Middleware\DirectorMiddleware::class,
+        'patient' => \App\Http\Middleware\PatientMiddleware::class,
+        'doctor' => \App\Http\Middleware\DoctorMiddleware::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'authorize' => \App\Http\Middleware\Authorize::class,
         'protection' => \App\Http\Middleware\Protection::class

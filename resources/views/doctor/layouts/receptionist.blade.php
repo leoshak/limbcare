@@ -6,8 +6,8 @@
     <div class="container body">
         <div class="main_container">
             @section('header')
-                @include('employee.receptionist.sections.navigation')
-                @include('employee.receptionist.sections.header')
+                @include('doctor.sections.navigation')
+                @include('doctor.sections.header')
             @show
 
             @yield('left-sidebar')
@@ -28,7 +28,7 @@
                 @yield('content')
             </div>
             <footer>
-                @include('employee.receptionist.sections.footer')
+                @include('doctor.sections.footer')
             </footer>
         </div>
     </div>

@@ -90,11 +90,11 @@ class EmployeeController extends Controller
         if ($request->get('employeeType') == 'Receptionist') {
             $role = Role::findOrFail(3);
         } elseif ($request->get('employeeType') == 'Director') {
-            $role = Role::findOrFail(4);
-        } elseif ($request->get('employeeType') == 'PNO') {
             $role = Role::findOrFail(5);
+        } elseif ($request->get('employeeType') == 'PNO') {
+            $role = Role::findOrFail(4);
         } else {
-            $role = Role::findOrFail(1);
+            $role = Role::findOrFail(2);
         }
 
         $user = User::create([

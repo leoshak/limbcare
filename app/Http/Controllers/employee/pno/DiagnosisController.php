@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\employee\receptionist;
+namespace App\Http\Controllers\employee\pno;
 
 use Illuminate\Http\Request;
 use App\Models\Diagnosis;
@@ -18,7 +18,7 @@ class DiagnosisController extends Controller
     public function index(Request $request)
     {
         $diagnosise=Diagnosis::all();
-        return view('admin.diagnosis.index',compact('diagnosise') );
+        return view('employee.pno.diagnosis.index',compact('diagnosise') );
         
     }
     /**
@@ -28,7 +28,7 @@ class DiagnosisController extends Controller
      */
     public function create()
     {
-        return view('admin.diagnosis.add');
+        return view('employee.pno.diagnosis.add');
     }
     /**
      * Store a newly created resource in storage.
@@ -58,7 +58,7 @@ class DiagnosisController extends Controller
     
         
          DB::insert('INSERT INTO `diagnosis` ( `patientname`, `service`, `hight`, `weight`, `discription`, `skech`, `consultant_dr`) VALUES ( ?, ?, ?, ? ,?,?,?)',[  $request['pa_name'], $request['pa_service'], $request['pa_height'], $request['pa_weight'],$request['pa_discription'],$name,$request['pa_dr']]);
-         return view('admin.diagnosis.success');
+         return view('employee.pno.diagnosis.success');
     }
     public function update(DiagnosisValUpdate $request,Diagnosis $diagnosise)
     {
@@ -77,21 +77,21 @@ class DiagnosisController extends Controller
               if((($pname==$request['name']) and ($phight==$request['hight'])) and(($pweight==$request['Weight']) and ($pdiscription==$request['discription'])))
               {
               $message = 'Nothing to update ';
-              return redirect()->intended(route('admin.diagnosis.edit',[$diagnosis->id]))->with('message', $message);
+              return redirect()->intended(route('employee.pno.diagnosis.edit',[$diagnosis->id]))->with('message', $message);
               }
           }
         
         DB::table('diagnosis')
             ->where('id', $request['id'])
             ->update(['patientname' => $request['name'],'hight' =>$request['hight'],'weight' =>$request['Weight'],'discription' =>$request['discription']]);
-            return view('admin.diagnosis.success');
+            return view('employee.pno.diagnosis.success');
     }
     
     public function padelete(Request $request)
     {
         
         DB::table('diagnosis')->where('id', $request['id'])->delete();
-         return view('admin.diagnosis.success');
+         return view('employee.pno.diagnosis.success');
     }
     /**
      * Display the specified resource.
@@ -101,7 +101,7 @@ class DiagnosisController extends Controller
      */
     public function show( Diagnosis $diagnosis)
     {
-        return view('admin.diagnosis.show',['diagnosis' => $diagnosis]);
+        return view('employee.pno.diagnosis.show',['diagnosis' => $diagnosis]);
     }
     /**
      * Show the form for editing the specified resource.
@@ -111,7 +111,7 @@ class DiagnosisController extends Controller
      */
     public function edit( Diagnosis $diagnosis )
     {
-        return view('admin.diagnosis.edit',['diagnosis' => $diagnosis]);
+        return view('employee.pno.diagnosis.edit',['diagnosis' => $diagnosis]);
     }
   
     /**
@@ -130,6 +130,6 @@ class DiagnosisController extends Controller
      */
     public function destroy( Diagnosis $diagnosis)//Employee $employee
     {
-        return view('admin.diagnosis.delete',['diagnosis' => $diagnosis]);
+        return view('employee.pno.diagnosis.delete',['diagnosis' => $diagnosis]);
     }
 }

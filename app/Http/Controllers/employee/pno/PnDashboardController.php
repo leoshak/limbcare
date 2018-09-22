@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Auth\User\User;
+use App\Models\Employee;
 use Arcanedev\LogViewer\Entities\Log;
 use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
 use Auth;
+use DB;
 
 class PnDashboardController extends Controller
 {
@@ -44,7 +46,14 @@ class PnDashboardController extends Controller
             }
         }
 
-        return view('employee.pno.dashboard', ['counts' => $counts]);
+        $employees = Employee::where('name', auth()->user()->name)->get();
+        $employee = new Employee();
+        foreach ($employees as $emp) {
+            if ($emp == auth()->user()->name) {
+                $employee = $emp;
+            }
+        }
+        return view('employee.pno.dashboard', ['counts' => $counts, 'employee' => $employee]);
     }
 
 

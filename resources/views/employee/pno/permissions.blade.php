@@ -1,4 +1,4 @@
-@extends('pno.layouts.admin')
+@extends('employee.pno.layouts.pno')
 
 @section('title', __('views.membership.title'))
 

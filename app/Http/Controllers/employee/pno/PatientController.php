@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\employee\receptionist;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('admin.patients.index');
+        return view('employee.pno.patients.index');
     }
 
     /**

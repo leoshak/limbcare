@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('employee.receptionist.layouts.receptionist')
 
 @section('content')
     <div class="row title-section">

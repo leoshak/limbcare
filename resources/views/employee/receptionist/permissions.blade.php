@@ -1,4 +1,4 @@
-@extends('receptionist.layouts.admin')
+@extends('receptionist.layouts.receptionist')
 
 @section('title', __('views.membership.title'))
 

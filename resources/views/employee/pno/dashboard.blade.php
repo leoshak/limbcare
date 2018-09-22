@@ -1,28 +1,28 @@
-@extends('employee.pno.layouts.receptionist')
+@extends('employee.pno.layouts.pno')
 
 @section('content')
     <!-- page content -->
     <!-- top tiles -->
     <div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-users"></i>Total Patients</span>
+            <span class="count_top"><i class="fa fa-users"></i>Assigned Appointment</span>
             <div class="count green">{{ $counts['users'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-users"></i>Total Employees</span>
+            <span class="count_top"><i class="fa fa-users"></i>Products to build</span>
             <div class="count green">{{ $counts['users'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-users"></i>Total Doctors</span>
-            <div class="count green">{{ $counts['users'] }}</div>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-user-times "></i>Appointments</span>
+            <span class="count_top"><i class="fa fa-users"></i>Worked Days in this month</span>
             <div>
                 <span class="count green">{{  $counts['users'] - $counts['users_inactive'] }}</span>
                 <span class="count">/</span>
                 <span class="count red">{{ $counts['users_inactive'] }}</span>
             </div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user-times "></i>Last month Salary</span>
+            <div class="count green">{{ $counts['users'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-lock"></i>Total Questions</span>
@@ -42,6 +42,69 @@
                         <h3>
                             LimbCare(PVT) LTD. Management System
                         </h3>
+                    </div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <th>{{ __('views.admin.users.show.table_header_0') }}</th>
+                                <td><img src="\image\emp\profile\{{ $employee->emp_pic }}"  alt="Pic" height="90" width="90" class="user-profile-image "></td>
+                                {{-- {{ $employee->avatar }} --}}
+                            </tr>
+                
+                            <tr>
+                                <th>{{ __('views.admin.users.show.table_header_1') }}</th>
+                                <td>{{ $employee->name }}</td>
+                            </tr>
+                
+                            <tr>
+                                    <th>Email</th>
+                                    <td>{{ $employee->email }}</td>
+                                </tr>
+                    
+                                <tr>
+                                    <th>Contact Number</th>
+                                    <td>{{ $employee->contactNo }}</td>
+                                </tr>
+                        
+                            <tr>
+                                <th>Employee Type</th>
+                                <td>
+                                    {{-- <a href="mailto:{{ $employee->employeeType }}"> --}}
+                                    {{ $employee->employeeType }}
+                                    {{-- </a> --}}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th>NIC</th>
+                                <td>
+                                    {{ $employee->nic }}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th>Address</th>
+                                <td>
+                                    {{ $employee->address }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Birthday</th>
+                                <td>
+                                    {{ $employee->birthday }}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th></th>
+                                <td><a href="{{ url("edit_profile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
+                                {{-- href="{{ route('admin.employees') }}" --}}
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

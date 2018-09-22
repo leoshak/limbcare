@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\employee\receptionist;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('admin.services.index');
+        return view('employee.pno.services.index');
     }
 
     /**

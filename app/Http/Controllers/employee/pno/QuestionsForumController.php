@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\employee\receptionist;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\QuestionsForum;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class QuestionsForumController extends Controller
     public function index(Request $request)
     {
         $questionsforum=QuestionsForum::all();
-        return view('admin.question_forum.index',compact('questionsforum') );
+        return view('employee.pno.question_forum.index',compact('questionsforum') );
         
     }
 
@@ -30,11 +30,11 @@ class QuestionsForumController extends Controller
      */
     public function create()
     {
-        return view('admin.question_forum.add');
+        return view('employee.pno.question_forum.add');
     }
     public function add()
     {
-        return view('admin.question_forum.add');
+        return view('employee.pno.question_forum.add');
     }
     /**
      * Store a newly created resource in storage.
@@ -49,7 +49,7 @@ class QuestionsForumController extends Controller
         if($em=="")
         {
             $message = 'Nothig select in question type ';
-            return redirect()->intended(route('admin.question_forum.add'))->with('message', $message);
+            return redirect()->intended(route('employee.pno.question_forum.add'))->with('message', $message);
               
         }
        if(!($request->qu_pic)==0)
@@ -72,11 +72,11 @@ class QuestionsForumController extends Controller
         $name=$lastid."pic.".$type;
         $file->move('image/question/pic',$name);
         DB::insert('INSERT INTO `queston` ( `question_title`, `question_type`, `Queston`, `question_pic`) VALUES  ( ?,?, ?,?)',[ $request['qu_title'],$request['qu_type'],$request['question'],$name]);
-        return view('admin.question_forum.success');
+        return view('employee.pno.question_forum.success');
         }
        
         DB::insert('INSERT INTO `queston` ( `question_title`, `question_type`, `Queston`) VALUES  ( ?, ?,?)',[ $request['qu_title'],$request['qu_type'],$request['question']]);
-        return view('admin.question_forum.success');
+        return view('employee.pno.question_forum.success');
     }
 
     /**
@@ -87,7 +87,7 @@ class QuestionsForumController extends Controller
      */
     public function show(QuestionsForum $questionsforum)
     {
-        return view('admin.question_forum.show',['questionsforum' => $questionsforum]);
+        return view('employee.pno.question_forum.show',['questionsforum' => $questionsforum]);
     }
 
     /**
@@ -98,7 +98,7 @@ class QuestionsForumController extends Controller
      */
     public function edit(QuestionsForum $questionsforum)
     {
-        return view('admin.question_forum.edit',['questionsforum' => $questionsforum]);
+        return view('employee.pno.question_forum.edit',['questionsforum' => $questionsforum]);
     }
 
     /**
@@ -187,7 +187,7 @@ class QuestionsForumController extends Controller
         DB::table('queston')
         ->where('id', $request['id'])
         ->update(['replay1' =>$request['reply1'],'replay1_pic' =>$name1,'replay2' =>$request['reply2'],'replay2_pic' =>$name2,'replay3' =>$request['reply3'],'replay3_pic' =>$name3,'replay4' =>$request['reply4'],'replay4_pic' =>$name4,'replay5' =>$request['reply5'],'replay5_pic' =>$name5]);
-        return view('admin.question_forum.success');
+        return view('employee.pno.question_forum.success');
     }
 
     /**
@@ -199,12 +199,12 @@ class QuestionsForumController extends Controller
     public function destroy(QuestionsForum $questionsforum)
     {
         
-        return view('admin.question_forum.delete',['questionsforum' => $questionsforum]);
+        return view('employee.pno.question_forum.delete',['questionsforum' => $questionsforum]);
     }
     
     public function qdelete(Request $request)//Request $request, Employee $employee
     {
         DB::table('queston')->where('id', $request['id'])->delete();
-         return view('admin.question_forum.success');
+         return view('employee.pno.question_forum.success');
     }
 }

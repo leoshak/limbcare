@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\employee\receptionist;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class AppointmentController extends Controller
     public function index()
     {
         $appointments = Appointment::all();
-        return view('admin.appointments.index', compact('appointments'));
+        return view('employee.pno.appointments.index', compact('appointments'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('admin.appointments.add');
+        return view('employee.pno.appointments.add');
     }
 
     /**
@@ -68,7 +68,7 @@ class AppointmentController extends Controller
         // }
 
         Appointment::create($request->all());
-            return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
+            return redirect()->route('employee.pno.appointments')->with('message', 'Appointment added successfully!');
     }
 
     /**
@@ -79,7 +79,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        return view('admin.appointments.show', ['appointment' => $appointment]);
+        return view('employee.pno.appointments.show', ['appointment' => $appointment]);
     }
 
     /**
@@ -90,7 +90,7 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        return view('admin.appointments.edit', ['appointment' => $appointment, 'roles' => Role::get()]);
+        return view('employee.pno.appointments.edit', ['appointment' => $appointment, 'roles' => Role::get()]);
     }
 
     /**
@@ -118,7 +118,7 @@ class AppointmentController extends Controller
         $appointment->save();
 
         $message = 'Successfully updated appointment named '.$appointment->name.' with id '.$appointment->id;
-        return redirect()->intended(route('admin.appointments'))->with('message', $message);
+        return redirect()->intended(route('employee.pno.appointments'))->with('message', $message);
     }
 
     /**
@@ -131,6 +131,6 @@ class AppointmentController extends Controller
     {
         $message = 'Successfully deleted appointment named '.$appointment->name.' with id '.$appointment->id;
         $appointment->delete();
-        return redirect()->route('admin.appointments')->with('message', $message);
+        return redirect()->route('employee.pno.appointments')->with('message', $message);
     }
 }
