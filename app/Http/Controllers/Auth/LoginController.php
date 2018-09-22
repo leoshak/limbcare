@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\Auth\User\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,6 +38,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+        //dd($this->guard()->user()->roles);
+        foreach ($this->guard()->user()->roles as $role) {
+            if ($role->name == 'Receptionist') {
+                return redirect('/receptionist');
+            } elseif ($role->name == 'administrator') {
+                return redirect('/admin');
+            } elseif ($role->name == 'PNO') {
+                return redirect('/pno');
+            }
+            return redirect('/');
+        }
     }
 
     /**
@@ -109,4 +128,5 @@ class LoginController extends Controller
 
         return redirect()->intended($this->redirectPath());
     }
+
 }

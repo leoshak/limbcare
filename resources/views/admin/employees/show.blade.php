@@ -18,6 +18,16 @@
             </tr>
 
             <tr>
+                    <th>Email</th>
+                    <td>{{ $employee->email }}</td>
+                </tr>
+    
+                <tr>
+                    <th>Contact Number</th>
+                    <td>{{ $employee->contactNo }}</td>
+                </tr>
+        
+            <tr>
                 <th>Employee Type</th>
                 <td>
                     {{-- <a href="mailto:{{ $employee->employeeType }}"> --}}

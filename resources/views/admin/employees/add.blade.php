@@ -16,12 +16,6 @@
         @endif
         <div class="form-group">
             {{-- <label for="inputName">Name</label> --}}
-            {!! Form::label('avator', 'Avator') !!}
-            {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
-            {!! Form::file('avator', null, ['class' => 'form-control-file']) !!}
-        </div>
-        <div class="form-group">
-            {{-- <label for="inputName">Name</label> --}}
             {!! Form::label('name', 'Name') !!}
             {{-- <input type="text" class="form-control" id="inputName" name="name" placeholder=""> --}}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -29,6 +23,14 @@
         <div class="form-group">
             {!! Form::label('nic', 'NIC') !!}
             {!! Form::text('nic',  null, ['class' => 'form-control', 'placeholder'=>'Without V']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('email', 'Email') !!}
+            {!! Form::email('email',  null, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('contact', 'Contact Number') !!}
+            {!! Form::text('contact',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('employeeType', 'Employee Type') !!}

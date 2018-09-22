@@ -16,6 +16,7 @@
             </div>
             <div class="profile_info">
                 <h2>{{ auth()->user()->name }}</h2>
+                <h3>{{ auth()->user()->usertype }}</h3>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -41,14 +42,34 @@
             </div>
             <div class="menu_section">
                 <h3>Management</h3>
+
+                {{--This is how Im freakingly activate nav items--}}
+                @php ($emp = '')
+                @php ($app = '')
+                @php ($stor = '') 
+                @php ($qf = '') 
+                
+                @if(!empty($employee))
+                    @php ($emp = $employee->id)
+                @endif
+                @if(!empty($appointment))
+                    @php ($app = $appointment->id)
+                @endif
+                @if(!empty($stores))
+                    @php ($stor = $stores->id)
+                @endif
+                {{-- @if(!empty($questionsforum))
+                    @php ($qf = $questionsforum->id)
+                @endif --}}
+
                 <ul class="nav side-menu">
-                    <li>
+                    <li class="@if (Request::is('admin/employees/add') || Request::is('admin/employees/'.$emp.'/edit') || Request::is('admin/employees/'.$emp)) active @endif">
                         <a href="{{ route('admin.employees') }}">
                             <i class="fa fa-id-badge" aria-hidden="true"></i>
                             {{ "Employees" }}
                         </a>
                     </li>
-                    <li>
+                    <li class="@if (Request::is('admin/diagnosis') || Request::is('admin/diagnosis/add')) active @endif">
                         <a href="{{ route('admin.patients') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ "Patients" }}
@@ -60,7 +81,7 @@
                             {{ "Doctors" }}
                         </a>
                     </li>
-                    <li>
+                    <li class="@if (Request::is('admin/appointments/add') || Request::is('admin/appointments/'.$app.'/edit') || Request::is('admin/appointments/'.$app)) active @endif">
                         <a href="{{ route('admin.appointments') }}">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             {{ "Appointments" }}
@@ -72,19 +93,19 @@
                             {{ "Services" }}
                         </a>
                     </li>
-                    <li>
+                    <li class="@if (Request::is('admin/financial')) active @endif">
                         <a href="{{ route('admin.financial') }}">
                             <i class="fa fa-money" aria-hidden="true"></i>
                             {{ "Financial" }}
                         </a>
                     </li>
-                    <li>
+                    <li class="@if (Request::is('admin/store/add') || Request::is('admin/store/edit/'.$stor) || Request::is('admin/store/'.$stor)) active @endif">
                         <a href="{{ route('admin.store') }}">
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
                             {{ "Store" }}
                         </a>
                     </li>
-                    <li>
+                    <li class="@if (Request::is('admin/question_forum/add') || Request::is('admin/question_forum/edit/'.$qf) || Request::is('admin/question_forum/'.$qf)) active @endif">
                         <a href="{{ route('admin.question_forum') }}">
                             <i class="fa fa-question-circle" aria-hidden="true"></i>
                             {{ "Question Forum" }}
