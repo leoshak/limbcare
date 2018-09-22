@@ -29,6 +29,14 @@
           <input type="text" class="form-control" id="inputName" name="inputName" placeholder="" value="{{ $employee->name }}">
         </div>
         <div class="form-group">
+            {!! Form::label('email', 'Email') !!}
+            {!! Form::email('email',  null, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('contact', 'Contact Number') !!}
+            {!! Form::text('contact',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
+        </div>
+        <div class="form-group">
           <label for="inputAddress">Address</label>
           <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder=""  value="{{ $employee->address }}">
         </div>

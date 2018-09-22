@@ -103,8 +103,14 @@
                             @endif
                             <a href="{{ url('/login') }}">{{ __('views.welcome.login') }}</a>
                         @else
-                            @if(auth()->user()->hasRole('administrator'))
+                            @if(auth()->user()->usertype == 'administrator'){{--->hasRole('administrator')--}}
                                 <a href="{{ url('/admin') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'Receptionist')
+                                <a href="{{ url('/receptionist') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'PNO')
+                                <a href="{{ url('/pno') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'Director')
+                                <a href="{{ url('/director') }}">{{ __('views.welcome.admin') }}</a>
                             @endif
                             <a href="{{ url('/logout') }}">{{ __('views.welcome.logout') }}</a>
                         @endif
@@ -112,6 +118,9 @@
                 </div>
 
             <div class="content">
+                @if(Session::has('message'))
+                    <div class="alert alert-danger" style="color:red; font-size:2em;">{{ Session::get('message') }}</div>
+                @endif
                 @yield('content')
                 {{-- <div class="footer">
                     Credits:&nbsp;

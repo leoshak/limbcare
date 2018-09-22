@@ -57,6 +57,22 @@
     width: 60%;
 }
 
+
+/* .emptable {
+    float: right;
+}
+.emptable input{
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+}
+
+.container {
+    padding: 2px 16px;
+}
+.emptable {
+    float: right;
+} */
+
 /* @media(max-width: 543px) {
     .card-header .emp-details {
         float: right;
