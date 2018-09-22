@@ -14,6 +14,7 @@ phpunit.phar
 /.env
 /storage
 /bootstrap
+/public/image
 
 # IDE exclusions
 .DS_Store
