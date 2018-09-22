@@ -98,8 +98,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('diagnosis/edit/updatediagnosis','DiagnosisController@update');
     
     Route::post('diagnosis/delete/deletediagnosis','DiagnosisController@padelete');
+    
     //Doctor
     Route::get('doctors', 'DoctorController@index')->name('doctors');
+    Route::get('doctors/{doctor}/edit', 'DoctorController@edit')->name('doctors.edit');
+    Route::post('doctors/create', 'DoctorController@create')->name('doctors.create');
+    Route::get('doctors/add', 'DoctorController@add')->name('doctors.add');
+    Route::get('doctors/{doctor}', 'DoctorController@show')->name('doctors.show');
+    Route::post('doctors/{doctor}/editdoc','doctorController@update');
+
+    Route::put('doctors/update' , 'DoctorController@update')->name('doctors.update');
+    Route::delete('doctors/{user}', 'DoctorController@destroy')->name('doctors.destroy');
+    Route::get('doctors/del', 'DoctorController@delete')->name('doctors.delete');
+    Route::delete('doctors/{doctor}/delete', 'DoctorController@destroy')->name('doctor.delete');
 
     //Financial
     Route::get('financial', 'FinancialController@index')->name('financial');
@@ -138,6 +149,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Patient
     Route::get('patient', 'PatientController@index')->name('patients');
+    Route::get('patient/add', 'PatientController@create')->name('patient.add');
+    //Route::post('patient/store', 'PatientController@store')->name('patient.store');
+    Route::get('patient/{patient}', 'PatientController@show')->name('patient.show');
+    Route::get('patient/{patient}/edit', 'PatientController@edit')->name('patient.edit');
+    Route::put('patient/{employee}', 'PatientController@update')->name('patient.update');
+    Route::delete('patient/{patient}/delete', 'PatientController@destroy')->name('patient.delete');
+    Route::post('patient/patient','PatientController@store');
+    Route::post('patient/{patient}/editpat','PatientController@update');
 
     //Services
     Route::get('services', 'ServiceController@index')->name('services');
