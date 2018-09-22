@@ -44,14 +44,16 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-        
+        //dd($this->guard()->user()->roles);
         foreach ($this->guard()->user()->roles as $role) {
             if ($role->name == 'Receptionist') {
                 return redirect('/receptionist');
             } elseif ($role->name == 'administrator') {
                 return redirect('/admin');
+            } elseif ($role->name == 'PNO') {
+                return redirect('/pno');
             }
-            
+            return redirect('/');
         }
     }
 

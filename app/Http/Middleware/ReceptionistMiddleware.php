@@ -21,8 +21,7 @@ class ReceptionistMiddleware
             if ($role->name == 'Receptionist') {
                 return $next($request);
             }
-            return redirect('/');
         }
-
+        return redirect('/')->with('message', 'Do not have previlage to access to Receptionist Dashboard');
     }
 }
