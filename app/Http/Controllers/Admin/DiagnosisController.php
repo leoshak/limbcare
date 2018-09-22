@@ -37,26 +37,24 @@ class DiagnosisController extends Controller
      */
     public function store(DiagnosisVal $request)
     {
+        $lastid=0;
+        $name="panding";
        $file=$request ->file('pa_sketch');
        $diagnosise=Diagnosis::all();
        
        $type=$file->guessExtension();
-       
+       DB::insert('INSERT INTO `diagnosis` ( `patientname`, `service`, `hight`, `weight`, `discription`, `skech`, `consultant_dr`) VALUES ( ?, ?, ?, ? ,?,?,?)',[  $request['pa_name'], $request['pa_service'], $request['pa_height'], $request['pa_weight'],$request['pa_discription'],$name,$request['pa_dr']]);
+       $diagnosise =DB::select('select * from diagnosis ORDER BY id DESC LIMIT 1');
+        
         foreach($diagnosise as $diagnosis)
         {
             $lastid=$diagnosis->id;
         }
-        $lastid=$lastid+1;
         $name=$lastid."sketch.".$type;
         $file->move('image/diagnosis/sketch',$name);
-        
-    //     echo $name;
-    //     echo $file->getClientSize();
-    //    // $file = $request->file('pa_sketch')->storeAs('img/diagnosis', $name.'.'.$b  ,'your_disk');
-    //     return ;
-    
-        
-         DB::insert('INSERT INTO `diagnosis` ( `patientname`, `service`, `hight`, `weight`, `discription`, `skech`, `consultant_dr`) VALUES ( ?, ?, ?, ? ,?,?,?)',[  $request['pa_name'], $request['pa_service'], $request['pa_height'], $request['pa_weight'],$request['pa_discription'],$name,$request['pa_dr']]);
+        DB::table('diagnosis')
+            ->where('id', $lastid)
+            ->update(['skech'=> $name]);
          return view('admin.diagnosis.success');
     }
     public function update(DiagnosisValUpdate $request,Diagnosis $diagnosise)

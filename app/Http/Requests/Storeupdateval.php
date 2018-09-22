@@ -21,9 +21,9 @@ class Storeupdateval extends FormRequest
         
         return [
             'name'=>'required|max:191'
-            ,'quantity'=>'required|numeric|digits_between:1,5'
-            ,'max'=>'required|numeric|digits_between:1,5'
-            ,'min'=>'required|numeric|digits_between:1,5'
+            ,'quantity'=>'required|integer|min:0'
+            ,'max'=>'required|integer|min:0'
+            ,'min'=>'required|integer|min:0'
         ];
     }
 
@@ -36,10 +36,13 @@ class Storeupdateval extends FormRequest
             'max.required'=>'Item'.$de.'s max quantity must be insert!',
             'min.required'=>'Item'.$de.'s min quantity must be insert!',
 
-            'name.max'=>'Item name may not be greater than 191 characters.!',
-            'quantity.digits_between'=>'Item'.$de.'s quantity may not be greater than 5 number!',
-            'max.digits_between'=>'Item'.$de.'s max quantity may not be greater than 5 number!',
-            'min.digits_between'=>'Item'.$de.'s min quantity may not be greater than 5 number!'
+            'min.integer'=>'Item'.$de.'s min quantity must be integer!',
+            'max.integer'=>'Item'.$de.'s max quantity must be integer!',
+            'quantity.integer'=>'Item'.$de.'s min quantity must be integer!',
+
+            'min.integer'=>'Item'.$de.'s min quantity must be integer!',
+            'max.integer'=>'Item'.$de.'s max quantity must be integer!',
+            'quantity.integer'=>'Item'.$de.'s min quantity must be integer!'
         ];
     }
 }

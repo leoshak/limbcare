@@ -29,11 +29,11 @@
         </div> 
         
         <div class="form-group">
-          <label for="reply1">Reply 1</label>
+          <label for="reply1">Reply 1 (optional)</label>
           <input type="text" class="form-control"name="reply1" id="reply1" value="{{ $questionsforum->replay1}}">
         
           <div class="form-group">
-              <label for="qurp1_pic">Reply 1 image</label>
+              <label for="qurp1_pic">Reply 1 image (optional)</label>
               <input type="file" class="form-control" name="qurp1_pic" id="qurp1_pic" accept="image/*" />
           </div>
           @if( !($questionsforum->replay1_pic)==null)
@@ -42,10 +42,10 @@
         </div>
         @if(( !($questionsforum->replay1)==null)or( !($questionsforum->replay2)==null) )
         <div class="form-group">
-          <label for="reply2">Reply 2</label>
+          <label for="reply2">Reply 2 (optional)</label>
           <input type="text" class="form-control"name="reply2" id="reply2" value="{{ $questionsforum->replay2}}">
           <div class="form-group">
-              <label for="qurp2_pic">Reply 2 image</label>
+              <label for="qurp2_pic">Reply 2 image (optional)</label>
               <input type="file" class="form-control" name="qurp2_pic" id="qurp2_pic" accept="image/*" />
           </div>
           @if( (!($questionsforum->replay2_pic)==null))
@@ -55,10 +55,10 @@
         @endif
         @if( (!($questionsforum->replay2)==null) or( !($questionsforum->replay3)==null))
         <div class="form-group">
-          <label for="reply3">Reply 3</label>
+          <label for="reply3">Reply 3 (optional)</label>
           <input type="text" class="form-control"name="reply3" id="reply3" value="{{ $questionsforum->replay3}}">
           <div class="form-group">
-              <label for="qurp3_pic">Reply 3 image</label>
+              <label for="qurp3_pic">Reply 3 image (optional)</label>
               <input type="file" class="form-control" name="qurp3_pic" id="qurp3_pic" accept="image/*" />
           </div>
           @if( !($questionsforum->replay3_pic)==null)
@@ -68,10 +68,10 @@
         @endif
         @if( (!($questionsforum->replay3)==null)or( !($questionsforum->replay4)==null) )
         <div class="form-group">
-          <label for="reply4">Reply 4</label>
+          <label for="reply4">Reply 4 (optional)</label>
           <input type="text" class="form-control"name="reply4" id="reply4" value="{{ $questionsforum->replay4}}">
           <div class="form-group">
-              <label for="qurp4_pic">Item image</label>
+              <label for="qurp4_pic">Item image (optional)</label>
               <input type="file" class="form-control" name="qurp4_pic" id="qurp4_pic" accept="image/*" />
           </div>
           @if( !($questionsforum->replay4_pic)==null)
@@ -81,10 +81,10 @@
         @endif
         @if( (!($questionsforum->replay4)==null) or( !($questionsforum->replay5)==null))
         <div class="form-group">
-          <label for="reply5">Reply 5</label>
+          <label for="reply5">Reply 5 (optional)</label>
           <input type="text" class="form-control"name="reply5" id="reply5" value="{{ $questionsforum->replay2}}">
           <div class="form-group">
-              <label for="qurp5_pic">Item image</label>
+              <label for="qurp5_pic">Item image (optional)</label>
               <input type="file" class="form-control" name="qurp5_pic" id="qurp5_pic" accept="image/*" />
           </div>
           @if( !($questionsforum->replay5_pic)==null)

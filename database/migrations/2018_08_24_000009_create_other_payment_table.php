@@ -16,6 +16,7 @@ class CreateOtherPaymentTable extends Migration
         Schema::create('otherpay', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descrption');
+            $table->string('type');
             $table->integer('amount');
         });
     }

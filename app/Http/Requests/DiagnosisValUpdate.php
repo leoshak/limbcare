@@ -26,8 +26,8 @@ class DiagnosisValUpdate extends FormRequest
         
         return [
             'name'=>'required|max:191'
-            ,'hight'=>'required|numeric|digits_between:2,3'
-            ,'Weight'=>'required|max:5'
+            ,'hight'=>'required|integer|min:0'
+            ,'Weight'=>'required|integer|min:0'
             ,'discription'=>'required'
         ];
     }
@@ -42,8 +42,10 @@ class DiagnosisValUpdate extends FormRequest
             'discription.required'=>'Pation'.$de.'s name must be insert!'
             ,
             'name.max'=>'Pation name may not be greater than 191 characters.!',
-            'hight.digits_between'=>'Pation'.$de.'s height may not be greater than 3 number!',
-            'Weight.digits_between'=>'Pation'.$de.'s weight may not be greater than 3 number!'
-        ];
+            'hight.min'=>'Patient'.$de.'s height may not be negative number!',
+            'Weight.min'=>'Patient'.$de.'s weight may not be negative number!',
+            'hight.integer'=>'Patient'.$de.'s height must be integer!',
+            'Weight.integer'=>'Patient'.$de.'s weight must be integer!'
+ ];
     }
 }

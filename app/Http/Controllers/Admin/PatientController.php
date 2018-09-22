@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -15,7 +16,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('admin.patients.index');
+        $patients = patient::all();
+        return view('admin.patients.index', compact('patients'));    
     }
 
     /**
@@ -25,7 +27,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.patients.add');
     }
 
     /**
@@ -34,9 +36,33 @@ class PatientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, patient $patient)
     {
-        //
+        $validatedData = $request->validate([
+            // 'id' => 'required',
+            // 'nic' => 'required',
+            //'name' => 'required|string',
+            'name'     => 'required|regex:/^[\pL\s\-]+$/u',
+            'nic' => 'required|regex:/[0-9]{9}[V-v]+$/',
+            'address' => 'required',
+            'password' => 'required|min:8',
+            'confirm-password' => 'required|same:password',
+
+
+            'email' => 'required|email',
+
+            //'mobile' => 'required|min:11|numeric',
+            'mobile' => 'required|regex:/(0)[0-9]{9}/'
+
+            // 'birthday' => 'required'
+        ]);
+
+
+
+        DB::insert('INSERT INTO `patient` ( `name`,`email`,`nic`, `password`, `mobile`, `address`) VALUES ( ?,?, ?, ?, ? ,?)',[  $request['name'],$request['email'], $request['nic'], $request['password'], $request['mobile'],$request['address']]);
+        //return view('admin.patients.success');
+        return redirect()->route('admin.patients')->with('message', 'Patient added successfully!');
+
     }
 
     /**
@@ -47,7 +73,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        //
+        return view('admin.patients.show', ['patient' => $patient]);
     }
 
     /**
@@ -56,9 +82,9 @@ class PatientController extends Controller
      * @param  \App\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit(Patient $patient, Request $request)
     {
-        //
+        return view('admin.patients.edit', ['patient' => $patient]);
     }
 
     /**
@@ -70,17 +96,44 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        //
+        $validatedData = $request->validate([
+            // 'id' => 'required',
+            // 'nic' => 'required',
+            //'name' => 'required|string',
+            'name'     => 'required|regex:/^[\pL\s\-]+$/u',
+            'nic' => 'required|regex:/[0-9]{9}[V-v]/',
+            'address' => 'required',
+            'email' => 'required|email',
+
+            //'mobile' => 'required|min:11|numeric',
+            'mobile' => 'required|regex:/(0)[0-9]{9}/'
+
+            // 'birthday' => 'required'
+        ]);
+        $patient->name = $request->get('name');
+        $patient->nic = $request->get('nic');
+        $patient->email = $request->get('email');
+        $patient->address= $request->get('address');
+
+        $patient->mobile = $request->get('mobile');
+
+        // if ($request->has('password')) {
+        //     $user->password = bcrypt($request->get('password'));
+        // }
+        // $user->active = $request->get('active', 0);
+        // $user->confirmed = $request->get('confirmed', 0);
+        $patient->save();
+        $message = 'Successfully updated patient named '.$patient->name.' with id '.$patient->id;
+        return redirect()->intended(route('admin.patients'))->with('message', $message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Patient $patient)
     {
-        //
+        $message = 'Successfully deleted patient named :- '.$patient->name.' with ID :-'.$patient->id;
+
+        $patient->delete();
+        //careturn view('admin.patients.delete',['patient' => $patient]);
+        return redirect()->route('admin.patients')->with('message', $message);
     }
 }

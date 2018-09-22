@@ -5,10 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Models\FinancialSalaryPayment;
 use App\Models\FinancialBillPayment;
 use App\Models\FinancialOtherPayment;
+use App\Models\Outcome;
+use App\Models\Income;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+
+use App\Http\Requests\Bill;
+use App\Http\Requests\BillIpdate;
+use App\Http\Requests\Salary;
+use App\Http\Requests\Salarypdate;
+use App\Http\Requests\OtherPay;
+use App\Http\Requests\OtherPayUpdate;
 
 class FinancialController extends Controller
 {
@@ -19,10 +28,21 @@ class FinancialController extends Controller
      */
     public function index()
     {
-        $financials = FinancialSalaryPayment::all();
-        $bills = FinancialBillPayment::all();
-        $otherpays = FinancialOtherPayment::all();        
-        return view('admin.financial.index', ['financials' => $financials, 'bills' => $bills, 'otherPayments' => $otherpays]);
+        $outcomes = Outcome::all();
+        $incomes = Income::all();   
+        $incomevalu=0;
+        $outcomevalu=0;
+        foreach($outcomes as $outcome)
+        {
+            $outcomevalu=  $outcomevalu+$outcome->amount;
+        }
+        foreach($incomes as $income)
+        {
+            $incomevalu= $incomevalu+$income->amount;
+        }
+
+        $profit= $incomevalu-$outcomevalu;
+        return view('admin.financial.index', ['outcomes' => $outcomevalu, 'incomes' => $incomevalu,'profit' => $profit]);
     }
 
     /**
@@ -34,29 +54,76 @@ class FinancialController extends Controller
     {
         return view('admin.financial.add');
     }
-
+    
+    public function indexbill()
+    {
+        $bills = FinancialBillPayment::all();
+        return view('admin.financial.index_bill',['bills' => $bills]);
+    }
+    public function addbill()
+    {
+        return view('admin.financial.add_bill');
+    }
+    
+    public function indexsalary()
+    {
+        $financials = FinancialSalaryPayment::all();
+        return view('admin.financial.index_salary',['financials' => $financials]);
+    }
+    
+    public function addsalary()
+    {
+        return view('admin.financial.add_salary');
+    }
+    
+    public function indexother()
+    {
+        $otherpays = FinancialOtherPayment::all(); 
+        return view('admin.financial.index_other',['otherPayments' => $otherpays]);
+    }public function addother()
+    {return view('admin.financial.add_other');
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function stor(Request $request)
+    public function stor(Bill $request)
     {
+        DB::insert('INSERT INTO `income` ( `amount`) VALUES  ( ?)',[ $request['bi_am']]);
         DB::insert('INSERT INTO `bill` ( `patientname`, `descrption`, `amount`) VALUES  ( ?, ?, ?)',[$request['bi_name'], $request['bi_note'], $request['bi_am']]);
-        return view('admin.financial.success');
+        return view('admin.financial.success_bill');
     }
-    public function salary(Request $request)
+    public function salary(Salary $request)
     { 
         $now = new DateTime();
-
+        DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['emp_am']]);
         DB::insert('INSERT INTO `salarypay` (`emp_name`, `date`, `amount`) VALUES  ( ?, ?, ?)',[$request['emp_name'], $now, $request['emp_am']]);
-        return view('admin.financial.success');
+        return view('admin.financial.success_salary');
     }
-    public function other(Request $request)
+    public function other(OtherPay $request)
     { 
-         DB::insert('INSERT INTO `otherpay` ( `descrption`, `amount`) VALUES   ( ?,?)',[$request['oth_note'], $request['oth_am']]);
-        return view('admin.financial.success');
+        $type=$request['oth_type'];
+
+        if($type=="")
+        {
+            $message = 'Nothig select in payment type ';
+            return redirect()->intended(route('admin.financial.add_other'))->with('message', $message);
+        
+        }
+        if($type=="income")
+        {
+            DB::insert('INSERT INTO `income` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
+            DB::insert('INSERT INTO `otherpay` ( `descrption`,`type`, `amount`) VALUES   ( ?,?,?)',[$request['oth_note'],$request['oth_type'], $request['oth_am']]);
+            return view('admin.financial.success_other');
+        }
+        else if($type=="outcome")
+        {
+        DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
+        DB::insert('INSERT INTO `otherpay` ( `descrption`,`type`, `amount`) VALUES   ( ?,?,?)',[$request['oth_note'],$request['oth_type'], $request['oth_am']]);
+        return view('admin.financial.success_other');
+        }
     }
     /**
      * Display the specified resource.
@@ -95,12 +162,25 @@ class FinancialController extends Controller
      * @param  \App\Financial  $financial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(BillIpdate $request)
     {
+        $bills = DB::select('select * from bill where id ='.$request['id']);
+        foreach($bills as $bill)
+          {
+              $patientname=$bill->patientname;
+              $descrption=$bill->descrption;
+                
+              if(($patientname==$request['patientname']) and($descrption==$request['descrption']) )
+              {
+              $message = 'Nothing to update';
+              return redirect()->intended(route('admin.financial.edit',[$bill->id]))->with('message', $message);
+              }
+              
+          }
         DB::table('bill')
         ->where('id', $request['id'])
-        ->update(['patientname' =>$request['patientname'],'descrption' =>$request['descrption'],'amount' =>$request['amount']]);
-        return view('admin.financial.success');
+        ->update(['patientname' =>$request['patientname'],'descrption' =>$request['descrption']]);
+        return view('admin.financial.success_bill');
     }
 
     //financial salary edit
@@ -112,8 +192,8 @@ class FinancialController extends Controller
     {
         DB::table('salarypay')
         ->where('id', $request['id'])
-        ->update(['emp_name' =>$request['emp_name'],'date' =>$request['date'],'amount' =>$request['amount']]);
-        return view('admin.financial.success');
+        ->update(['emp_name' =>$request['emp_name']]);
+        return view('admin.financial.success_salary');
     }
 
     //financial otherpay edit
@@ -121,12 +201,30 @@ class FinancialController extends Controller
     {
         return view('admin.financial.edit_otherpay', ['financialOtherPay' => $financialOtherPay]);
     }
-    public function updateOtherPay(Request $request)
+    public function updateOtherPay(OtherPayUpdate $request)
     {
+        $other = DB::select('select * from otherpay where id ='.$request['id']);
+        foreach($other as $others)
+          {
+              $descrption=$others->descrption;
+                
+              if(($descrption==$request['descrption']) )
+              {
+              $message = 'Nothing to update';
+              return redirect()->intended(route('admin.financial.edit_otherpay',[$others->id]))->with('message', $message);
+              }
+              
+          }
+        if($type=="")
+        {
+            $message = 'Nothig select in payment type ';
+            return redirect()->intended(route('admin.financial.add_other'))->with('message', $message);
+        
+        }
         DB::table('otherpay')
         ->where('id', $request['id'])
-        ->update(['descrption' =>$request['descrption'], 'amount' =>$request['amount']]);
-        return view('admin.financial.success');
+        ->update(['descrption' =>$request['descrption']]);
+        return view('admin.financial.success_other');
     }
 
     /**
@@ -144,7 +242,7 @@ class FinancialController extends Controller
     public function destroy(Request $request)
     {
         DB::table('salarypay')->where('id', $request['id'])->delete();
-        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
+        return view('admin.financial.success_salary');
     }
 
     //delete bill record
@@ -156,7 +254,7 @@ class FinancialController extends Controller
     public function destroyBill(Request $request)
     {
         DB::table('bill')->where('id', $request['id'])->delete();
-        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
+        return view('admin.financial.success_bill');
     }
     
     //delete other record
@@ -168,6 +266,6 @@ class FinancialController extends Controller
     public function destroyOtherPay(Request $request)
     {
         DB::table('otherpay')->where('id', $request['id'])->delete();
-        return redirect()->route('admin.financial')->with('message', 'Successfully deleted');
+        return view('admin.financial.success_other');
     }
 }

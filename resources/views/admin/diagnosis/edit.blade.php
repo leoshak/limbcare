@@ -15,19 +15,19 @@
             <div class="alert alert-danger">{{ Session::get('message') }}</div>
         @endif
         <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Name *</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ $diagnosis->patientname }}">
               </div>
         <div class="form-group">
-          <label for="Weight">Weight</label>
+          <label for="Weight">Weight(cm) *</label>
           <input type="text" class="form-control"name="Weight" id="Weight" value="{{ $diagnosis->weight}}">
         </div>
         <div class="form-group">
-            <label for="hight">Hight</label>
+            <label for="hight">Hight(kg) *</label>
             <input type="text" class="form-control"name="hight" id="hight" value="{{ $diagnosis->hight}}">
           </div>
         <div class="form-group">
-            <label for="discription">Discription</label>
+            <label for="discription">Description *</label>
             <textarea class="form-control" name="discription" id="discription" cols="30" rows="10" value="" >{{ $diagnosis->discription}}</textarea>
           </div>
         <input type="hidden" id="id" name="id" value="{{ $diagnosis->id }}">
