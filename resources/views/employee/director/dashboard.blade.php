@@ -46,21 +46,65 @@
                 </div>
                 <div class="x_content">
                     <div class="col-md-12">
-                        <div class="jcarousel">
-                                <ul style="left: 0px; top: 0px;">
-                                    <li><img src="http://www.artificiallimbcare.lk/img/bg-img/bg2.jpg" alt="" width="600" height="400"></li>
-                                    <li><img src=".http://www.artificiallimbcare.lk/img/bg-img/bg1.jpg" alt="" width="600" height="400"></li>
-                                    <li><img src="http://www.artificiallimbcare.lk/img/bg-img/bg3.jpg" alt="" width="600" height="400"></li>
-                                </ul>
-                                
-                                <p class="jcarousel-pagination" data-jcarouselpagination="true"><a href="#1" class="active">1</a><a href="#2">2</a><a href="#3">3</a></p>
-                            
-                        </div>
-
-                    </div>
-                    <div class="col-md-12 text-center jcarousel-control">
-                        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <th>{{ __('views.admin.users.show.table_header_0') }}</th>
+                                <td><img src="\image\emp\profile\{{ $employee->emp_pic }}"  alt="Pic" height="90" width="90" class="user-profile-image "></td>
+                                {{-- {{ $employee->avatar }} --}}
+                            </tr>
+                
+                            <tr>
+                                <th>{{ __('views.admin.users.show.table_header_1') }}</th>
+                                <td>{{ $employee->name }}</td>
+                            </tr>
+                
+                            <tr>
+                                    <th>Email</th>
+                                    <td>{{ $employee->email }}</td>
+                                </tr>
+                    
+                                <tr>
+                                    <th>Contact Number</th>
+                                    <td>{{ $employee->contactNo }}</td>
+                                </tr>
+                        
+                            <tr>
+                                <th>Employee Type</th>
+                                <td>
+                                    {{-- <a href="mailto:{{ $employee->employeeType }}"> --}}
+                                    {{ $employee->employeeType }}
+                                    {{-- </a> --}}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th>NIC</th>
+                                <td>
+                                    {{ $employee->nic }}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th>Address</th>
+                                <td>
+                                    {{ $employee->address }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Birthday</th>
+                                <td>
+                                    {{ $employee->birthday }}
+                                </td>
+                            </tr>
+                
+                            <tr>
+                                <th></th>
+                                <td><a href="{{ url("edit_profile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
+                                {{-- href="{{ route('admin.employees') }}" --}}
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

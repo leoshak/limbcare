@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\employee\receptionist;
 
 use App\Models\Auth\User\User;
+use App\Models\Employee;
 use Arcanedev\LogViewer\Entities\Log;
 use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
@@ -24,6 +25,12 @@ class RecepDashboardController extends Controller
         $this->middleware('receptionist', ['except' => 'logout']);
     }
 
+    public function editprofile()
+    {
+        $employees = Employee::where('name', auth()->user()->name)->get();
+        $employee = new Employee();
+        return view('employee.receptionist.editprofile', compact('employee'));
+    }
     /**
      * Show the application dashboard.
      *
@@ -43,8 +50,14 @@ class RecepDashboardController extends Controller
                 if (preg_match("/protection/", $middleware, $matches)) $counts['protected_pages']++;
             }
         }
-
-        return view('employee.receptionist.dashboard', ['counts' => $counts]);
+        $employees = Employee::where('name', auth()->user()->name)->get();
+        $employee = new Employee();
+        foreach ($employees as $emp) {
+            if ($emp == auth()->user()->name) {
+                $employee = $emp;
+            }
+        }
+        return view('employee.receptionist.dashboard', ['counts' => $counts, 'employee' => $employee]);
     }
 
 

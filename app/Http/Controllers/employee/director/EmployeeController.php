@@ -50,7 +50,7 @@ class EmployeeController extends Controller
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
-            'address' => 'required|regex:/^[a-zA-Z0-9 ]+$/'
+            'address' => 'required|regex:/^[a-zA-Z0-9 ,\/]+$/'
         ];
 
         $customMessages = [
@@ -66,8 +66,9 @@ class EmployeeController extends Controller
 
         $file=$request ->file('emp_pic');
        
-        $employees=Employee::all();
-        
+        $employees=DB::select('select * from employees ORDER BY id DESC LIMIT 1');
+                
+        $name="panding";
         $type=$file->guessExtension();
         
          foreach($employees as $employeess)
@@ -75,26 +76,21 @@ class EmployeeController extends Controller
              $lastid=$employeess->id;
              
          }
-         if ($lastid==0)
-         {
-             $lastid=0;
-         }
-         $lastid=$lastid+1;
+         
+         $lastid=$lastid;
          
          $name=$lastid."pic.".$type;
          $file->move('image/emp/profile',$name);
-         $request['emp_pic']=$name;
-
          
         //find the role by id
         if ($request->get('employeeType') == 'Receptionist') {
             $role = Role::findOrFail(3);
         } elseif ($request->get('employeeType') == 'Director') {
-            $role = Role::findOrFail(4);
-        } elseif ($request->get('employeeType') == 'PNO') {
             $role = Role::findOrFail(5);
+        } elseif ($request->get('employeeType') == 'PNO') {
+            $role = Role::findOrFail(4);
         } else {
-            $role = Role::findOrFail(1);
+            $role = Role::findOrFail(2);
         }
 
         $user = User::create([
@@ -110,16 +106,16 @@ class EmployeeController extends Controller
         // return a view
 
         $employee->name = $request->get('name');
-        $employee->email = $request->get('email');
-        $employee->contactNo = $request->get('contact');
         $employee->nic = $request->get('nic');
         $employee->employeeType = $request->get('employeeType');
         $employee->emp_pic = $name;
+        $employee->email = $request->get('email');
+        $employee->contactNo = $request->get('contactNo');
         $employee->birthday = $request->get('birthday');
         $employee->address = $request->get('address');
         $employee->save();
-        
-        return redirect()->route('employee.director.employees')->with('message', 'Employee added successfully!');
+
+        return redirect()->route('employee.director.employees')->with('message', 'Employee is added successfully!');
     }
 
     /**

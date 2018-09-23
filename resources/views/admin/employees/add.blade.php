@@ -29,8 +29,8 @@
             {!! Form::email('email',  null, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('contact', 'Contact Number') !!}
-            {!! Form::text('contact',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
+            {!! Form::label('contactNo', 'Contact Number') !!}
+            {!! Form::text('contactNo',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('employeeType', 'Employee Type') !!}
