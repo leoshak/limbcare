@@ -1,10 +1,4 @@
-﻿##Update
-
-Seed the data after pull request
-
-`php artisan db:seed --class=DatabaseSeeder`
-
-Installation
+﻿Installation
 
 Install Composer using detailed installation instructions here
 Install Node.js using detailed installation instructions here

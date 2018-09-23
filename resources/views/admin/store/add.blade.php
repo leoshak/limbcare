@@ -17,7 +17,7 @@
 @endif
         <div class="form-group">
             <label for="it_name">Item name *</label>
-            <input type="text" class="form-control" name="it_name" id="it_name" placeholder="Name" >
+            <input type="text" class="form-control" name="it_name" id="it_name" placeholder="Name" value="{{ old('it_name') }}">
         </div>
         <div class="form-group">
             <label for="it_company">Item company *</label>
@@ -51,6 +51,8 @@
             <label for="it_pic">Item image *</label>
             <input type="file" class="form-control" name="it_pic" id="it_pic" >
         </div>
+        <input type="hidden" id="empID" name="empID" value="1">
+        
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
         <a href="{{ route('admin.store.add') }}" class="btn btn-primary">Clear</a>
         <button type="submit" class="btn btn-primary">Add</button>

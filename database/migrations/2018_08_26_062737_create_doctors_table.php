@@ -19,7 +19,6 @@ class CreateDoctorsTable extends Migration
             $table->string('email');
             $table->string('hospital');
             $table->string('password');
-            $table->string('compass');
             $table->string('mobile');
         });
     }

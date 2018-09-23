@@ -5,7 +5,8 @@
 @section('content')
     <div class="row">
         <table class="table table-striped table-hover">
-            <tbody>
+            <tbody> 
+                    <input type="hidden" id="id" name="id" value="{{ $questionsforum->id }}">
             @if(!($questionsforum->question_pic)==null)
             <tr>
                 <th>Image</th>

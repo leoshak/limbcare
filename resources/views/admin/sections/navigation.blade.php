@@ -16,7 +16,6 @@
             </div>
             <div class="profile_info">
                 <h2>{{ auth()->user()->name }}</h2>
-                <h3>{{ auth()->user()->usertype }}</h3>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -58,9 +57,11 @@
                 @if(!empty($stores))
                     @php ($stor = $stores->id)
                 @endif
-                {{-- @if(!empty($questionsforum))
-                    @php ($qf = $questionsforum->id)
-                @endif --}}
+                @if(!empty($questionsforum))
+                    @if(!empty($questionsforum->id))
+                        @php ($qf =  $questionsforum->id)
+                    @endif
+                @endif 
 
                 <ul class="nav side-menu">
                     <li class="@if (Request::is('admin/employees/add') || Request::is('admin/employees/'.$emp.'/edit') || Request::is('admin/employees/'.$emp)) active @endif">

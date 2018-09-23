@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalaryPaymentTable extends Migration
+class Service extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateSalaryPaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('salarypay', function (Blueprint $table) {
+        Schema::create('service', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('emp_id');
-            $table->integer('amount');
-            $table->DATE('date');
+            $table->string('pic');
+            $table->string('serviceName');
+            $table->text('description');
+            $table->string('type');
+            $table->string('dataenterID');
+            $table->string('dataupdaterID')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateSalaryPaymentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salarypay');
+        Schema::dropIfExists('service');
     }
 }
