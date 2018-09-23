@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Auth\User\User;
+use App\Models\Employee;
 use Arcanedev\LogViewer\Entities\Log;
 use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
+use Auth;
+use DB;
 
-class DashboardController extends Controller
+class PnDashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -20,7 +23,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('administrator', ['except' => 'logout']);
+        $this->middleware('pno', ['except' => 'logout']);
     }
 
     /**
@@ -43,7 +46,14 @@ class DashboardController extends Controller
             }
         }
 
-        return view('admin.dashboard', ['counts' => $counts]);
+        $employees = Employee::where('name', auth()->user()->name)->get();
+        $employee = new Employee();
+        foreach ($employees as $emp) {
+            if ($emp == auth()->user()->name) {
+                $employee = $emp;
+            }
+        }
+        return view('employee.pno.dashboard', ['counts' => $counts, 'employee' => $employee]);
     }
 
 

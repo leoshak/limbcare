@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\employee\pno;
 
 use App\Models\Auth\User\User;
 use Arcanedev\LogViewer\Entities\Log;
@@ -9,8 +9,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
+use Auth;
 
-class DashboardController extends Controller
+class PatientDashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -20,7 +21,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('administrator', ['except' => 'logout']);
+        $this->middleware('patient', ['except' => 'logout']);
     }
 
     /**
@@ -43,7 +44,7 @@ class DashboardController extends Controller
             }
         }
 
-        return view('admin.dashboard', ['counts' => $counts]);
+        return view('patient.dashboard', ['counts' => $counts]);
     }
 
 
