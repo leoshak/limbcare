@@ -22,6 +22,9 @@ class CreateStoreTable extends Migration
             $table->integer('iteam_min')->nullable();
             $table->string('quantity_type')->nullable();
             $table->string('pic');
+            $table->string('Data_entry_ID');
+            $table->string('Data_update_ID');
+            $table->timestamps();
         });
     }
 

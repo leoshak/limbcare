@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-<form action="updateservices" method="post">
+<form action="addstore" method="post">
     {{ csrf_field() }}
     @if (!$errors->isEmpty())
         <div class="alert alert-danger" role="alert">
@@ -16,17 +16,22 @@
         <div class="alert alert-danger">{{ Session::get('message') }}</div>
     @endif
         <div class="form-group">
-                <label for="name">Service name *</label>
-                <input type="text" class="form-control" name="name" id="name" value="{{ $Services->serviceName }}">
+                <label for="name">Item name </label>
+                <h4>{{ $stores->iteamname }}</h4>
               </div>
         <div class="form-group">
-          <label for="quantity">Service description *</label>
-          <textarea class="form-control" name="discription" id="discription" cols="30" rows="10" value="" >{{ $Services->description}}</textarea>
+          <label for="quantity">Item quantity </label>
+        <h4>{{ $stores->iteam_quantity }} {{$stores->quantity_type}}</h4>
         </div>
-        <input type="hidden" id="id" name="id" value="{{ $Services->id }}">
-        <input type="hidden" id="uid" name="uid" value="34">
-        <a href="{{ route('admin.services') }}" class="btn btn-danger">Cancel</a>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="form-group">
+            <label for="plus">Item plus *</label>
+            <input type="text" class="form-control"name="plus" id="plus" value="{{ old('plus') }}" >
+          </div>
+          
+        <input type="hidden" id="id" name="id" value="{{ $stores->id }}">
+        <input type="hidden" id="empID" name="empID" value="1">
+        <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
 @endsection

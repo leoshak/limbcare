@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+
 class PatientController extends Controller
 {
     /**
@@ -17,8 +18,7 @@ class PatientController extends Controller
     public function index()
     {
         $patients = patient::all();
-        return view('admin.patients.index', compact('patients'));    
-    }
+        return view('admin.patients.index', compact('patients'));    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,6 +27,7 @@ class PatientController extends Controller
      */
     public function create()
     {
+
         return view('admin.patients.add');
     }
 
@@ -38,13 +39,16 @@ class PatientController extends Controller
      */
     public function store(Request $request, patient $patient)
     {
+
         $validatedData = $request->validate([
             // 'id' => 'required',
             // 'nic' => 'required',
             //'name' => 'required|string',
             'name'     => 'required|regex:/^[\pL\s\-]+$/u',
-            'nic' => 'required|regex:/[0-9]{9}[V-v]+$/',
+            'nic' => 'required|regex:/[0-9]{9}[V-v]/',
             'address' => 'required',
+            'gender'=> 'in:Male,Female',
+
             'password' => 'required|min:8',
             'confirm-password' => 'required|same:password',
 
@@ -59,7 +63,7 @@ class PatientController extends Controller
 
 
 
-        DB::insert('INSERT INTO `patient` ( `name`,`email`,`nic`, `password`, `mobile`, `address`) VALUES ( ?,?, ?, ?, ? ,?)',[  $request['name'],$request['email'], $request['nic'], $request['password'], $request['mobile'],$request['address']]);
+        DB::insert('INSERT INTO `patient` ( `name`,`email`,`gender`,`nic`, `password`, `mobile`, `address`) VALUES ( ?,?,?, ?, ?, ? ,?)',[  $request['name'],$request['email'],$request['gender'], $request['nic'], $request['password'], $request['mobile'],$request['address']]);
         //return view('admin.patients.success');
         return redirect()->route('admin.patients')->with('message', 'Patient added successfully!');
 
@@ -73,6 +77,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
+
         return view('admin.patients.show', ['patient' => $patient]);
     }
 
@@ -96,6 +101,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
+
         $validatedData = $request->validate([
             // 'id' => 'required',
             // 'nic' => 'required',
@@ -135,5 +141,6 @@ class PatientController extends Controller
         $patient->delete();
         //careturn view('admin.patients.delete',['patient' => $patient]);
         return redirect()->route('admin.patients')->with('message', $message);
+
     }
 }

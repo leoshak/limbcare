@@ -18,6 +18,8 @@ trait UserScopes
         if ($role instanceof Model) $role = $role->getKey();
 
         $query->whereHas('roles', function ($query) use ($role) {
+            /** @var $query \Illuminate\Database\Query\Builder */
+            $query->orWhere('id', $role)->orWhere('name', $role);
         });
 
         return $query;

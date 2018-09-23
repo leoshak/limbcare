@@ -89,7 +89,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
-
     
     public function is_receptionist() {
         if ($this->userType == 'Receptionist') {
@@ -97,7 +96,6 @@ class User extends Authenticatable
         }
         return false;
     }
-
     public function is_admin() {
         if ($this->userType == 'Admin') {
             return true;

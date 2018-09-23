@@ -63,13 +63,13 @@
                 @endif --}}
 
                 <ul class="nav side-menu">
-                    <li class="@if (Request::is('receptionist/employees') || Request::is('receptionist/diagnosis/add')) active @endif">
+                    <li class="@if (Request::is('receptionist/employees') || Request::is('receptionist/employees/add')) active @endif">
                         <a href="{{ route('receptionist.employees') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ "Employees" }}
                         </a>
                     </li>
-                    <li class="@if (Request::is('receptionist/diagnosis') || Request::is('receptionist/diagnosis/add')) active @endif">
+                    <li class="@if (Request::is('receptionist/patients') || Request::is('receptionist/patients/add')) active @endif">
                         <a href="{{ route('receptionist.patients') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ "Patients" }}

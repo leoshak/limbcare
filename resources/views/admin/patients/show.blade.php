@@ -2,7 +2,6 @@
 
 @section('title', __('views.admin.users.show.title', ['name' => $patient->name]))
 
-
 @section('content')
     <div class="row">
         <table class="table table-striped table-hover">
@@ -19,10 +18,18 @@
             </tr>
 
             <tr>
-                <th>patient Type</th>
+                <th>E-Mail</th>
                 <td>
                     {{-- <a href="mailto:{{ $patient->patientType }}"> --}}
                     {{ $patient->email }}
+                    {{-- </a> --}}
+                </td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>
+                    {{-- <a href="mailto:{{ $patient->patientType }}"> --}}
+                    {{ $patient->gender}}
                     {{-- </a> --}}
                 </td>
             </tr>
@@ -46,6 +53,7 @@
                     {{ $patient->mobile }}
                 </td>
             </tr>
+
 
             <tr>
                 <th></th>
