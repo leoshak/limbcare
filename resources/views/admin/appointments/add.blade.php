@@ -19,8 +19,8 @@
                 {!! Form::text('id', null, ['class' => 'form-control']) !!}
             </div> --}}
             <div class="form-group">
-                {!! Form::label('name', 'Patient Name') !!}
-                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Patient Name']) !!}
+                {!! Form::label('name', 'Name') !!}
+                {!! Form::text('name', null, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('date', 'Date') !!}

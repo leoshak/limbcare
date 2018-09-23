@@ -12,14 +12,9 @@
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form action="{{ route('admin.appointments') }}" method="get" class="form-inline">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="key" placeholder="Search" aria-label="Search" value="{{isSet($key) ? $key : ''}}" />
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" style="margin-top: -10px;" type="submit">Search</button>
-                    </div>
-                    {{-- <i class="fa fa-search" aria-hidden="true"></i> --}}
+                <form class="form-inline active-cyan-3">
+                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
                 </form>
             </div>
         </div>
