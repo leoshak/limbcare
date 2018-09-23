@@ -25,14 +25,6 @@
             {!! Form::text('nic',  null, ['class' => 'form-control', 'placeholder'=>'Without V']) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('email', 'Email') !!}
-            {!! Form::email('email',  null, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('contact', 'Contact Number') !!}
-            {!! Form::text('contact',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
-        </div>
-        <div class="form-group">
             {!! Form::label('employeeType', 'Employee Type') !!}
             {!! Form::select('employeeType', ['Director' => 'Director', 'Receptionist' => 'Receptionist', 'PNO'=> 'PNO'], null, ['placeholder' => 'Choose...', 'class'=> 'form-control']) !!}
             {{-- <select id="inputEmployeeType" class="form-control">

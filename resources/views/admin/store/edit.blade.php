@@ -32,6 +32,7 @@
               <input type="text" class="form-control"name="min" id="min" value="{{ $stores->iteam_min}}">
             </div>
         <input type="hidden" id="id" name="id" value="{{ $stores->id }}">
+        <input type="hidden" id="empID" name="empID" value="2">
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

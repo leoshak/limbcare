@@ -22,6 +22,7 @@ class CreateDiagnosisTable extends Migration
             $table->text('discription');
             $table->string('skech');
             $table->string('consultant_dr');
+            $table->timestamps();
         });
     }
 

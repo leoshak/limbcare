@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Carbon\Carbon;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -22,7 +23,11 @@ class StoreController extends Controller
         $store=Store::all();
         return view('admin.store.index',compact('store') );
     }
-
+    public function reportS()
+    {
+        $storeR=Store::all();
+        return view('admin.store.report',compact('storeR') );
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +43,7 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storeval $request)
+    public function store(Storeval $request,Store $storeA)
     {
         $lastid=0;
         $em=$request->it_type;
@@ -54,9 +59,22 @@ class StoreController extends Controller
         }
         $name="panding";
        $file=$request ->file('it_pic');
-       DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`,`quantity_type`, `pic`) VALUES  (?, ?, ?, ?, ? ,?,?)',[$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_type'],$name]);
-       $store = DB::select('select * from store ORDER BY id DESC LIMIT 1');
-        
+       $up=0;
+    //    DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`,`quantity_type`, `pic`) VALUES  (?, ?, ?, ?, ? ,?,?)',
+    // [$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_type'],$name]);
+        $storeA->iteamname = $request->get('it_name');
+        $storeA->iteam_quantity = $request->get('it_quantity');
+        $storeA->company = $request->get('it_company');
+        $storeA->iteam_max = $request->get('it_max');
+        $storeA->iteam_min = $request->get('it_min');
+        $storeA->quantity_type = $request->get('it_type');
+        $storeA->pic = $name;
+        $storeA->Data_entry_ID = $request->get('empID');
+        $storeA->Data_update_ID = $up;
+
+        $storeA->save();
+
+        $store = DB::select('select * from store ORDER BY id DESC LIMIT 1');
        $type=$file->guessExtension();
        $lastid = 0;
         foreach($store as $Stores)
@@ -67,10 +85,12 @@ class StoreController extends Controller
         $name=$lastid."item.".$type;
         $file->move('image/store/item',$name);
         
-            DB::table('store')
-            ->where('id', $lastid)
-            ->update(['pic'=> $name]);
-        
+            // DB::table('store')
+            // ->where('id', $lastid)
+            // ->update(['pic'=> $name]);
+            $storeA->pic = $name;
+            $storeA->save();
+
         return view('admin.store.success');
     }
 
@@ -95,7 +115,36 @@ class StoreController extends Controller
     {
         return view('admin.store.edit',['stores' => $store]);
     }
+    public function min(Store  $store)
+    {
+        return view('admin.store.minus',['stores' => $store]);
+    }
+    public function minitem(Request $request)
+    {
+        $store = DB::select('select * from store where id ='.$request['id']);
+        foreach($store as $stores)
+          {
+            $nowitem=$stores->iteam_quantity;
+            
+          }
+          
+          $validatedData = $request->validate([
+            'min'     => 'required|integer|min:0'
 
+        ]);
+        $nowitem=$nowitem-$request['min'];
+        
+        $nowtime = Carbon::now();
+        DB::table('store')
+        ->where('id', $request['id'])
+        ->update(['iteam_quantity' =>$nowitem,'Data_update_ID' =>$request['empID'],'updated_at' =>$nowtime]);
+        return view('admin.store.success');
+    }
+
+    public function plus(Store  $store)
+    {
+        return view('admin.store.plus',['stores' => $store]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -103,6 +152,34 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
+
+    
+    public function UPplus(Request $request)
+    {
+        $store = DB::select('select * from store where id ='.$request['id']);
+        foreach($store as $stores)
+          {
+            $nowitem=$stores->iteam_quantity;
+            $maxque=$stores->iteam_max;
+          }
+          
+          $validatedData = $request->validate([
+            'plus'     => 'required|integer|min:0'
+
+        ]);
+        $nowitem=$nowitem+$request['plus'];
+        if($nowitem>$maxque)
+        {
+            $message = 'Can;t add max >'.$maxque.' max '.$request['plus'];
+            return redirect()->intended(route('admin.store.plus',$request['id']))->with('message', $message);
+        }
+        $nowtime = Carbon::now();
+        DB::table('store')
+        ->where('id', $request['id'])
+        ->update(['iteam_quantity' =>$nowitem,'Data_update_ID' =>$request['empID'],'updated_at' =>$nowtime]);
+        return view('admin.store.success');
+    }
+
     public function update(Storeupdateval $request)
     {
         $store = DB::select('select * from store where id ='.$request['id']);
@@ -128,7 +205,7 @@ class StoreController extends Controller
           }
         DB::table('store')
         ->where('id', $request['id'])
-        ->update(['iteamname' => $request['name'],'iteam_quantity' =>$request['quantity'],'iteam_max' =>$request['max'],'iteam_min' =>$request['min']]);
+        ->update(['iteamname' => $request['name'],'iteam_quantity' =>$request['quantity'],'iteam_max' =>$request['max'],'iteam_min' =>$request['min'],'Data_update_ID' =>$request['empID']]);
         return view('admin.store.success');
 }
 
@@ -147,4 +224,13 @@ class StoreController extends Controller
         DB::table('store')->where('id', $request['id'])->delete();
          return view('admin.store.success');
     }
+    public function search(Request $request)//Request $request, Employee $employee
+    {
+        $store = DB::table('store')->where('id', $request['search'])->orWhere('iteamname', 'like', '%' . $request['search'] . '%')->get();
+
+        return view('admin.store.index', compact('store'));
+
+    }
+    
+    
 }
