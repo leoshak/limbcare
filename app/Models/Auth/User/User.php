@@ -74,7 +74,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'active', 'confirmation_code', 'confirmed'];
+    protected $fillable = ['name', 'email', 'password', 'active', 'confirmation_code', 'confirmed', 'usertype'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -89,4 +89,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+    
+    public function is_receptionist() {
+        if ($this->userType == 'Receptionist') {
+            return true;
+        }
+        return false;
+    }
+    public function is_admin() {
+        if ($this->userType == 'Admin') {
+            return true;
+        }
+        return false;
+    }
 }

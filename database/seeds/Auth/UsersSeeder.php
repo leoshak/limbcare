@@ -31,6 +31,18 @@ class UsersSeeder extends Seeder
                 'confirmed' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'usertype' => 'administrator'
+            ],
+            [
+                'name' => 'Blasanka',
+                'email' => 'blasanka.laravel@labs64.com',
+                'password' => bcrypt('asa'),
+                'active' => true,
+                'confirmation_code' => \Ramsey\Uuid\Uuid::uuid4(),
+                'confirmed' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'usertype' => 'PNO'
             ],
             [
                 'name' => 'Demo',
@@ -41,6 +53,7 @@ class UsersSeeder extends Seeder
                 'confirmed' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'usertype' => 'receptionist'
             ]
         ];
 
