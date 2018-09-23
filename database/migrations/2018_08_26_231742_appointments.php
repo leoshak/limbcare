@@ -20,6 +20,7 @@ class Appointments extends Migration
             $table->time('time');
             $table->string('type');
             $table->timestamps();
+            
         });
     }
 
@@ -30,6 +31,6 @@ class Appointments extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('appointments');
     }
 }

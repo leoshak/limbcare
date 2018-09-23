@@ -1,32 +1,35 @@
 @extends('admin.layouts.admin')
 
+@section('title', "Patient Management")
+
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="row">
-        <div class="col-12 col-md-8">
-            @section('title', "Patient Management")
-        </div>
-        <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                
-            </div>
-            <div class="right-searchbar">
-                <div class="emptable">
-                    <a href="{{ route('admin.diagnosis.index') }}" class="btn btn-warning"> diagnosis card</a>
-                    {{-- <button type="button" class="btn btn-warning">Diagnosis Card </button> --}}
-                    {{ link_to_route('admin.patient.add', 'Add Patient', null, ['class' => 'btn btn-primary']) }}
-                </div>
-                <!-- Search form -->
-                <form class="form-inline active-cyan-3">
-                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </form>
-            </div>
-        </div>
-    <div class="row">
+        <table  class="table table-striped table-bordered dt-responsive nowrap"  cellspacing="0" width="100%" border="0">
+            <thead>
+            <tr>
+                <th>Actions</th>
+
+                    <div class="emptable">
+                        {{ link_to_route('admin.diagnosis.index', 'Diagnosis Card', null, ['class' => 'btn btn-warning']) }}
+                        {{ link_to_route('admin.patient.add', 'Add Patient', null, ['class' => 'btn btn-primary']) }}
+                        {{ link_to_route('admin.patient.chartView', 'Report', null, ['class' => 'btn btn-primary']) }}
+
+                        <input type="text" placeholder="Search Patient" name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+
+
+            </tr>
+            </thead>
+        </table>
         @if(Session::has('message'))
             <div class="alert alert-success">{{ Session::get('message') }}</div>
         @endif
-        @foreach($patients as $patient)
+
+            <div class="row">
+                @foreach($patients as $patient)
+
             <div class="col-xs-6 col-sm-3">
                 <div class="card">
                     <div class="row">
@@ -53,8 +56,8 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+            @endforeach
+
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}
         </div>
@@ -62,5 +65,5 @@
 @endsection
 @section('styles')
     @parent
-    {{ Html::style('assets/admin/css/my_style.css') }}
+    {{ Html::style(mix('assets/admin/css/dashboard.css')) }}
 @endsection

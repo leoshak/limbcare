@@ -1,32 +1,32 @@
 @extends('admin.layouts.admin')
 
+@section('title', "Doctor Management")
+
 @section('content')
     <div class="row">
-        <div class="col-12 col-md-8">
-            @section('title', "Doctor Management")
-        </div>
-        <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                
-            </div>
-            <div class="right-searchbar">
-                <div class="emptable">
-                    <a href="{{ route('admin.doctors.add') }}" class="btn btn-primary">Add Doctor</a>
-                    <!-- Search form -->
-                    <form class="form-inline active-cyan-3">
-                        <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @if(Session::has('message'))
-                <div class="alert alert-success">{{ Session::get('message') }}</div>
-            @endif
+        <table border="0" cellspacing="0" width="100%" class="doctortable">
+            <table>
+            <tr>
 
-        @foreach ($doctors as $doctor)
-           <div class="col-xs-6 col-sm-3">
+                <th>Actions</th>
+                      <div class="emptable">
+                          <a href="{{ route('admin.doctors.add') }}" class="btn btn-primary">Add Doctor</a>
+                 <input type="text" placeholder="Search Doctor" name="search">
+                 <button type="submit"><i class="fa fa-search"></i></button>
+             </div>
+
+            </tr>
+            </table>
+            <br/>
+            <br/>
+            <div class="row">
+                @if(Session::has('message'))
+                    <div class="alert alert-success">{{ Session::get('message') }}</div>
+                @endif
+
+            @foreach ($doctors as $doctor)
+                    <div class="col-xs-6 col-sm-3">
+
                 <div class="card">
                     <div class="row">
                         <div class="card-header">
@@ -38,7 +38,7 @@
                                 <img src="http://www.lifeline.ae/lifeline-hospital/wp-content/uploads/2015/05/LLH-Doctors-Female-Avatar.png" alt="Pic" height="90" width="90">
                             </div>
                             {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
-                            <br/>
+<br/>
                         </div>
                     </div>
                     <div class="card-body text-center">
@@ -52,14 +52,16 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-        <div class="pull-right">
-            {{-- {{ $users->links() }} --}}
-        </div>
-    </div>
+                @endforeach
+                <div class="pull-right">
+                    {{-- {{ $users->links() }} --}}
+                </div>
+            </div>
+
+
 
 @endsection
 @section('styles')
     @parent
-    {{ Html::style('assets/admin/css/my_style.css') }}
+    {{ Html::style(mix('assets/admin/css/dashboard.css')) }}
 @endsection
