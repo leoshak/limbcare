@@ -6,7 +6,9 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
-use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
+use App\Models\Auth\User\User;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -15,10 +17,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
-        return view('admin.employees.index', compact('employees'));
+        $key = $request->input('key');
+        // $emp = Employee::latest()->search($key)->paginate(1);
+
+        $employees = Employee::latest()->search($key)->paginate(20);
+        return view('admin.employees.index', compact('employees', 'key'));
     }
 
     /**
@@ -48,7 +53,7 @@ class EmployeeController extends Controller
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
-            'address' => 'required|regex:/^[a-zA-Z0-9 ,]*$/'
+            'address' => 'required|regex:/^[a-zA-Z0-9 ,\/]+$/'
         ];
 
         $customMessages = [
@@ -65,16 +70,8 @@ class EmployeeController extends Controller
         $file=$request ->file('emp_pic');
        
         $employees=DB::select('select * from employees ORDER BY id DESC LIMIT 1');
-        
+                
         $name="panding";
-        $employee->name = $request->get('name');
-        $employee->nic = $request->get('nic');
-        $employee->employeeType = $request->get('employeeType');
-        $employee->emp_pic = $name;
-        $employee->birthday = $request->get('birthday');
-        $employee->address = $request->get('address');
-        $employee->save();
-
         $type=$file->guessExtension();
         
          foreach($employees as $employeess)
@@ -88,7 +85,37 @@ class EmployeeController extends Controller
          $name=$lastid."pic.".$type;
          $file->move('image/emp/profile',$name);
          
+        //find the role by id
+        if ($request->get('employeeType') == 'Receptionist') {
+            $role = Role::findOrFail(3);
+        } elseif ($request->get('employeeType') == 'Director') {
+            $role = Role::findOrFail(5);
+        } elseif ($request->get('employeeType') == 'PNO') {
+            $role = Role::findOrFail(4);
+        } else {
+            $role = Role::findOrFail(2);
+        }
+
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('nic')),
+            'confirmation_code' => Uuid::uuid4(),
+            'confirmed' => true,
+            'usertype' => $request->get('employeeType')
+        ]);
+        // assign the role to a user based on the select box from the form.
+        $user->roles()->attach($role);
+        // return a view
+
+        $employee->name = $request->get('name');
+        $employee->nic = $request->get('nic');
+        $employee->employeeType = $request->get('employeeType');
         $employee->emp_pic = $name;
+        $employee->email = $request->get('email');
+        $employee->contactNo = $request->get('contactNo');
+        $employee->birthday = $request->get('birthday');
+        $employee->address = $request->get('address');
         $employee->save();
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }

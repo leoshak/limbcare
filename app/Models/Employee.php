@@ -15,6 +15,13 @@ class Employee extends Model
 
     protected $primarykey = 'id';
     protected $fillable = [
-        'id', 'nic', 'name', 'employeeType','emp_pic', 'address', 'birthday'
+        'id', 'email', 'contactNo', 'nic', 'name', 'employeeType','emp_pic', 'address', 'birthday'
     ];
+
+    public function scopeSearch($query, $key) {
+        return $query->where('name', 'like', '%' .$key. '%')
+                    ->orWhere('email', 'like', '%' .$key. '%')
+                    ->orWhere('contactNo', 'like', '%' .$key. '%')
+                    ->orWhere('employeeType', 'like', '%' .$key. '%');
+    }
 }
