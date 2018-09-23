@@ -21,6 +21,7 @@ class Employee extends Model
     public function scopeSearch($query, $key) {
         return $query->where('name', 'like', '%' .$key. '%')
                     ->orWhere('email', 'like', '%' .$key. '%')
-                    ->orWhere('contactNo', 'like', '%' .$key. '%');
+                    ->orWhere('contactNo', 'like', '%' .$key. '%')
+                    ->orWhere('employeeType', 'like', '%' .$key. '%');
     }
 }
