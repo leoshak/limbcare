@@ -1,24 +1,19 @@
-@extends('admin.layouts.admin')
+@extends('employee.pno.layouts.pno')
 @section('content')
     <div class="row title-section">
         <div class=".col-xs-12 .col-sm-6 .col-lg-8">
             @section('title', "Employee Management")
         </div>
         <div class=".col-xs-6 .col-lg-4 searchbar-addbt">
-            <div class="topicbar form-group">
+            <div class="topicbar">
                 {{-- <a href="{{ route('admin.employees.add') }}" class="btn btn-primary">Add Employee</a> --}}
-                {{ link_to_route('admin.employees.add', 'Add Employee', null, ['class' => 'btn btn-primary']) }}
+                {{-- {{ link_to_route('director.employees.add', 'Add Employee', null, ['class' => 'btn btn-primary']) }} --}}
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form action="{{ route('admin.employees') }}" method="get" class="form-inline">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="key" placeholder="Search" aria-label="Search" value="{{isSet($key) ? $key : ''}}" />
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" style="margin-top: -10px;" type="submit">Search</button>
-                    </div>
-                    {{-- <i class="fa fa-search" aria-hidden="true"></i> --}}
+                <form class="form-inline active-cyan-3">
+                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
                 </form>
             </div>
         </div>
@@ -45,12 +40,7 @@
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            {!! Form::open(array('route' => ['admin.employees.delete', $employee->id], 'method' => 'DELETE', 'onSubmit'=> 'return confirm("Do you really want to delete?");')) !!}
-                                <a href="{{ route('admin.employees.show', [$employee->id]) }}" class="btn btn-link">View</a>
-                                <a href="{{ route('admin.employees.edit', [$employee->id]) }}" class="btn btn-success">Update</a>
-                                {{-- <a href="{{ route('admin.employees.delete') }}" class="btn btn-danger">Delete</a> --}}
-                                {!! Form::button('Delete', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
-                            {!! Form::close() !!}
+                            <a href="{{ route('pno.employees.show', [$employee->id]) }}" class="btn btn-link">View</a>
                         </div>
                     </div>
                 </div>
@@ -76,8 +66,6 @@
                     </div>
                 @endif --}}
             @endforeach
-
-            {{-- {{ $emp->appends(['key' => $key])->links() }} --}}
         </div>
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}

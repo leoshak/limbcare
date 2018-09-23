@@ -50,7 +50,7 @@ Route::group(['namespace' => 'Auth'], function () {
  */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
-    // Dashboard
+    //Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     //Employee
@@ -203,6 +203,156 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 });
 
+Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' => 'employee\receptionist', 'middleware' => 'receptionist'], function () {
+
+    //Employee
+    Route::get('editprofile', 'RecepDashboardController@editprofile')->name('editprofile');
+
+    // Dashboard
+    Route::get('/', 'RecepDashboardController@index')->name('dashboard');
+    
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    
+    //appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    
+    //question
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    
+    //store
+    Route::get('store', 'StoreController@index')->name('store');
+    Route::get('store/add', 'StoreController@create')->name('store.add');
+    
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    
+    //Diagnosis
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    
+});
+
+Route::group(['prefix' => 'pno', 'as' => 'pno.', 'namespace' => 'employee\pno', 'middleware' => 'pno'], function () {
+
+    // Dashboard
+    Route::get('/', 'PnDashboardController@index')->name('dashboard');
+    
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    
+    //appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    
+    //question
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    
+    //store
+    Route::get('store', 'StoreController@index')->name('store');
+    Route::get('store/add', 'StoreController@create')->name('store.add');
+    
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    
+    //Diagnosis
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    
+});
+
+Route::group(['prefix' => 'patient', 'as' => 'patient.', 'namespace' => 'patient', 'middleware' => 'patient'], function () {
+
+    // Dashboard
+    Route::get('/', 'PatientDashboardController@index')->name('dashboard');
+    
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    
+    //appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    
+    //question
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    
+    //store
+    Route::get('store', 'StoreController@index')->name('store');
+    Route::get('store/add', 'StoreController@create')->name('store.add');
+    
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    
+    //Diagnosis
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    
+});
+
+Route::group(['prefix' => 'doctor', 'as' => 'doctor.', 'namespace' => 'doctor', 'middleware' => 'doctor'], function () {
+
+    // Dashboard
+    Route::get('/', 'DoctorDashboardController@index')->name('dashboard');
+    
+    //Employee
+    Route::get('employees', 'EmployeeController@index')->name('employees');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    
+    //appointment
+    Route::get('appointments', 'AppointmentController@index')->name('appointments');
+    Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    
+    //question
+    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    
+    //store
+    Route::get('store', 'StoreController@index')->name('store');
+    Route::get('store/add', 'StoreController@create')->name('store.add');
+    
+    //Patient
+    Route::get('patient', 'PatientController@index')->name('patients');
+
+    //Services
+    Route::get('services', 'ServiceController@index')->name('services');
+
+    //doctor
+    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    
+    //Diagnosis
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
+    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/aboutus', 'AboutUsController@aboutus');

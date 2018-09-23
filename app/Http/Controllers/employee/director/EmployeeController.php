@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\employee\director;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -17,13 +17,10 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $key = $request->input('key');
-        // $emp = Employee::latest()->search($key)->paginate(1);
-
-        $employees = Employee::latest()->search($key)->paginate(20);
-        return view('admin.employees.index', compact('employees', 'key'));
+        $employees = Employee::all();
+        return view('employee.director.employees.index', compact('employees'));
     }
 
     /**
@@ -33,7 +30,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('admin.employees.add');
+        return view('employee.director.employees.add');
     }
 
     /**
@@ -49,7 +46,7 @@ class EmployeeController extends Controller
         $validatedData = [
             'emp_pic' => 'required',
             //'name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:users,name,'.$user->id,
-            'name' => 'required|regex:/^[a-zA-Z .]+$/u|max:255',
+            'name' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
@@ -60,7 +57,7 @@ class EmployeeController extends Controller
             'name.regex' => 'Name cannot contain numbers and special characters',
             'nic.digits' => 'NIC must contains only 9 numbers',
             'birthday.before' => 'Funny! Birthday can not be today or future',
-            'address.regex' => 'Address cannot contain special characters like . / @'
+            'address.regex' => 'Address cannot contain special characters like # . @'
         ];
 
         $this->validate($request, $validatedData, $customMessages);
@@ -117,7 +114,8 @@ class EmployeeController extends Controller
         $employee->birthday = $request->get('birthday');
         $employee->address = $request->get('address');
         $employee->save();
-        return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
+
+        return redirect()->route('employee.director.employees')->with('message', 'Employee is added successfully!');
     }
 
     /**
@@ -128,7 +126,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('admin.employees.show', ['employee' => $employee]);
+        return view('employee.director.employees.show', ['employee' => $employee]);
     }
 
     /**
@@ -139,7 +137,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('admin.employees.edit', ['employee' => $employee, 'roles' => Role::get()]);
+        return view('employee.director.employees.edit', ['employee' => $employee, 'roles' => Role::get()]);
     }
 
     /**
@@ -200,7 +198,7 @@ class EmployeeController extends Controller
         //     }
         // }
         $message = 'Successfully updated employee named '.$employee->name.' with id '.$employee->id;
-        return redirect()->intended(route('admin.employees'))->with('message', $message);
+        return redirect()->intended(route('employee.director.employees'))->with('message', $message);
 
         // return view('admin.employees.edit');
     }
@@ -215,7 +213,8 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)//Employee $employee
     {
         $message = 'Successfully deleted employee named '.$employee->name.' with id '.$employee->id;
+        $user = DB::table('users')->where('email',$employee->email)->delete();
         $employee->delete();
-        return redirect()->route('admin.employees')->with('message', $message);
+        return redirect()->route('employee.director.employees')->with('message', $message);
     }
 }
