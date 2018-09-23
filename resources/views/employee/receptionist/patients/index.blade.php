@@ -1,7 +1,5 @@
 @extends('receptionist.layouts.receptionist')
 
-
-
 @section('content')
     <div class="row">
             <div class="col-12 col-md-8">
@@ -9,7 +7,7 @@
                     </div>
             <div class="col-8 col-md-4" style="padding-bottom: 15px;">
                     <div class="topicbar">
-                        <a href="{{ route('admin.diagnosis.index') }}" class="btn btn-primary"> diagnosis card</a>
+                        <a href="{{ route('employee.receptionist.diagnosis.index') }}" class="btn btn-primary"> diagnosis card</a>
                     </div>
                     <div class="right-searchbar">
                         <!-- Search form -->
