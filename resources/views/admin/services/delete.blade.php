@@ -8,14 +8,19 @@
                         <i class="fa fa-trash"></i>
                     </div>				
                     <h4 class="modal-title">Are you sure?</h4>	
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <a href="{{ route('admin.services') }}" class="close" data-dismiss="modal" aria-hidden="true">×</a>
+                   
                 </div>
                 <div class="modal-body">
-                    <p>Do you really want to delete employee named Hewage Kasuni with id E03? This process cannot be undone.</p>
+                    <p>Do you really want to delete item named {{ $services->serviceName }} with id {{ $services->id }}? This process cannot be undone.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                        <a href="{{ route('admin.services') }}" class="btn btn-primary">Cancel</a>
+                        <form action="deleteservices" method="post">
+                                {{ csrf_field() }}
+                    <input type="hidden" id="id" name="id" value="{{ $services->id }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                 </div>
             </div>
         </div>

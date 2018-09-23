@@ -16,6 +16,7 @@
         "php": ">=7.0",
         "albertcht/invisible-recaptcha": "^1.4",
         "arcanedev/log-viewer": "~4.0",
+        "barryvdh/laravel-dompdf": "^0.8.3",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "kyslik/column-sortable": "^5.4",
