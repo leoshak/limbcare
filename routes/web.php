@@ -62,7 +62,7 @@ Route::group(['namespace' => 'Auth'], function () {
  * Backend routes
  */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'administrator'], function () {
-
+    
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
@@ -317,6 +317,9 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
 });
 
 Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' => 'employee\receptionist', 'middleware' => 'receptionist'], function () {
+
+    //Employee
+    Route::get('editprofile', 'RecepDashboardController@editprofile')->name('editprofile');
 
     // Dashboard
     Route::get('/', 'RecepDashboardController@index')->name('dashboard');

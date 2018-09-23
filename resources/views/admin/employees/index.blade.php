@@ -5,15 +5,20 @@
             @section('title', "Employee Management")
         </div>
         <div class=".col-xs-6 .col-lg-4 searchbar-addbt">
-            <div class="topicbar">
+            <div class="topicbar form-group">
                 {{-- <a href="{{ route('admin.employees.add') }}" class="btn btn-primary">Add Employee</a> --}}
                 {{ link_to_route('admin.employees.add', 'Add Employee', null, ['class' => 'btn btn-primary']) }}
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form class="form-inline active-cyan-3">
-                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                <form action="{{ route('admin.employees') }}" method="get" class="form-inline">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="key" placeholder="Search" aria-label="Search" value="{{isSet($key) ? $key : ''}}" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" style="margin-top: -10px;" type="submit">Search</button>
+                    </div>
+                    {{-- <i class="fa fa-search" aria-hidden="true"></i> --}}
                 </form>
             </div>
         </div>
@@ -71,6 +76,8 @@
                     </div>
                 @endif --}}
             @endforeach
+
+            {{-- {{ $emp->appends(['key' => $key])->links() }} --}}
         </div>
         <div class="pull-right">
             {{-- {{ $users->links() }} --}}
