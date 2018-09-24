@@ -88,15 +88,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     //Doctor
     Route::get('doctors', 'DoctorController@index')->name('doctors');
+    Route::any('doctorsearch','DoctorController@search');
     Route::get('doctors/{doctor}/edit', 'DoctorController@edit')->name('doctors.edit');
+    Route::get('doctors/report','DoctorController@report')->name('doctors.report');
+
     Route::get('doctors/add', 'DoctorController@add')->name('doctors.add');
     Route::get('doctors/{doctor}', 'DoctorController@show')->name('doctors.show');
     Route::post('doctors/{doctor}/editdoc','doctorController@update');
+
     Route::put('doctors/update' , 'DoctorController@update')->name('doctors.update');
-    Route::delete('doctors/{user}', 'DoctorController@destroy')->name('doctors.destroy');
-    Route::get('doctors/del', 'DoctorController@delete')->name('doctors.delete');
+    //Route::delete('doctors/{user}', 'DoctorController@destroy')->name('doctors.destroy');
+//    Route::get('doctors/del', 'DoctorController@delete')->name('doctors.delete');
     Route::delete('doctors/{doctor}/delete', 'DoctorController@destroy')->name('doctor.delete');
-    
+    //Route::get('doctors/report', 'DoctorController@add')->name('doctors.report');
+    Route::post('doctors/cal','DoctorController@create');
+    Route::post('doctors/edit','DoctorController@update');
+    Route::post('doctors/report', 'DoctorController@displayReport');
+
     //Financial
     Route::get('financial', 'FinancialController@index')->name('financial');
     Route::get('financial/index_bill', 'FinancialController@indexbill')->name('financial.index_bill');
@@ -142,6 +150,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
     
     //Patient
+     Route::any('patientsearch','PatientController@search');
+    Route::post('patientsreport', 'PatientController@displayReport');
+
     Route::get('patient', 'PatientController@index')->name('patients');
     Route::get('patient/add', 'PatientController@create')->name('patient.add');
     //Route::post('patient/store', 'PatientController@store')->name('patient.store');
@@ -150,9 +161,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::put('patient/{employee}', 'PatientController@update')->name('patient.update');
     Route::delete('patient/{patient}/delete', 'PatientController@destroy')->name('patient.delete');
     Route::post('patient/patient','PatientController@store');
+
     Route::post('patient/{patient}/editpat','PatientController@update');
     Route::get('/laravel_google_chart', 'LaravelGoogleGraph@index');
-    Route::get('chartView', 'LaravelGoogleGraph@index')->name('patient.chartView');
+    Route::get('chartView','PatientController@re')->name('patient.chartView');
     
         //Services
     Route::get('services', 'ServiceController@index')->name('services');

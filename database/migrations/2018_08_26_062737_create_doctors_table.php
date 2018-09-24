@@ -20,6 +20,10 @@ class CreateDoctorsTable extends Migration
             $table->string('hospital');
             $table->string('password');
             $table->string('mobile');
+            $table->string('doc_pic');
+
+            $table->timestamps();
+
         });
     }
 
