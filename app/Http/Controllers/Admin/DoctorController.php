@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use PdfReport;
 use Carbon\Carbon;
+use App\Models\Auth\Role\Role;
+use App\Models\Auth\User\User;
+use Ramsey\Uuid\Uuid;
 
 
 class DoctorController extends Controller
@@ -41,6 +44,13 @@ class DoctorController extends Controller
         $lastid=0;
         $name="panding";
 
+        //check for duplicate
+        Validator::extend('uniqueDoctorCheck', function ($attribute, $value, $parameters, $validator) {
+            $count = DB::table('doctors')->where('email', $value)->count();
+        
+            return $count === 0;
+        });
+
         $validatedData = $request->validate([
 
             'name'     => 'required|regex:/^[\pL\s\-]+$/u',
@@ -54,7 +64,8 @@ class DoctorController extends Controller
             'email' => 'required|email',
 
             //'mobile' => 'required|min:11|numeric',
-            'mobile' => 'required|regex:/(0)[0-9]{9}/'
+            'mobile' => 'required|regex:/(0)[0-9]{9}/',
+            'email' => "uniqueDoctorCheck:{$request->email}"
 
             // 'birthday' => 'required'
         ]);
@@ -78,6 +89,23 @@ class DoctorController extends Controller
 
         DB::insert('INSERT INTO `doctors` (`name`,`email`,`hospital`,`password`,`mobile`,`doc_pic`,`created_at`) VALUES  ( ?,?,?,?,?,?,?)' ,[$request['name'], $request['email'], $request['hospital'],$request['password'],$request['mobile'],$name,$time]);
 
+        
+        //attach the role to login in to correct dashboard
+        $role = Role::findOrFail(6);
+
+        //insert newly added doctor into user table to login and and other things
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('password')),
+            'confirmation_code' => Uuid::uuid4(),
+            'confirmed' => true,
+            'usertype' => 'Doctor'
+        ]);
+
+        // assign the role to a user role.
+        $user->roles()->attach($role);
+        
         return redirect()->route('admin.doctors')->with('message', 'Doctor added successfully!');
 
     }
@@ -146,6 +174,10 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
         $message = 'Successfully deleted doctor named :- '.$doctor->name.' with ID :-'.$doctor->id;
+        
+        //delete doctor record from users table
+        $user = DB::table('doctor')->where('email',$doctor->email)->delete();
+
         $doctor->delete();
 
         return redirect()->route('admin.doctors')->with('message', $message);

@@ -199,10 +199,11 @@ return [
         \App\Providers\MetaServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         \App\Providers\ProtectionProvider::class,
-        Jimmyjs\ReportGenerator\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
-        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Jimmyjs\ReportGenerator\ServiceProvider::class,
     ],
 
     /*
@@ -262,13 +263,14 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'ToJs' => \App\Helpers\ToJs\Facades\ToJsFacade::class,
         'Meta' => \App\Helpers\Meta\Facades\MetaFacade::class,
- 'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'PdfReport' => Jimmyjs\ReportGenerator\Facades\PdfReportFacade::class,
         'ExcelReport' => Jimmyjs\ReportGenerator\Facades\ExcelReportFacade::class,
         'CSVReport' => Jimmyjs\ReportGenerator\Facades\CSVReportFacade::class,
-        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Charts' => ConsoleTVs\Charts\Charts::class,
 
 

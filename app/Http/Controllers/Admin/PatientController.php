@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use PdfReport;
 use Carbon\Carbon;
-
+use App\Models\Auth\Role\Role;
+use App\Models\Auth\User\User;
+use Ramsey\Uuid\Uuid;
+use Validator;
 
 class PatientController extends Controller
 {
@@ -56,7 +59,15 @@ class PatientController extends Controller
      */
     public function store(Request $request, patient $patient)
     {
-    $lastid =0;
+        $lastid =0;
+
+        //check for duplicate
+        Validator::extend('uniquePatientCheck', function ($attribute, $value, $parameters, $validator) {
+            $count = DB::table('users')->where('email', $value)->count();
+        
+            return $count === 0;
+        });
+
         $validatedData = $request->validate([
             // 'id' => 'required',
             // 'nic' => 'required',
@@ -73,7 +84,8 @@ class PatientController extends Controller
             'email' => 'required|email',
 
             //'mobile' => 'required|min:11|numeric',
-            'mobile' => 'required|regex:/(0)[0-9]{9}/'
+            'mobile' => 'required|regex:/(0)[0-9]{9}/',
+            'email' => "uniquePatientCheck:{$request->email}"
 
             // 'birthday' => 'required'
         ]);
@@ -98,6 +110,24 @@ class PatientController extends Controller
             $time =Carbon::now()->format('Y-m-d H:i:s');
 
         DB::insert('INSERT INTO `patient` ( `name`,`email`,`gender`,`nic`, `password`, `mobile`, `address`,`pat_pic`, `created_at`) VALUES ( ?,?,?, ?, ?, ? ,?,?,?)',[  $request['name'],$request['email'],$request['gender'], $request['nic'], $request['password'], $request['mobile'],$request['address'],$name,$time]);
+        
+        
+        //attach the role to login in to correct dashboard
+        $role = Role::findOrFail(7);
+
+        //insert newly added patient into user table to login and and other things
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('password')),
+            'confirmation_code' => Uuid::uuid4(),
+            'confirmed' => true,
+            'usertype' => 'Patient'
+        ]);
+
+        // assign the role to a user role.
+        $user->roles()->attach($role);
+        
         //return view('admin.patients.success');
         return redirect()->route('admin.patients')->with('message', 'Patient added successfully!');
 
@@ -172,7 +202,9 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         $message = 'Successfully deleted patient named :- '.$patient->name.' with ID :-'.$patient->id;
-
+        //delete patient record from users table
+        $user = DB::table('users')->where('email',$patient->email)->delete();
+        
         $patient->delete();
         //careturn view('admin.patients.delete',['patient' => $patient]);
         return redirect()->route('admin.patients')->with('message', $message);
