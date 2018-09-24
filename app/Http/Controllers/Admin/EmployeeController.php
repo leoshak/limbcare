@@ -7,6 +7,8 @@ use App\Models\Auth\Role\Role;
 use Ramsey\Uuid\Uuid;
 use App\Models\Auth\User\User;
 use DB;
+use PdfReport;
+
 class EmployeeController extends Controller
 {
     /**
@@ -197,7 +199,7 @@ class EmployeeController extends Controller
     }
 
     public function gotoReport() {
-        return view('admin.employees.report_view');
+        return view('admin.employees.report');
     }
 
     public function generateReport(Request $request)
@@ -209,12 +211,12 @@ class EmployeeController extends Controller
         $title = 'Employees Report'; // Report title
 
         $meta = [ // For displaying filters description on header
-            'Hired on ' => $fromDate . ' updated ' . $toDate,
+            'Between ' => $fromDate . ' to ' . $toDate,
             'Sort By' => $sortBy
         ];
 
-        $queryBuilder = Employee::select(['name', 'email', 'created_at']) // Do some querying..
-                            ->whereBetween('created_date', array($fromDate, $toDate))
+        $queryBuilder = Employee::select(['name', 'nic', 'employeeType', 'birthday', 'address', 'email', 'contactNo', 'created_at']) // Do some querying..
+                            ->whereBetween('created_at', array($fromDate, $toDate))
                             ->orderBy($sortBy);
 
         $columns = [ // Set Column to be displayed
@@ -225,7 +227,7 @@ class EmployeeController extends Controller
             'Contact No' => 'contactNo',
             'Address' => 'address',
             'Birthday' => 'birthday',
-            'created_at' => 'created_at', // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
+            'created_at' => 'created_at' // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
             // 'name' => function($result) { // You can do if statement or any action do you want inside this closure
             //     return ($result->balance > 100000) ? 'Rich Man' : 'Normal Guy';
             // }
@@ -235,7 +237,7 @@ class EmployeeController extends Controller
         return PdfReport::of($title, $meta, $queryBuilder, $columns)
                     ->editColumn('created_at', [ // Change column class or manipulate its data for displaying to report
                         'displayAs' => function($result) {
-                            return $result->registered_at->format('d M Y');
+                            return $result->created_at->format('d M Y');
                         },
                         'class' => 'left'
                     ])

@@ -57,13 +57,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/add', 'EmployeeController@create')->name('employees.add');
     Route::post('employees/store', 'EmployeeController@store')->name('employees.store');
+    Route::get('employees/report', 'EmployeeController@gotoReport')->name('employees.report');
+    Route::post('employees/rep', 'EmployeeController@generateReport')->name('employees.rep');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
     Route::get('employees/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
     // Route::delete('employees/delete', 'EmployeeController@delete')->name('employees.delete');
     Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
-    Route::get('employees/report_view', 'EmployeeController@gotoReport')->name('employees.report_view');
-    Route::post('employees/rep', 'EmployeeController@generateReport');
+    
 
     //Appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
