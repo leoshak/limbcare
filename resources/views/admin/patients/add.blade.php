@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <form action="patient" method="post">
+        <form action="patient" method="post" enctype="multipart/form-data">
 
             {{ csrf_field() }}
             @if ($errors->any())
@@ -63,6 +63,11 @@ Female                    </label>
                    {{ old('address') }}
                 </textarea>
             </div>
+            <div class="form-group">
+                <label for="pat_pic">Patient Picture</label>
+                <input type="file" class="form-control" name="pat_pic" id="pat_pic" >
+            </div>
+
 
 
 
