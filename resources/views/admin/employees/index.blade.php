@@ -8,6 +8,7 @@
             <div class="topicbar form-group">
                 {{-- <a href="{{ route('admin.employees.add') }}" class="btn btn-primary">Add Employee</a> --}}
                 {{ link_to_route('admin.employees.add', 'Add Employee', null, ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('admin.employees.report', 'Generate Report', null, ['class' => 'btn btn-info']) }}
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->

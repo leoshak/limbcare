@@ -7,6 +7,8 @@ use App\Models\Auth\Role\Role;
 use Ramsey\Uuid\Uuid;
 use App\Models\Auth\User\User;
 use DB;
+use PdfReport;
+
 class EmployeeController extends Controller
 {
     /**
@@ -43,7 +45,7 @@ class EmployeeController extends Controller
         $validatedData = [
             'emp_pic' => 'required',
             //'name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:users,name,'.$user->id,
-            'name' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
+            'name' => 'required|regex:/^[a-zA-Z .]+$/u|max:255',
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
@@ -194,5 +196,58 @@ class EmployeeController extends Controller
         $user = DB::table('users')->where('email',$employee->email)->delete();
         $employee->delete();
         return redirect()->route('admin.employees')->with('message', $message);
+    }
+
+    public function gotoReport() {
+        return view('admin.employees.report');
+    }
+
+    public function generateReport(Request $request)
+    {
+        $fromDate = $request->input('created_date');
+        $toDate = $request->input('to_date');
+        $sortBy = $request->input('sort_by');
+
+        $title = 'Employees Report'; // Report title
+
+        $meta = [ // For displaying filters description on header
+            'Between ' => $fromDate . ' to ' . $toDate,
+            'Sort By' => $sortBy
+        ];
+
+        $queryBuilder = Employee::select(['name', 'nic', 'employeeType', 'birthday', 'address', 'email', 'contactNo', 'created_at']) // Do some querying..
+                            ->whereBetween('created_at', array($fromDate, $toDate))
+                            ->orderBy($sortBy);
+
+        $columns = [ // Set Column to be displayed
+            'Name' => 'name',
+            'Employee Type' => 'employeeType',
+            'NIC' => 'nic',
+            'Email' => 'email',
+            'Contact No' => 'contactNo',
+            'Address' => 'address',
+            'Birthday' => 'birthday',
+            'created_at' => 'created_at' // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
+            // 'name' => function($result) { // You can do if statement or any action do you want inside this closure
+            //     return ($result->balance > 100000) ? 'Rich Man' : 'Normal Guy';
+            // }
+        ];
+
+        // Generate Report with flexibility to manipulate column class even manipulate column value (using Carbon, etc).
+        return PdfReport::of($title, $meta, $queryBuilder, $columns)
+                    ->editColumn('created_at', [ // Change column class or manipulate its data for displaying to report
+                        'displayAs' => function($result) {
+                            return $result->created_at->format('d M Y');
+                        },
+                        'class' => 'left'
+                    ])
+                    ->editColumns(['Total Employees', 'Status'], [ // Mass edit column
+                        'class' => 'right bold'
+                    ])
+                    ->showTotal([ // Used to sum all value on specified column on the last table (except using groupBy method). 'point' is a type for displaying total with a thousand separator
+                        'Total Employees' => 'point' // if you want to show dollar sign ($) then use 'Total Balance' => '$'
+                    ])
+                    ->limit(50) // Limit record to be showed
+                    ->stream(); // other available method: download('filename') to download pdf / make() that will producing DomPDF / SnappyPdf instance so you could do any other DomPDF / snappyPdf method such as stream() or download()
     }
 }
