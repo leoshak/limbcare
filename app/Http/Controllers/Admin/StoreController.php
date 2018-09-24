@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
+use PdfReport;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -232,7 +233,42 @@ class StoreController extends Controller
 
     }
 
+    public function displayReport(Request $request)
+    {
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        //$sortBy = $request->input('sort_by');
 
-    
-    
+        $title = 'Store Report'; // Report title
+
+        $meta = [ // For displaying filters description on header
+            'Registered on' => $fromDate . ' To ' . $toDate,
+          //  'Sort By' => $sortBy
+        ];
+
+        $queryBuilder = store::select('id', 'iteamname', 'iteam_quantity', 'company', 'iteam_max', 'iteam_min','quantity_type', 'pic','created_at') // Do some querying..
+        ->whereBetween('created_at', [$fromDate, $toDate]);
+
+        $columns = [ // Set Column to be displayed
+
+            'Name' => 'iteamname',
+            'Registered At' =>'created_at', // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
+            'Quantity' => 'iteam_quantity',
+            'Type' =>'quantity_type',
+           // 'NIC' => 'nic'
+
+        ];
+
+        // Generate Report with flexibility to manipulate column class even manipulate column value (using Carbon, etc).
+        return PdfReport::of($title, $meta, $queryBuilder, $columns)
+
+            ->editColumns(['Registered At','Name','Quantity','Type'], [ // Mass edit column
+                'class' => 'right '
+            ])
+
+            ->limit(20) // Limit record to be showed
+            ->stream(); // other available method: download('filename') to download pdf / make() that will producing DomPDF / SnappyPdf instance so you could do any other DomPDF / snappyPdf method such as stream() or download()
+    }
+
+
 }

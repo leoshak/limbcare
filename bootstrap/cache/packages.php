@@ -43,13 +43,6 @@
       'SnappyImage' => 'Barryvdh\\Snappy\\Facades\\SnappyImage',
     ),
   ),
-  'consoletvs/charts' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'ConsoleTVs\\Charts\\ChartsServiceProvider',
-    ),
-  ),
   'creativeorange/gravatar' => 
   array (
     'providers' => 
@@ -80,17 +73,6 @@
     'providers' => 
     array (
       0 => 'Kyslik\\ColumnSortable\\ColumnSortableServiceProvider',
-    ),
-  ),
-  'laracasts/flash' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laracasts\\Flash\\FlashServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Flash' => 'Laracasts\\Flash\\Flash',
     ),
   ),
   'laravel/socialite' => 
@@ -139,13 +121,6 @@
     'providers' => 
     array (
       0 => 'Carbon\\Laravel\\ServiceProvider',
-    ),
-  ),
-  'prettus/l5-repository' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Prettus\\Repository\\Providers\\RepositoryServiceProvider',
     ),
   ),
 );

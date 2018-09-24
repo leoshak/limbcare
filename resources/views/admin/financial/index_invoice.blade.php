@@ -6,8 +6,8 @@
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
             <div class="topicbar">
-                <a href="{{ route('admin.financial.add_bill') }}" class="btn btn-success">Add Bill</a>
-                <a href="{{ route('admin.financial.index_invoice') }}" class="btn btn-primary">Invoice</a>
+                <a href="{{ route('admin.financial.index_bill') }}" class="btn btn-success"> Bill</a>
+                <a href="{{ route('admin.financial.add_invoice') }}" class="btn btn-primary">Add Invoice</a>
                 <a href="{{ route('admin.financial') }}" class="btn btn-danger">Back to Financial </a>
             </div>
             <div class="right-searchbar">
@@ -21,9 +21,9 @@
         </div>
     </div>
     <div class="row">
-            <h4>Bills</h4>
+            <h4>Invoice</h4>
             
-            @if(Session::has('message'))compact('patients'),compact('Invoices')
+            @if(Session::has('message'))
                 <div class="alert alert-success">{{ Session::get('message') }}</div>
             @endif
             <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
@@ -31,37 +31,34 @@
                 <thead> 
                 <tr>
                     <th>ID</th>
-                    <th>Total  Amount</th>
+                    <th>Patient Name</th>
                     <th>Amount</th>
+                    <th>Remaining Amount</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach ($bills as $bill)
+                    @foreach ($Invoices as $Invoice)
                         <tr>
-                                @php
-                                $reamont='no';
-                                $amont='no';
-                                foreach ($Invoices as $Invoice)
-                                {
-                                    $amont= $Invoice->amount;
-                                    $reamont= $bill->amount;
-                                }
-                                @endphp
-                            <td>{{ $bill->id }}</td>
-                            
-                            <td>{{ $amont }}</td>
-                            <td>{{ $reamont}}</td>
+                            @php
+                            $name='no';
+                            foreach ($patients as $patient)
+                            {
+                            if($Invoice->patient_ID==$patient->id)
+                            {
+                                $name=$patient->name;
+                            }
+                            }
+                            @endphp
+                            <td>{{ $Invoice->id }}</td>
+                            <td>{{ $name}}</td>
+                            <td>{{ $Invoice->amount }}</td>
+                            <td>{{ $Invoice->remaining_amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showBill', [$bill->id]) }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showinvoice', [$Invoice->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$bill->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteBill', $bill->id) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                
                             </td>
                         </tr>
                     @endforeach

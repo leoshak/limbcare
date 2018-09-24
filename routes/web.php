@@ -76,14 +76,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Diagnosis
     Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
     Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
+    Route::get('diagnosis/indexadd', 'DiagnosisController@indexad')->name('diagnosis.indexadd');
     Route::get('diagnosis/edit/{diagnosis}', 'DiagnosisController@edit')->name('diagnosis.edit');
-    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    Route::get('diagnosis/add/{patient}', 'DiagnosisController@create')->name('diagnosis.add');
     Route::get('diagnosis/delete/{diagnosis}', 'DiagnosisController@destroy')->name('diagnosis.delete');
     Route::get('diagnosis/{diagnosis}', 'DiagnosisController@show')->name('diagnosis.show');
-    
-    Route::post('diagnosis/adddiagnosis','DiagnosisController@store');
+   
+    Route::post('diagnosis/searchpationdiagnosis','DiagnosisController@searchpationdiagnosis');
+    Route::post('diagnosis/add/adddiagnosis','DiagnosisController@store');
     Route::post('diagnosis/edit/updatediagnosis','DiagnosisController@update');
     
+    Route::post('searchdiagnosis','DiagnosisController@search');
     Route::post('diagnosis/delete/deletediagnosis','DiagnosisController@padelete');
     
     //Doctor
@@ -110,45 +113,47 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('financial/index_bill', 'FinancialController@indexbill')->name('financial.index_bill');
     Route::get('financial/index_salary', 'FinancialController@indexsalary')->name('financial.index_salary');
     Route::get('financial/index_other', 'FinancialController@indexother')->name('financial.index_other');
+    Route::get('financial/{financialBill}/edit', 'FinancialController@edit')->name('financial.edit');
+    Route::get('financial/index_invoice/{Invoice}', 'FinancialController@showinvoce')->name('financial.showinvoice');
+    Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
+    Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
+    Route::get('financial/otherpay/{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     
     Route::get('financial/add_bill', 'FinancialController@addbill')->name('financial.add_bill');
     Route::get('financial/add_salary', 'FinancialController@addsalary')->name('financial.add_salary');
     
     Route::get('financial/add_other', 'FinancialController@addother')->name('financial.add_other');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
-    
+
+    //invoice newinvoice addninvoice
+    Route::get('financial/newinvoice/{patient}', 'FinancialController@newinvoice')->name('financial.newinvoice');
+    Route::get('financial/index_invoice', 'FinancialController@invoice')->name('financial.index_invoice');
+    Route::get('financial/add_invoice', 'FinancialController@addinvoice')->name('financial.add_invoice');
     //financial bill edit
-    Route::get('financial/{financialBill}/edit', 'FinancialController@edit')->name('financial.edit');
     Route::post('financial/{financialBill}/update', 'FinancialController@update');
-    
     //financial salary edit
     Route::get('financial/{financialSalary}/edit_salary', 'FinancialController@editSalary')->name('financial.edit_salary');
-    Route::post('financial/{financialSalary}/updateSalary', 'FinancialController@updateSalary');
-    
-    //financial otherpay edit
+     //financial otherpay edit
     Route::get('financial/{financialOtherPay}/edit_otherpay', 'FinancialController@editOtherPay')->name('financial.edit_otherpay');
-    Route::post('financial/{financialOtherPay}/updateOtherPay', 'FinancialController@updateOtherPay');
     
     //financial salary delete
     Route::get('financial/delete/{financialSalary}', 'FinancialController@destroyRequest')->name('financial.delete');
-    Route::post('financial/delete/destroy','FinancialController@destroy');
-    
     //financial bill delete
     Route::get('financial/deleteBill/{financialBill}', 'FinancialController@destroyBillRequest')->name('financial.deleteBill');
-    Route::post('financial/deleteBill/destroy','FinancialController@destroyBill');
-    
     //financial otherpay delete
     Route::get('financial/deleteOtherPay/{financialOtherPay}', 'FinancialController@destroyOtherpayRequest')->name('financial.deleteOtherPay');
     Route::post('financial/deleteOtherPay/destroy','FinancialController@destroyOtherPay');
+    Route::post('financial/{financialSalary}/updateSalary', 'FinancialController@updateSalary');
+    Route::post('financial/deleteBill/destroy','FinancialController@destroyBill');
+    Route::post('financial/{financialOtherPay}/updateOtherPay', 'FinancialController@updateOtherPay');
+    Route::post('financial/delete/destroy','FinancialController@destroy');
+    Route::post('financial/newinvoice/addninvoice', 'FinancialController@newTinvoice');
     Route::post('financial/addbill','FinancialController@stor');
     Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
-    Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
-    Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
-    Route::get('financial/otherpay/{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
-    
+
     //Patient
      Route::any('patientsearch','PatientController@search');
     Route::post('patientsreport', 'PatientController@displayReport');
@@ -196,14 +201,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     //question
     Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
-    Route::get('question_forum/edit/{questionsforum}', 'QuestionsForumController@edit')->name('question_forum.edit');
+    Route::get('question_forum/edit/{replye}', 'QuestionsForumController@edit')->name('question_forum.edit');
     Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
     Route::get('question_forum/delete/{questionsforum}', 'QuestionsForumController@destroy')->name('question_forum.delete');
     Route::get('question_forum/{questionsforum}', 'QuestionsForumController@show')->name('question_forum.show');
-    Route::post('question_forum/edit/updatequestion','QuestionsForumController@update');
+    Route::get('question_forum/reply/{questionsforum}', 'QuestionsForumController@reply')->name('question_forum.reply');
+    Route::post('searchquestion','QuestionsForumController@search');
+    Route::post('question_forum/reply/addreply','QuestionsForumController@addreplye');
+    Route::post('question_forum/edit/updatereply','QuestionsForumController@update');
     Route::post('question_forum/delete/deletequestions','QuestionsForumController@qdelete');
     Route::post('question_forum/addques','QuestionsForumController@store');
-    
+   
     //Users
     Route::get('users', 'UserController@index')->name('users');
     Route::get('users/{user}', 'UserController@show')->name('users.show');
@@ -287,12 +295,14 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     //Services
     Route::get('services', 'ServiceController@index')->name('services');
     //Store
+    Route::post('storereport', 'StoreController@displayReport');
+
     Route::get('store', 'StoreController@index')->name('store');
     Route::get('store/edit/{store}', 'StoreController@edit')->name('store.edit');
     Route::get('store/add', 'StoreController@create')->name('store.add');
     Route::get('store/delete/{store}', 'StoreController@destroy')->name('store.delete');
     Route::get('store/{store}', 'StoreController@show')->name('store.show');
-    
+
     Route::post('store/edit/updatestore','StoreController@update');
     Route::post('store/delete/deletestores','StoreController@sedelete');
     Route::post('store/additem','StoreController@store');

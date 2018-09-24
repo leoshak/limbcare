@@ -31,9 +31,7 @@
             </tr>
             @endif
            <tr>
-                <th>Reply <a class="btn btn-xs btn-info" href="{{ route('admin.question_forum.edit',[$replyw->id]) }}">
-                        <i class="fa fa-pencil"></i>
-                    </a></th>
+                <th>Reply</th>
                 <td>{{$replyw->replay}}</td>
             </tr>
            @endforeach
@@ -48,12 +46,23 @@
         </td>
              </tr>
         @endif
-            
-            
+            <form action="addreply" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+            <tr>
+                <th>Reply image (option)</th>
+                <td><input type="file" class="form-control" name="rep_pic" id="rep_pic" value="{{ old('replye') }}"></td>
+            </tr>
+            <tr>
+                <th>Reply </th>
+                <td><textarea class="form-control" name="replye" id="replye" cols="30" rows="10" placeholder="reply " >{{ old('replye') }}</textarea></td>
+            </tr>
             
         </table>
+        <input type="hidden" id="q_id" name="q_id" value="{{$Questions->id}}">
+        <input type="hidden" id="relier" name="relier" value="1">
         <a href="{{ route('admin.question_forum') }}" class="btn btn-danger">Questions Forum home</a>
-        
+        <button type="submit" class="btn btn-primary">Reply</button>
+    </form>
     @endforeach
     </div>
 @endsection

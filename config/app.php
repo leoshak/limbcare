@@ -199,7 +199,6 @@ return [
         \App\Providers\MetaServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         \App\Providers\ProtectionProvider::class,
- ConsoleTVs\Charts\ChartsServiceProvider::class,
         Jimmyjs\ReportGenerator\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class

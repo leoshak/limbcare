@@ -6,15 +6,16 @@
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
             <div class="topicbar">
-                <a href="{{ route('admin.diagnosis.add') }}" class="btn btn-primary">Add diagnosis card</a>
+                <a href="{{ route('admin.diagnosis.indexadd') }}" class="btn btn-primary">Add diagnosis card</a>
                 
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form class="form-inline active-cyan-3">
-                    <input type="text" placeholder="Search Patient" name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
+                <form action="searchdiagnosis" method="post" class="form-inline active-cyan-3">
+                        {{ csrf_field() }}
+                        <input type="text" placeholder="Search diagnosis" name="search" class="form-control form-control-sm ml-3 w-100" required>
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
             </div>
         </div>
     </div>
