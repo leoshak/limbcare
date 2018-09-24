@@ -47,6 +47,15 @@
             </tr>
 
             <tr>
+                <th>Initial Salary</th>
+                <td>
+                    @foreach ($initial_salary as $item)
+                        {{ $item->basic_salary }}
+                    @endforeach
+                </td>
+            </tr>
+
+            <tr>
                 <th>Created At</th>
                 <td>{{ $employee->created_at }} ({{ $employee->created_at->diffForHumans() }})</td>
             </tr>

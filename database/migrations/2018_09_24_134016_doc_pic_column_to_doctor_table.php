@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDoctorTable extends Migration
+class DocPicColumnToDoctorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateDoctorTable extends Migration
      */
     public function up()
     {
-        Schema::create('doctor', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('NIC');
-            $table->string('hospital');
-            $table->string('Adrees');
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->string('doc_pic');
         });
     }
 
@@ -29,6 +25,6 @@ class CreateDoctorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor');
+        //
     }
 }
