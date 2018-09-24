@@ -8,6 +8,8 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Auth\User\User;
 use DB;
 use PdfReport;
+use Carbon\Carbon;
+use Validator;
 
 class EmployeeController extends Controller
 {
@@ -23,6 +25,7 @@ class EmployeeController extends Controller
         $employees = Employee::latest()->search($key)->paginate(20);
         return view('admin.employees.index', compact('employees', 'key'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,9 +41,17 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Employee $employee)
+    public function store(Request $request, Employee $employee)
     {
         $lastid=0;
+
+        //check for duplicate
+        Validator::extend('uniqueEmployeeCheck', function ($attribute, $value, $parameters, $validator) {
+            $count = DB::table('employees')->where('email', $value)->count();
+        
+            return $count === 0;
+        });
+
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = [
             'emp_pic' => 'required',
@@ -49,20 +60,30 @@ class EmployeeController extends Controller
             'nic' => 'required|digits:9',//size:9|regex:/^[0-9]*$/
             'employeeType' => 'required',
             'birthday' => 'required|date_format:Y-m-d|before:today',
-            'address' => 'required|regex:/^[a-zA-Z0-9 ,\/]+$/'
+            'address' => 'required|regex:/^[a-zA-Z0-9 ,\/]+$/',
+            'email' => "uniqueEmployeeCheck:{$request->email}"
         ];
+
         $customMessages = [
             'name.regex' => 'Name cannot contain numbers and special characters',
             'nic.digits' => 'NIC must contains only 9 numbers',
             'birthday.before' => 'Funny! Birthday can not be today or future',
-            'address.regex' => 'Address cannot contain special characters like # . @'
+            'address.regex' => 'Address cannot contain special characters like # . @',
+            'email' => 'Employee already in the system'
         ];
+
         $this->validate($request, $validatedData, $customMessages);
         
         // Employee::create($request->all());
         $file=$request ->file('emp_pic');
        
         $employees=DB::select('select * from employees ORDER BY id DESC LIMIT 1');
+
+        //check if employee exist before adding new one
+        // $count = Employee::where('email', '=' , $employee->email)->count();
+        // if($count == 1) {
+        //     abort(405, 'Trying to employee who is in system');
+        // }
                 
         $name="panding";
         $type=$file->guessExtension();
@@ -78,16 +99,26 @@ class EmployeeController extends Controller
          $name=$lastid."pic.".$type;
          $file->move('image/emp/profile',$name);
          
-        //find the role by id
+        //find the role by id and add initial salary and initial overdue when new employee insert
+        $initialSalary = 0;
+        $overdue = 0;
         if ($request->get('employeeType') == 'Receptionist') {
             $role = Role::findOrFail(3);
+            $initialSalary = 35000;
+            $overdue = 100;
         } elseif ($request->get('employeeType') == 'Director') {
             $role = Role::findOrFail(5);
+            $initialSalary = 60000;
+            $overdue = 250;
         } elseif ($request->get('employeeType') == 'PNO') {
             $role = Role::findOrFail(4);
+            $initialSalary = 55000;
+            $overdue = 230;
         } else {
             $role = Role::findOrFail(2);
         }
+
+        //insert newly added employee into user table to login and and other things
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
@@ -96,8 +127,10 @@ class EmployeeController extends Controller
             'confirmed' => true,
             'usertype' => $request->get('employeeType')
         ]);
+
         // assign the role to a user based on the select box from the form.
         $user->roles()->attach($role);
+        
         // return a view
         $employee->name = $request->get('name');
         $employee->nic = $request->get('nic');
@@ -108,9 +141,19 @@ class EmployeeController extends Controller
         $employee->birthday = $request->get('birthday');
         $employee->address = $request->get('address');
         $employee->save();
-        
+
+        //get newly inserted employee id
+        // $empId=DB::select('select id from employees ORDER BY id DESC LIMIT 1');
+
+        //assign basic salary to doctors
+        DB::insert('INSERT INTO `employee_initial_salary` (`emp_id`,`employeeType`,
+        `basic_salary`, `overdue`, `status`, `date`) VALUES (?,?,?,?,?,?)',
+        [$employee->id, $employee->employeeType,
+        $initialSalary, $overdue, 'active', Carbon::now(), Carbon::now(), Carbon::now()]);
+
         return redirect()->route('admin.employees')->with('message', 'Employee added successfully!');
     }
+
     /**
      * Display the specified resource.
      *
@@ -119,8 +162,10 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('admin.employees.show', ['employee' => $employee]);
+        $empInitialSalary= DB::select('select basic_salary from employee_initial_salary where emp_id = ?', [$employee->id]);
+        return view('admin.employees.show', ['employee' => $employee, 'initial_salary' => $empInitialSalary]);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -131,6 +176,7 @@ class EmployeeController extends Controller
     {
         return view('admin.employees.edit', ['employee' => $employee, 'roles' => Role::get()]);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -138,18 +184,9 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, Employee $employee)//Request $request, Employee $employee
     {
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|max:255'
-        // ]);
-        // $validator->sometimes('email', 'unique:users', function ($input) use ($user) {
-        //     return strtolower($input->email) != strtolower($user->email);
-        // });
-        // $validator->sometimes('password', 'min:6|confirmed', function ($input) {
-        //     return $input->password;
-        // });
-        // if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
         $validatedData = [
             'inputName' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
             'empType' => 'required',
@@ -160,6 +197,7 @@ class EmployeeController extends Controller
             'inputName.regex' => 'Name cannot contain numbers and special characters',
             'inputAddress.regex' => 'Address cannot contain special characters like . / @'
         ];
+        
         $this->validate($request, $validatedData, $customMessages);
         
         $employee->name = $request->get('inputName');
@@ -167,23 +205,13 @@ class EmployeeController extends Controller
         $employee->contactNo = $request->get('contactNo');
         $employee->address = $request->get('inputAddress');
         $employee->employeeType = $request->get('empType');
-        // if ($request->has('password')) {
-        //     $user->password = bcrypt($request->get('password'));
-        // }
-        // $user->active = $request->get('active', 0);
-        // $user->confirmed = $request->get('confirmed', 0);
         $employee->save();
-        // //roles
-        // if ($request->has('roles')) {
-        //     $user->roles()->detach();
-        //     if ($request->get('roles')) {
-        //         $user->roles()->attach($request->get('roles'));
-        //     }
-        // }
+
         $message = 'Successfully updated employee named '.$employee->name.' with id '.$employee->id;
         return redirect()->intended(route('admin.employees'))->with('message', $message);
         // return view('admin.employees.edit');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -195,6 +223,10 @@ class EmployeeController extends Controller
         $message = 'Successfully deleted employee named '.$employee->name.' with id '.$employee->id;
         $user = DB::table('users')->where('email',$employee->email)->delete();
         $employee->delete();
+
+        DB::table('employee_initial_salary')->where('emp_id', $employee->id)->update(array(
+            'status'=>'disable'));
+
         return redirect()->route('admin.employees')->with('message', $message);
     }
 
@@ -228,9 +260,6 @@ class EmployeeController extends Controller
             'Address' => 'address',
             'Birthday' => 'birthday',
             'created_at' => 'created_at' // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
-            // 'name' => function($result) { // You can do if statement or any action do you want inside this closure
-            //     return ($result->balance > 100000) ? 'Rich Man' : 'Normal Guy';
-            // }
         ];
 
         // Generate Report with flexibility to manipulate column class even manipulate column value (using Carbon, etc).

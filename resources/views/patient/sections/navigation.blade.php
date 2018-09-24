@@ -16,7 +16,7 @@
             </div>
             <div class="profile_info">
                 <h2>{{ auth()->user()->name }}</h2>
-                <h2>{{ auth()->user()->usertype }}</h2>
+                <h3>{{ auth()->user()->usertype }}</h3>
             </div>
         </div>
         <!-- /menu profile quick info -->
