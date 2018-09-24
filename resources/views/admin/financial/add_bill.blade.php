@@ -17,21 +17,27 @@
 @if(Session::has('message'))
     <div class="alert alert-danger">{{ Session::get('message') }}</div>
 @endif
+        
         <div class="form-group">
-            <label for="bi_name">Patient name</label>
-            <input type="text" class="form-control" name="bi_name" id="bi_name" placeholder="Name" required>
+            <label for="bi_note">Invoice ID</label>
+            <h3>{{$invoice->id}}</h3>
         </div>
         <div class="form-group">
-            <label for="bi_note">Note</label>
-            <input type="text" class="form-control" name="bi_note" id="bi_note" placeholder="note" required>
+            <label for="bi_note">Remaining amount</label>
+            <h3>Rs. {{$invoice->remaining_amount}}.00</h3>
         </div>
+
         <div class="form-group">
             <label for="bi_am">Amount</label>
-            <input type="text" class="form-control" name="bi_am" id="bi_am" placeholder="eg:-200000.00" required>
+            <input type="text" class="form-control" name="bi_am" id="bi_am" placeholder="eg:-200000.00" >
+            <input type="hidden" id="inID" name="inID" value="{{$invoice->id}}">
+            <input type="hidden" id="empid" name="empid" value="1">
+           
         </div>
         
+        
         <a href="{{ route('admin.financial.index_bill') }}" class="btn btn-danger">Cancel</a>
-        <a href="{{ route('admin.financial.add_bill') }}" class="btn btn-primary">Clear</a>
+        <a href="{{ route('admin.financial.addbillinvoice', [$invoice->id]) }}" class="btn btn-primary">Clear</a>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
 </div>

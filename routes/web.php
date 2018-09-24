@@ -52,7 +52,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::post('storereport', 'StoreController@displayReport');
     
+    Route::post('financial/add_salary/addsalary','FinancialController@salary');
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/add', 'EmployeeController@create')->name('employees.add');
@@ -126,7 +128,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('financial/otherpay/{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     
     Route::get('financial/add_bill', 'FinancialController@addbill')->name('financial.add_bill');
-    Route::get('financial/add_salary', 'FinancialController@addsalary')->name('financial.add_salary');
+    Route::get('financial/add_salary/{emp}', 'FinancialController@addsalary')->name('financial.add_salary');
+    Route::get('financial/add_salaryindex', 'FinancialController@addsalaryindex')->name('financial.add_salaryindex');
     
     Route::get('financial/add_other', 'FinancialController@addother')->name('financial.add_other');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
@@ -154,9 +157,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('financial/{financialOtherPay}/updateOtherPay', 'FinancialController@updateOtherPay');
     Route::post('financial/delete/destroy','FinancialController@destroy');
     Route::post('financial/newinvoice/addninvoice', 'FinancialController@newTinvoice');
-    Route::post('financial/addbill','FinancialController@stor');
+    Route::post('financial/add_bill/addbillinvoice/addbill','FinancialController@stor');
     Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
+    Route::get('financial/add_bill/addbillinvoice/{invoice}','FinancialController@billinvoicew')->name('financial.addbillinvoice');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
 
@@ -289,7 +293,7 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     Route::get('financial/deleteOtherPay/{financialOtherPay}', 'FinancialController@destroyOtherpayRequest')->name('financial.deleteOtherPay');
     Route::post('financial/deleteOtherPay/destroy','FinancialController@destroyOtherPay');
     Route::post('financial/addbill','FinancialController@stor');
-    Route::post('financial/addsalary','FinancialController@salary');
+   
     Route::post('financial/addother','FinancialController@other');
     Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
     Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
@@ -301,14 +305,16 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     //Services
     Route::get('services', 'ServiceController@index')->name('services');
     //Store
-    Route::post('storereport', 'StoreController@displayReport');
+    
 
     Route::get('store', 'StoreController@index')->name('store');
+    
     Route::get('store/edit/{store}', 'StoreController@edit')->name('store.edit');
     Route::get('store/add', 'StoreController@create')->name('store.add');
     Route::get('store/delete/{store}', 'StoreController@destroy')->name('store.delete');
     Route::get('store/{store}', 'StoreController@show')->name('store.show');
 
+    
     Route::post('store/edit/updatestore','StoreController@update');
     Route::post('store/delete/deletestores','StoreController@sedelete');
     Route::post('store/additem','StoreController@store');

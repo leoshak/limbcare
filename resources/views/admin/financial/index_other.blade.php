@@ -40,12 +40,7 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showOtherPay', [$otherPayment->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit_otherpay', [$otherPayment->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteOtherPay', $otherPayment->id) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                
                             </td>
                         </tr>
                     @endforeach

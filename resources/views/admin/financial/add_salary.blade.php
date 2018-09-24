@@ -5,7 +5,7 @@
 @section('content')
 <div class="mainbox col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-2">
 
-<form action="addsalary" method="post">
+<form action="addsalary" method="post" enctype="multipart/form-data">
 {{ csrf_field() }}
         <h3>Salary</h3>
         @if (!$errors->isEmpty())
@@ -19,15 +19,19 @@
     @endif        
         <div class="form-group">
             <label for="emp_name">Employee name</label>
-            <input type="text" class="form-control" name="emp_name" id="emp_name" placeholder="Name" >
+            <h3>{{$emp->name}}</h3>
         </div>
         <div class="form-group">
             <label for="emp_am">Amount</label>
             <input type="text" class="form-control" name="emp_am" id="emp_am" placeholder="eg:-45500.00" >
         </div>
-        
+        <div class="form-group">
+        <label for="date">Date</label>
+        <input class="form-control"type="date" name="date" ><br><br>
+        </div>
+        <input type="hidden" id="empid" name="empid" value="{{$emp->id}}">
         <a href="{{ route('admin.financial.index_salary') }}" class="btn btn-danger">Cancel</a>
-        <a href="{{ route('admin.financial.add_salary') }}" class="btn btn-primary">Clear</a>
+        <a href="{{ route('admin.financial.add_salary',$emp->id) }}" class="btn btn-primary">Clear</a>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
 </div>
