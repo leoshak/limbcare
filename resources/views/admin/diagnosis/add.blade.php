@@ -12,9 +12,9 @@
             </div>
         @endif
         <div class="form-group">
-            <label for="pa_name">Patient name *</label>
-            <input type="text" class="form-control" name="pa_name" id="pa_name" placeholder="Name" >
-        </div>
+            <label for="pa_name">Patient name</label>
+            <h2> {{$patient->name}}</h2>
+         </div>
         <div class="form-group">
             <label for="pa_service">Service *</label>
             <input type="text" class="form-control" name="pa_service" id="pa_service" placeholder="Service" >
@@ -39,10 +39,10 @@
           <label for="pa_discription">Description *</label>
           <textarea class="form-control" name="pa_discription" id="pa_discription" cols="30" rows="10" placeholder="Patient description"></textarea>
         </div>
-        
+        <input type="hidden" id="name" name="name" value="{{$patient->name}}">
+        <input type="hidden" id="ID" name="ID" value="{{$patient->id}}">
         <a href="{{ route('admin.diagnosis.index') }}" class="btn btn-danger">Cancel</a>
-        <a href="{{ route('admin.diagnosis.add') }}" class="btn btn-primary">Clear</a>
-        <button type="submit" class="btn btn-primary">Add</button>
+         <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
     </div>

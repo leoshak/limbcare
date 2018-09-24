@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <form action="cal" method="post">
+        <form action="cal" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -41,6 +41,10 @@
             <div class="form-group">
                 <label for="inputAddress">Mobile</label>
                 <input type="text" name="mobile" class="form-control" id="inputAddress" value="{{ old('mobile') }}" >
+            </div>
+            <div class="form-group">
+                <label for="it_pic">Profile Photo</label>
+                <input type="file" class="form-control" name="doc_pic" id="doc_pic" >
             </div>
 
 

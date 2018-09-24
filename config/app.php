@@ -199,6 +199,8 @@ return [
         \App\Providers\MetaServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         \App\Providers\ProtectionProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
         Barryvdh\DomPDF\ServiceProvider::class,
         Jimmyjs\ReportGenerator\ServiceProvider::class,
@@ -268,6 +270,10 @@ return [
         'PdfReport' => Jimmyjs\ReportGenerator\Facades\PdfReportFacade::class,
         'ExcelReport' => Jimmyjs\ReportGenerator\Facades\ExcelReportFacade::class,
         'CSVReport' => Jimmyjs\ReportGenerator\Facades\CSVReportFacade::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Charts' => ConsoleTVs\Charts\Charts::class,
+
+
     ],
 
 ];
