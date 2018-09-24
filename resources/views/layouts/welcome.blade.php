@@ -111,6 +111,10 @@
                                 <a href="{{ url('/pno') }}">{{ __('views.welcome.admin') }}</a>
                             @elseif(auth()->user()->usertype == 'Director')
                                 <a href="{{ url('/director') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'Patient')
+                                <a href="{{ url('/patient') }}">{{ __('views.welcome.admin') }}</a>
+                            @elseif(auth()->user()->usertype == 'Doctor')
+                                <a href="{{ url('/doctor') }}">{{ __('views.welcome.admin') }}</a>
                             @endif
                             <a href="{{ url('/logout') }}">{{ __('views.welcome.logout') }}</a>
                         @endif

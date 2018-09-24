@@ -80,10 +80,10 @@ class EmployeeController extends Controller
         $employees=DB::select('select * from employees ORDER BY id DESC LIMIT 1');
 
         //check if employee exist before adding new one
-        $count = Employee::where('email', '=' , $employee->email)->count();
-        if($count == 1) {
-            abort(405, 'Trying to employee who is in system');
-        }
+        // $count = Employee::where('email', '=' , $employee->email)->count();
+        // if($count == 1) {
+        //     abort(405, 'Trying to employee who is in system');
+        // }
                 
         $name="panding";
         $type=$file->guessExtension();
@@ -130,6 +130,7 @@ class EmployeeController extends Controller
 
         // assign the role to a user based on the select box from the form.
         $user->roles()->attach($role);
+        
         // return a view
         $employee->name = $request->get('name');
         $employee->nic = $request->get('nic');
@@ -161,7 +162,8 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('admin.employees.show', ['employee' => $employee]);
+        $empInitialSalary= DB::select('select basic_salary from employee_initial_salary where emp_id = ?', [$employee->id]);
+        return view('admin.employees.show', ['employee' => $employee, 'initial_salary' => $empInitialSalary]);
     }
 
     /**
