@@ -1,4 +1,15 @@
-﻿Installation
+﻿#latest update 24/9/2018
+
+first do:
+`composer update`
+
+then:
+`php artisan db:seed RoleSeeder`
+
+and
+`php artisan db:seed DatabaseSeeder`
+
+Installation
 
 Install Composer using detailed installation instructions here
 Install Node.js using detailed installation instructions here

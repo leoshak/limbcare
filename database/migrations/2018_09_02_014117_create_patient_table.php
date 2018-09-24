@@ -23,7 +23,9 @@ class CreatePatientTable extends Migration
             $table->string('password');
             $table->string('mobile');
             $table->string('address');
-           // $table->string('picture');
+            $table->string('pat_pic');
+
+            // $table->string('picture');
 
             $table->timestamps();
         });

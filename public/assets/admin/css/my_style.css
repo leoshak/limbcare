@@ -27,6 +27,14 @@
     margin-bottom: 20px;
 }
 
+.card-header .emp-avatar {
+    width: 40%;
+}
+
+.card-header .emp-details {
+    width: 60%;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -49,29 +57,14 @@
     padding: 2px 16px;
 }
 
-.card-header .emp-details {
-    width: 40%;
+/* ust to stop footer coming up */
+/* body {
+    display: flex;
+    flex-direction: column;
+  }
+.content {
+flex: 1 0 auto;
 }
-
-.card-header .emp-details {
-    width: 60%;
-}
-
-/* @media(max-width: 543px) {
-    .card-header .emp-details {
-        float: right;
-        clear: both;
-    }
-}
-
-@media(max-width: 543px) {
-    .card-body a{
-        display: block;
-        margin-left: 5px;
-    }
-
-    .card-body .btn-danger{
-        margin-left: 5px;
-        min-width: 95%;
-    }
+.footer {
+flex-shrink: 0;
 } */

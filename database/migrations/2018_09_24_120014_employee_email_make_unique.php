@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AvatorEmpDropCol extends Migration
+class EmployeeEmailMakeUnique extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class AvatorEmpDropCol extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function($table) {
-            $table->dropColumn('avator');
+        Schema::table('employees', function($table){
+            $table->unique('email'); 
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::table('employees', function($table) {
-            $table->integer('avator');
-        });
+        //
     }
 }

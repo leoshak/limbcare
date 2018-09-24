@@ -61,6 +61,13 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'fx3costa/laravelchartjs' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider',
+    ),
+  ),
   'jimmyjs/laravel-report-generator' => 
   array (
     'providers' => 

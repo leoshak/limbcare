@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\employee\pno;
+namespace App\Http\Controllers\patient;
 
 use App\Models\Auth\User\User;
 use Arcanedev\LogViewer\Entities\Log;

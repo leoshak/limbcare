@@ -21,7 +21,7 @@ class DoctorDashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('patient', ['except' => 'logout']);
+        $this->middleware('doctor', ['except' => 'logout']);
     }
 
     /**
