@@ -62,7 +62,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
     // Route::delete('employees/delete', 'EmployeeController@delete')->name('employees.delete');
     Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
-    
+    Route::get('employees/report_view', 'EmployeeController@gotoReport')->name('employees.report_view');
+    Route::post('employees/rep', 'EmployeeController@generateReport');
+
     //Appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
