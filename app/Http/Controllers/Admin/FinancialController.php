@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use DateTime;
-
+use App\Models\Employee;
 use App\Http\Requests\Bill;
 use App\Http\Requests\BillIpdate;
 use App\Http\Requests\Invoiceval;
@@ -69,12 +69,17 @@ class FinancialController extends Controller
     public function addbill()
     {
         $Invoices = Invoice::all();
-      
+        
         $bills = FinancialBillPayment::all();
         $patients=patient::all();
         return view('admin.financial.index_billindex',['Invoices' => $Invoices],compact('bills'),['patients' => $patients]);
     }
     
+    public function billinvoicew(Invoice $invoice)
+    {
+        $patients=patient::all();
+        return view('admin.financial.add_bill',['invoice' => $invoice],compact('patients'));
+    }
     public function invoice()
     {
         $Invoices = Invoice::all();
@@ -107,12 +112,14 @@ class FinancialController extends Controller
     public function indexsalary()
     {
         $financials = FinancialSalaryPayment::all();
-        return view('admin.financial.index_salary',['financials' => $financials]);
+         $emp=Employee::all();
+        
+        return view('admin.financial.index_salary',['financials' => $financials],['emp' => $emp]);
     }
     
-    public function addsalary()
+    public function addsalary(Employee $emp)
     {
-        return view('admin.financial.add_salary');
+        return view('admin.financial.add_salary',['emp' => $emp]);
     }
     
     public function indexother()
@@ -128,20 +135,43 @@ class FinancialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function stor(Bill $request)
-    {
-        DB::insert('INSERT INTO `income` ( `amount`) VALUES  ( ?)',[ $request['bi_am']]);
-        DB::insert('INSERT INTO `bill` ( `patientname`, `descrption`, `amount`) VALUES  ( ?, ?, ?)',[$request['bi_name'], $request['bi_note'], $request['bi_am']]);
+    public function stor(Bill $request,FinancialBillPayment $billw,Income $in)
+    { 
+        $bills= DB::table('invoice')->where('id', $request['inID'])->value('remaining_amount');
+        $addam=$request['bi_am'];
+        if($addam>$bills)
+        {
+            $message = 'Pyament  maximum ';
+            return redirect()->intended(route('admin.financial.addbillinvoice', [$request['inID']]))->with('message', $message);
+       
+        }
+        $bills=$bills-$addam;
+        DB::table('invoice')
+        ->where('id', $request['inID'])
+        ->update(['remaining_amount' =>$bills]);
+        $in->amount=$request['emp_am'];
+        $in->save();
+
+        $billw->invoice_id=$request['inID'];
+        $billw->empid=$request['empid'];
+        $billw->amount=$request['bi_am'];
+        $billw->save();
         return view('admin.financial.success_bill');
     }
-    public function salary(Salary $request)
+    public function salary(Salary $request,Outcome $in,FinancialSalaryPayment $sala)
     { 
-        $now = new DateTime();
-        DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['emp_am']]);
-        DB::insert('INSERT INTO `salarypay` (`emp_name`, `date`, `amount`) VALUES  ( ?, ?, ?)',[$request['emp_name'], $now, $request['emp_am']]);
+        $in->amount=$request['emp_am'];
+        $in->save();
+         $request['date'];
+        $sala->emp_id=$request['empid'];
+        $sala->date=$request['date'];
+        $sala->amount=$request['emp_am'];
+        $sala->save();
+        // DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['emp_am']]);
+        // DB::insert('INSERT INTO `salarypay` (`emp_name`, `date`, `amount`) VALUES  ( ?, ?, ?)',[$request['emp_name'], $now, $request['emp_am']]);
         return view('admin.financial.success_salary');
     }
-    public function other(OtherPay $request)
+    public function other(OtherPay $request,Outcome $in,Income $isn)
     { 
         $type=$request['oth_type'];
 
@@ -153,13 +183,16 @@ class FinancialController extends Controller
         }
         if($type=="income")
         {
-            DB::insert('INSERT INTO `income` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
+            $isn->amount=$request['oth_am'];
+            $isn->save();
+           // DB::insert('INSERT INTO `income` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
             DB::insert('INSERT INTO `otherpay` ( `descrption`,`type`, `amount`) VALUES   ( ?,?,?)',[$request['oth_note'],$request['oth_type'], $request['oth_am']]);
             return view('admin.financial.success_other');
         }
         else if($type=="outcome")
-        {
-        DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
+        {$in->amount=$request['oth_am'];
+            $in->save();
+        //DB::insert('INSERT INTO `outcome` ( `amount`) VALUES  ( ?)',[ $request['oth_am']]);
         DB::insert('INSERT INTO `otherpay` ( `descrption`,`type`, `amount`) VALUES   ( ?,?,?)',[$request['oth_note'],$request['oth_type'], $request['oth_am']]);
         return view('admin.financial.success_other');
         }
@@ -172,9 +205,14 @@ class FinancialController extends Controller
      */
     public function show(FinancialBillPayment $financialBill)
     {
+        $invoiceid=$financialBill->invoice_id;
         $Invoices = Invoice::all();
         $patients=patient::all();
-        return view('admin.financial.showBill', ['financialBill' => $financialBill],compact('patients'),compact('Invoices'));
+         $PId= DB::table('invoice')->where('id', $invoiceid)->value('patient_ID');
+          $Pname= DB::table('patient')->where('id', $PId)->value('name');
+          $array = array('name' => $Pname);
+       
+        return view('admin.financial.showBill', ['financialBill' => $financialBill],compact('patients'),compact('Invoices'))->with('array', $array);;
     }
     
     public function showinvoce(Invoice $Invoice)
@@ -183,7 +221,8 @@ class FinancialController extends Controller
         return view('admin.financial.showinvoice', ['Invoice' => $Invoice],compact('patients'));
     }
     public function showSalaryPayment(FinancialSalaryPayment $financialSalaryPayment) {
-        return view('admin.financial.showSalary', ['financialSalaryPayment' => $financialSalaryPayment]);
+        $emp=Employee::all();
+        return view('admin.financial.showSalary', ['financialSalaryPayment' => $financialSalaryPayment],compact('emp'));
     }
 
     public function showOtherPayment(FinancialOtherPayment $financialOtherPayment) {
@@ -312,5 +351,12 @@ class FinancialController extends Controller
     {
         DB::table('otherpay')->where('id', $request['id'])->delete();
         return view('admin.financial.success_other');
+    }
+    
+    public function addsalaryindex()
+    {
+        $financials = FinancialSalaryPayment::all();
+        $emp=Employee::all();
+        return view('admin.financial.add_salaryindex',['financials' => $financials],compact('emp'));
     }
 }

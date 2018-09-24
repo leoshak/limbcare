@@ -43,8 +43,8 @@
                             <td>{{ $Invoice->amount }}</td>
                             <td>{{ $Invoice->remaining_amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showinvoice', [$Invoice->id]) }}">
-                                    <i class="fa fa-eye"></i>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.addbillinvoice', [$Invoice->id]) }}">
+                                    <i class="fa fa-plus"></i>
                                 </a>
                                 
                             </td>

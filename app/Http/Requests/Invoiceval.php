@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Salary extends FormRequest
+class Invoiceval extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class Salary extends FormRequest
     {
         
         return [
-            'emp_am'=>'required|numeric|integer|min:0'
+            'Service'=>'required'
+            ,'amount'=>'required|numeric|integer|min:0'
             
         ];
     }
@@ -34,10 +35,12 @@ class Salary extends FormRequest
     {
         $de="'";
         return[
-            'bi_am.required'=>'Bill amount must be insert!',
+            'Service.required'=>'Service name must be insert!',
+            'amount.required'=>'Bill amount must be insert!',
            
-            'emp_am.numeric'=>'Salary amount must be number!',
-            'emp_am.min'=>'Salary amount may not be negative number!'
+            'amount.numeric'=>'Bill amount must be number!',
+            'amount.min'=>'Bill amount may not be negative number!'
         ];
     }
 }
+

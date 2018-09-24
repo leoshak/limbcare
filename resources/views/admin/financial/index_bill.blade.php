@@ -56,12 +56,7 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showBill', [$bill->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$bill->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteBill', $bill->id) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                
                             </td>
                         </tr>
                     @endforeach
