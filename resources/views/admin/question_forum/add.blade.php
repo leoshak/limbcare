@@ -19,14 +19,7 @@
         <label for="qu_title">Question title *</label>
         <input type="text" class="form-control" name="qu_title" id="qu_title" placeholder="what's....." >
     </div>
-    <div class="form-group">
-        <label for="qu_type">Question type *</label>
-        <select name="qu_type" class="form-control" >
-            <option value="">Select one</option>
-            <option value="doctors">Doctors</option>
-            <option value="patient">Patient</option>
-        </select>
-    </div>
+    
     <div class="form-group">
         <label for="qu_pic">Question image (optional)</label>
         <input type="file" class="form-control" name="qu_pic" id="qu_pic" >
@@ -35,6 +28,8 @@
         <label for="question">Question *</label>
         <textarea class="form-control" name="question" id="question" cols="30" rows="10" placeholder="question " ></textarea>
     </div>
+    <input type="hidden" id="qu_Type" name="qu_Type" value="doctor">
+    <input type="hidden" id="qu_Ask" name="qu_Ask" value="1">
         <a href="{{ route('admin.question_forum') }}" class="btn btn-danger">Cancel</a>
         <a href="{{ route('admin.question_forum.add') }}" class="btn btn-primary">Clear</a>
         <button type="submit" class="btn btn-primary">Add</button>

@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
 use DB;
+use PdfReport;
+
 class AppointmentController extends Controller
 {
     /**
@@ -119,5 +121,53 @@ class AppointmentController extends Controller
         $message = 'Successfully deleted appointment named '.$appointment->name.' with id '.$appointment->id;
         $appointment->delete();
         return redirect()->route('admin.appointments')->with('message', $message);
+    }
+
+    public function gotoReport() {
+        return view('admin.appointments.report');
+    }
+
+    public function generateReport(Request $request)
+    {
+        $fromDate = $request->input('created_date');
+        $toDate = $request->input('to_date');
+        $sortBy = $request->input('sort_by');
+
+        $title = 'Generated Report of Appointments'; // Report title
+
+        $meta = [ // For displaying filters description on header
+            'Between ' => $fromDate . ' to ' . $toDate,
+            'Sort By' => $sortBy
+        ];
+
+        $queryBuilder = Appointment::select(['id', 'name', 'date', 'time', 'type', 'created_at', 'updated_at']) // Do some querying..
+                            ->whereBetween('created_at', array($fromDate, $toDate))
+                            ->orderBy($sortBy);
+
+        $columns = [ // Set Column to be displayed
+            'Id' => 'id',
+            'Patient Name' => 'name',
+            'Appointment Type' => 'type',
+            'Date' => 'date',
+            'Time' => 'time',
+            'Type' => 'type',
+            'Appointment created at' => 'created_at',
+            'Appointment updated at' => 'updated_at' // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
+            // 'name' => function($result) { // You can do if statement or any action do you want inside this closure
+            //     return ($result->balance > 100000) ? 'Rich Man' : 'Normal Guy';
+            // }
+        ];
+
+        // Generate Report with flexibility to manipulate column class even manipulate column value (using Carbon, etc).
+        return PdfReport::of($title, $meta, $queryBuilder, $columns)
+                    ->editColumn('created_at', [ // Change column class or manipulate its data for displaying to report
+                        'displayAs' => function($result) {
+                            return $result->created_at->format('d M Y');
+                        },
+                        'class' => 'left'
+                    ])
+                    ->editColumns(['Total', 'Status'], [ // Mass edit column
+                        'class' => 'left light'
+                    ])->stream(); // other available method: download('filename') to download pdf / make() that will producing DomPDF / SnappyPdf instance so you could do any other DomPDF / snappyPdf method such as stream() or download()
     }
 }

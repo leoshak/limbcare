@@ -27,6 +27,27 @@
                                 <h3> Quantity Items</h3>
                                 <div class="clearfix"></div>
                             </div>
+                            <form action="/storereport" method="post">
+
+                                {{ csrf_field() }}
+
+                                <div class="form-row">
+
+
+                                    <div class="col">
+                                        <label for="inputAddress">Starting From</label>
+                                        <input type="date" name="from_date" class="form-control" id="inputAddress" value="">
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputAddress">End Date</label>
+                                        <input type="date" name="to_date" class="form-control" id="inputAddress" value="">
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary">Genarate</button>
+                                    </div>
+                                </div>
+
+                            </form>
                             @foreach($storeR as $stores)
                             <div class="col-md-12 col-sm-12 col-xs-6">
                                 <div>

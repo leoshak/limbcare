@@ -10258,7 +10258,7 @@ html , body{
 }
 .nav-sm .container.body .col-md-3.left_col .mCSB_container,
 .nav-sm .container.body .col-md-3.left_col .mCustomScrollBox {
-    overflow: auto
+    overflow: visible
 }
 .nav-sm .hidden-small {
     visibility: hidden
@@ -10339,7 +10339,7 @@ html , body{
     display: none
 }
 .menu_section {
-    margin-bottom: 20px
+    margin-bottom: 35px
 }
 .menu_section h3 {
     padding-left: 15px;
