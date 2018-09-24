@@ -70,6 +70,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
     Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+    Route::get('appointments/report', 'AppointmentController@gotoReport')->name('appointments.report');
+    Route::post('appointments/rep', 'AppointmentController@generateReport')->name('appointments.rep');
     Route::get('appointments/{appointment}', 'AppointmentController@show')->name('appointments.show');
     Route::get('appointments/{appointment}/edit', 'AppointmentController@edit')->name('appointments.edit');
     Route::put('appointments/{appointment}', 'AppointmentController@update')->name('appointments.update');
