@@ -31,6 +31,18 @@
       0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     ),
   ),
+  'barryvdh/laravel-snappy' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\Snappy\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Barryvdh\\Snappy\\Facades\\SnappyPdf',
+      'SnappyImage' => 'Barryvdh\\Snappy\\Facades\\SnappyImage',
+    ),
+  ),
   'creativeorange/gravatar' => 
   array (
     'providers' => 
@@ -40,6 +52,20 @@
     'aliases' => 
     array (
       'Gravatar' => 'Creativeorange\\Gravatar\\Facades\\Gravatar',
+    ),
+  ),
+  'fideloper/proxy' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    ),
+  ),
+  'jimmyjs/laravel-report-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jimmyjs\\ReportGenerator\\ServiceProvider',
     ),
   ),
   'kyslik/column-sortable' => 
@@ -77,6 +103,17 @@
     array (
       'Form' => 'Collective\\Html\\FormFacade',
       'Html' => 'Collective\\Html\\HtmlFacade',
+    ),
+  ),
+  'maatwebsite/excel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
     ),
   ),
   'nesbot/carbon' => 
