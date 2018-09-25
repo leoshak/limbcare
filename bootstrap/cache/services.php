@@ -53,10 +53,9 @@
     49 => 'App\\Providers\\MetaServiceProvider',
     50 => 'Kyslik\\ColumnSortable\\ColumnSortableServiceProvider',
     51 => 'App\\Providers\\ProtectionProvider',
-    52 => 'Barryvdh\\Snappy\\ServiceProvider',
-    53 => 'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider',
-    54 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    55 => 'Jimmyjs\\ReportGenerator\\ServiceProvider',
+    52 => 'Jimmyjs\\ReportGenerator\\ServiceProvider',
+    53 => 'Barryvdh\\Snappy\\ServiceProvider',
+    54 => 'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider',
   ),
   'eager' => 
   array (
@@ -93,10 +92,9 @@
     30 => 'App\\Providers\\MetaServiceProvider',
     31 => 'Kyslik\\ColumnSortable\\ColumnSortableServiceProvider',
     32 => 'App\\Providers\\ProtectionProvider',
-    33 => 'Barryvdh\\Snappy\\ServiceProvider',
-    34 => 'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider',
-    35 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    36 => 'Jimmyjs\\ReportGenerator\\ServiceProvider',
+    33 => 'Jimmyjs\\ReportGenerator\\ServiceProvider',
+    34 => 'Barryvdh\\Snappy\\ServiceProvider',
+    35 => 'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider',
   ),
   'deferred' => 
   array (

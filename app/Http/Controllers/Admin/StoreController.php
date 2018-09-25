@@ -7,7 +7,7 @@ use PdfReport;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Storeval;
 use App\Http\Requests\Storeupdateval;
@@ -46,24 +46,23 @@ class StoreController extends Controller
      */
     public function store(Storeval $request,Store $storeA)
     {
+        Validator::extend('checkDateSlots', function ($attribute, $value, $parameters, $validator) {
+            return $value[0] > $value[1];
+            
+        }, 'Items min quantity may not be greater than iteam max !');
+
+
+        $validatedData = [
+            'it_min' => "checkDateSlots:{[$request->it_min, $request->it_max]}"
+        ];
+
+        $this->validate($request,$validatedData);
         $lastid=0;
-        $em=$request->it_type;
-        if($em=="")
-        {
-            $message = 'Nothing selected in quantity type ';
-            return redirect()->intended(route('admin.store.add'))->with('message', $message);   
-        }
-        if($request['it_max']<$request['it_min'])
-        {
-            $message = 'Item maximum size should be greater than minimum size';
-            return redirect()->intended(route('admin.store.add'))->with('message', $message);
-        }
+        
         $name="panding";
        $file=$request ->file('it_pic');
        $up=0;
-    //    DB::insert('INSERT INTO `store` ( `iteamname`, `iteam_quantity`, `company`, `iteam_max`, `iteam_min`,`quantity_type`, `pic`) VALUES  (?, ?, ?, ?, ? ,?,?)',
-    // [$request['it_name'], $request['it_quantity'], $request['it_company'], $request['it_max'],$request['it_min'],$request['it_type'],$name]);
-        $storeA->iteamname = $request->get('it_name');
+       $storeA->iteamname = $request->get('it_name');
         $storeA->iteam_quantity = $request->get('it_quantity');
         $storeA->company = $request->get('it_company');
         $storeA->iteam_max = $request->get('it_max');
