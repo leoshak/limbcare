@@ -54,6 +54,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::post('storereport', 'StoreController@displayReport');
     
+    Route::post('financial/searchinvoice','FinancialController@searchinvoice');
+    
+    Route::post('financial/searchbillin','FinancialController@searchbillin');
+    Route::post('financial/searchbill','FinancialController@searchbill');
     Route::post('financial/add_salary/addsalary','FinancialController@salary');
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
@@ -293,7 +297,6 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     Route::get('financial/deleteOtherPay/{financialOtherPay}', 'FinancialController@destroyOtherpayRequest')->name('financial.deleteOtherPay');
     Route::post('financial/deleteOtherPay/destroy','FinancialController@destroyOtherPay');
     Route::post('financial/addbill','FinancialController@stor');
-   
     Route::post('financial/addother','FinancialController@other');
     Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
     Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');

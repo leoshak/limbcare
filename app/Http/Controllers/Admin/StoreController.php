@@ -46,23 +46,27 @@ class StoreController extends Controller
      */
     public function store(Storeval $request,Store $storeA)
     {
-        Validator::extend('checkDateSlots', function ($attribute, $value, $parameters, $validator) {
-            return $value[0] > $value[1];
-            
-        }, 'Items min quantity may not be greater than iteam max !');
+        // Validator::extend('checkDateSlots', function ($attribute, $value, $parameters, $validator) {
+        //     return $value[0] > $value[1];
+        // }, 'Items min quantity may not be greater than iteam max !');
 
 
-        $validatedData = [
-            'it_min' => "checkDateSlots:{[$request->it_min, $request->it_max]}"
-        ];
+        // $validatedData = [
+        //     'it_min' => "checkDateSlots:{[$request->it_min, $request->it_max]}"
+        // ];
 
-        $this->validate($request,$validatedData);
+        // $this->validate($request,$validatedData);
+        if($request['it_max']<$request['it_min'])
+        {
+            $message = 'Item maximum size should be greater than minimum size';
+            return redirect()->intended(route('admin.store.add'))->with('message', $message);
+        }
         $lastid=0;
         
         $name="panding";
        $file=$request ->file('it_pic');
        $up=0;
-       $storeA->iteamname = $request->get('it_name');
+        $storeA->iteamname = $request->get('it_name');
         $storeA->iteam_quantity = $request->get('it_quantity');
         $storeA->company = $request->get('it_company');
         $storeA->iteam_max = $request->get('it_max');
