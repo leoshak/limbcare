@@ -13,7 +13,20 @@
     {!! $errors->first() !!}
     </div>
 @endif
+@php
+    
+use Illuminate\Support\Facades\DB;
+$email=auth()->user()->email;
 
+$IDs = DB::table('employees')->where('email', $email)->get();
+$emp = 0;
+        foreach($IDs as $ID)
+        {
+            $emp=$ID->id;
+            
+        }
+
+@endphp
 @if(Session::has('message'))
     <div class="alert alert-danger">{{ Session::get('message') }}</div>
 @endif
@@ -31,7 +44,7 @@
             <label for="bi_am">Amount</label>
             <input type="text" class="form-control" name="bi_am" id="bi_am" placeholder="eg:-200000.00" >
             <input type="hidden" id="inID" name="inID" value="{{$invoice->id}}">
-            <input type="hidden" id="empid" name="empid" value="1">
+            <input type="hidden" id="empid" name="empid" value="{{$emp}}">
            
         </div>
         

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\patient;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 class PatientController extends Controller
 {
     /**
@@ -34,31 +34,43 @@ class PatientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function patientint()
     {
-        //
+        return view('patient.diagnosis.index');
     }
 
+    
+    public function doctors()
+    {
+        return view('patient.doctors.index');
+    }
     /**
      * Display the specified resource.
      *
      * @param  \App\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function servicesi()
     {
-        //
+        $services = DB::select('select * from service');
+        return view('patient.services.index',compact('services'));
     }
-
-    /**
+    public function searchservice(Request $request )
+    {
+        $requeid=$request->searchservice;
+        $services = DB::table('service')->where('id', $requeid)->orWhere('serviceName', 'like', '%' . $requeid . '%')->get();
+      
+        return view('patient.services.index',compact('services'));
+    }
+    /** 
      * Show the form for editing the specified resource.
      *
      * @param  \App\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function quindex()
     {
-        //
+        return view('patient.question_forum.index');
     }
 
     /**
