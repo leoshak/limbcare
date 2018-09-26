@@ -359,4 +359,35 @@ class FinancialController extends Controller
         $emp=Employee::all();
         return view('admin.financial.add_salaryindex',['financials' => $financials],compact('emp'));
     }
+    
+    public function searchbill(Request $request)
+    {
+      
+        $bills = DB::select('select * from bill where id ='.$request['search']);
+        
+        return view('admin.financial.index_bill',compact('bills'));
+    }
+    public function searchinvoice(Request $request)
+    {
+      
+        $Invoices = DB::select('select * from invoice where id ='.$request['search']);
+        
+        $patients=patient::all();
+        return view('admin.financial.index_invoice',['Invoices' => $Invoices],compact('patients'));
+    
+        return view('admin.financial.index_bill',compact('bills'));
+    }
+    
+    public function searchbillin(Request $request)
+    {
+      
+        
+        $Invoices = DB::select('select * from invoice where id ='.$request['search']);
+        
+        $bills = FinancialBillPayment::all();
+        $patients=patient::all();
+        return view('admin.financial.index_billindex',['Invoices' => $Invoices],compact('bills'),['patients' => $patients]);
+    
+        return view('admin.financial.index_bill',compact('bills'));
+    }
 }

@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="emp_am">Amount</label>
-            <input type="text" class="form-control" name="emp_am" id="emp_am" placeholder="eg:-45500.00" >
+            <input type="text" class="form-control" name="emp_am" id="emp_am" placeholder="eg:-45500.00" value="{{ old('emp_am') }}" >
         </div>
         <div class="form-group">
         <label for="date">Date</label>

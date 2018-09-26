@@ -10,6 +10,7 @@ use App\Http\Requests\Qeestionval;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Qeestionupdateval;
 use App\Http\Requests\Replyval;
+use File;
 class QuestionsForumController extends Controller
 {
     /**
@@ -173,37 +174,42 @@ class QuestionsForumController extends Controller
      * @param  \App\QuestionForum  $questionForum 
      * @return \Illuminate\Http\Response
      */
-    public function update(Qeestionupdateval $request)
+    public function update(Replyval $request)
     {
-        $reply1 = DB::select('select * from reply where id ='.$request['id']);
+         $reply1 = DB::select('select * from reply where id ='.$request['id']);
        
         $name='nophoto';
-        if(($request->re_pic)==0)
-       {
+        $picd='null';
         foreach($reply1 as $replyt)
         {
             $replaye=$replyt->replay;
-            $pic=$replyt->replay_pic;
-
-            if(($pic==$name) and ($replaye==$request['replye']))
+            $picd=$replyt->replay_pic;
+        if(($request->rep_pic)==0)
+       {
+        
+            if($replaye==$request['replye'])
             {
                 $message = 'Nothing to update';
                 return redirect()->intended(route('admin.question_forum.edit',[$request->id]))->with('message', $message);
             }
-        }
+        
         
         DB::table('reply')
         ->where('id', $request['id'])
         ->update(['replay' =>$request['replye']]);
         return view('admin.question_forum.success');
          }
+        }
 
         $lastid=0;
-        $file=$request->file('re_pic');
-       $type=$file->guessExtension();
-       $lastid=$request['id'];
-       $name=$lastid."pic.".$type;
+        $file=$request ->file('rep_pic');
+        $type=$file->guessExtension();
+        
+         $lastid=$request['id'];
+          $name=$lastid."pic.".$type;
+       File::delete('image/reply/pic',$picd);
         $file->move('image/reply/pic',$name);
+        
         DB::table('reply')
         ->where('id', $request['id'])
         ->update(['replay' =>$request['replye'],'replay_pic'=>$name]);
