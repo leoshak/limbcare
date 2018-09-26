@@ -11,7 +11,17 @@
         {!! $errors->first() !!}
     </div>
 @endif
-
+@php
+use Illuminate\Support\Facades\DB;
+$email=auth()->user()->email;
+$IDs = DB::table('employees')->where('email', $email)->get();
+$emp = 0;
+        foreach($IDs as $ID)
+        {
+            $emp=$ID->id;
+            
+        }
+@endphp
 @if(Session::has('message'))
     <div class="alert alert-danger">{{ Session::get('message') }}</div>
 @endif
@@ -51,7 +61,7 @@
             <label for="it_pic">Item image *</label>
             <input type="file" class="form-control" name="it_pic" id="it_pic" >
         </div>
-        <input type="hidden" id="empID" name="empID" value="1">
+        <input type="hidden" id="empID" name="empID" value="{{$emp}}">
         
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
         <a href="{{ route('admin.store.add') }}" class="btn btn-primary">Clear</a>
