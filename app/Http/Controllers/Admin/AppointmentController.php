@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
 use DB;
 use PdfReport;
+use Validator;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -30,6 +32,30 @@ class AppointmentController extends Controller
     {
         return view('admin.appointments.add');
     }
+
+    public function checkDate(Request $request)
+    {
+        //check for duplicate
+        $count = DB::table('appointments')->where('date', $request->date)->count();
+        $allocateValidateMessage ='This day('.$request->date.') do not have available time slots to allocate, 
+        please allocate another day! ';
+        Validator::extend('checkDateSlot', function ($attribute, $value, $parameters, $validator) {
+            return $parameters[0] !== "13";
+        }, $allocateValidateMessage);
+
+        $validatedData = [
+            'date' => "required|date_format:Y-m-d|after:today|checkDateSlot:{$count}",
+        ];
+
+        $customMessages = [
+            'date.after' => 'Appointment Date can not be today, tomorrow onward',
+        ];
+
+        $this->validate($request, $validatedData, $customMessages);
+
+        $appointments = Appointment::where('date', $request->date)->pluck('time');
+        return view('admin.appointments.add')->with(['message' => 13 - $count . 'time slots are available.', 'appointments' => $appointments]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -42,11 +68,9 @@ class AppointmentController extends Controller
             'name' => 'required|regex:/^[a-zA-Z0-9 ]+$/u|max:255',
             'type' => 'required',
             'date' => 'required|date_format:Y-m-d|after:today',
-            //'time' => 'required|after:now',
-            // 'time_start' => 'date_format:date',
-            // 'required|date_format:H:i|after:time_start',
             'time' => 'required',
         ];
+
         $customMessages = [
             'name.regex' => 'Name cannot contain numbers and special characters',
             'date.after' => 'Appointment Date can not be today, tomorrow onward',
@@ -54,15 +78,6 @@ class AppointmentController extends Controller
         ];
         $this->validate($request, $validatedData, $customMessages);
         
-        // $count = DB::table('appointments')->where('id', $request->id)
-        //                         ->count();
-        // $message = "";
-        // if($count > 0){
-        //     $message = 'Appointment id exist';
-        // }else{
-        //     Appointment::create($request->all());
-        //     return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
-        // }
         Appointment::create($request->all());
             return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
     }
@@ -152,10 +167,7 @@ class AppointmentController extends Controller
             'Time' => 'time',
             'Type' => 'type',
             'Appointment created at' => 'created_at',
-            'Appointment updated at' => 'updated_at' // if no column_name specified, this will automatically seach for snake_case of column name (will be registered_at) column from query result
-            // 'name' => function($result) { // You can do if statement or any action do you want inside this closure
-            //     return ($result->balance > 100000) ? 'Rich Man' : 'Normal Guy';
-            // }
+            'Appointment updated at' => 'updated_at'
         ];
 
         // Generate Report with flexibility to manipulate column class even manipulate column value (using Carbon, etc).

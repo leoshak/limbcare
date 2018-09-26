@@ -52,7 +52,7 @@
         {{-- <button type="submit" class="btn btn-primary">Clear</button> --}}
         <button type="submit" class="btn btn-success">Update</button>
       {{ Form::close() }}
-    </div>
+    </div> 
 @endsection
 
 @section('styles')
