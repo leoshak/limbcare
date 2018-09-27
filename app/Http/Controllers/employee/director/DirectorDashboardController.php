@@ -40,7 +40,7 @@ class DirectorDashboardController extends Controller
             'doctor' => \DB::table('doctors')->count(),
             'patient' => \DB::table('patient')->count(),
             'employees' => \DB::table('employees')->count(),
-            'question' => \DB::table('queston')->count(),//question
+            'question' => \DB::table('question')->count(),//question
             'appointment' => \DB::table('appointments')->count(),
         ];
 
