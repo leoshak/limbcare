@@ -6,20 +6,20 @@
     <div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-users"></i>Total Patients</span>
-            <div class="count green">{{ $counts['users'] }}</div>
+            <div class="count green">{{ $counts['patient'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-users"></i>Total Employees</span>
-            <div class="count green">{{ $counts['users'] }}</div>
+            <div class="count green">{{ $counts['employees'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-users"></i>Total Doctors</span>
-            <div class="count green">{{ $counts['users'] }}</div>
+            <div class="count green">{{ $counts['doctor'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-user-times "></i>Appointments</span>
             <div>
-                <span class="count green">{{  $counts['users'] - $counts['users_inactive'] }}</span>
+                <span class="count green">{{  $counts['appointment'] - $counts['users_inactive'] }}</span>
                 <span class="count">/</span>
                 <span class="count red">{{ $counts['users_inactive'] }}</span>
             </div>
@@ -27,7 +27,7 @@
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-lock"></i>Total Questions</span>
             <div>
-                <span class="count green">{{  $counts['protected_pages'] }}</span>
+                <span class="count green">{{  $counts['question'] }}</span>
             </div>
         </div>
     </div>

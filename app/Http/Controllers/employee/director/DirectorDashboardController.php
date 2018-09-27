@@ -37,6 +37,11 @@ class DirectorDashboardController extends Controller
             'users_unconfirmed' => \DB::table('users')->where('confirmed', false)->count(),
             'users_inactive' => \DB::table('users')->where('active', false)->count(),
             'protected_pages' => 0,
+            'doctor' => \DB::table('doctors')->count(),
+            'patient' => \DB::table('patient')->count(),
+            'employees' => \DB::table('employees')->count(),
+            'question' => \DB::table('queston')->count(),//question
+            'appointment' => \DB::table('appointments')->count(),
         ];
 
         foreach (\Route::getRoutes() as $route) {

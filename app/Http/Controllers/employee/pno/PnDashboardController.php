@@ -40,6 +40,8 @@ class PnDashboardController extends Controller
             'users_inactive' => \DB::table('users')->where('active', false)->count(),
             'protected_pages' => 0,
             'doctor' => \DB::table('doctors')->count(),
+            'question' => \DB::table('queston')->count(),//question
+            'appointment' => \DB::table('appointments')->count(),
         ];
 
         foreach (\Route::getRoutes() as $route) {
