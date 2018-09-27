@@ -172,9 +172,9 @@ public function questionforum()
         $ques->questionType = $request->get('qu_Type');
         $ques->questionAsk = $request->get('qu_Ask');
         $ques->save();
-        $Questions = DB::select('select * from service ORDER BY id DESC LIMIT 1');
+         $Questions = DB::select('select * from question ORDER BY id DESC LIMIT 1');
         $type=$file->guessExtension();
-        $lastid = 0;
+         $lastid = 0;
         foreach($Questions as $Question)
         {
             $lastid=$Question->id;
