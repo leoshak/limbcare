@@ -6,7 +6,7 @@
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
             <div class="topicbar">
-                <a href="{{ route('admin.services') }}" class="btn btn-primary">Add diagnosis card</a>
+                {{-- <a href="{{ route('admin.services') }}" class="btn btn-primary">Add diagnosis card</a> --}}
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
