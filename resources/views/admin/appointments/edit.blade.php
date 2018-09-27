@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title',"Add an Employee", "Employee") 
+@section('title',"Update an Appointment", "Appointment") 
 
 @section('content')
     <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -15,8 +15,8 @@
         @endif
         {{ Form::open(['route'=>['admin.appointments.update', $appointment->id],'method' => 'put','class'=>'form-horizontal form-label-left']) }}
             <div class="form-group">
-                {!! Form::label('id', 'Appointment ID') !!}
-                {!! Form::text('id', $appointment->id, ['class' => 'form-control']) !!}
+                {{-- {!! Form::label('id', 'Appointment ID') !!} --}}
+                {!! Form::hidden('id', $appointment->id, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('name', 'Name') !!}
@@ -29,6 +29,25 @@
             <div class="form-group">
                 {!! Form::label('time', 'Time') !!}
                 {!! Form::time('time',  $appointment->time, ['class' => 'form-control']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('time', 'Select a available time slot:') !!}
+                <select class = 'form-control' name='time'>
+                    <option value="{{$appointment->time}}" disabled selected>{{$appointment->time}}</option>
+                        <option value="09.00 - 09.30">09.00 - 09.30</option>
+                        <option value="09.30 - 10.00">09.30 - 10.00</option>
+                        <option value="10.00 - 10.30">10.00 - 10.30</option>
+                        <option value="10.30 - 11.00">10.30 - 11.00</option>
+                        <option value="11.00 - 11.30">11.00 - 11.30</option>
+                        <option value="11.30 - 12.00">11.30 - 12.00</option>
+                        <option value="01.30 - 02.00">01.30 - 02.00</option>
+                        <option value="02.00 - 02.30">02.00 - 02.30</option>
+                        <option value="02.30 - 03.00">02.30 - 03.00</option>
+                        <option value="03.00 - 03.30">03.00 - 03.30</option>
+                        <option value="03.30 - 04.00">03.30 - 04.00</option>
+                        <option value="04.00 - 04.30">04.00 - 04.30</option>
+                        <option value="04.30 - 05.00">04.30 - 05.00</option>
+                </select>
             </div>
             <div class="form-group">
                 {!! Form::label('type', 'Appointment Type') !!}
