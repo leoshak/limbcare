@@ -115,7 +115,7 @@
                 
                             <tr>
                                 <th></th>
-                                <td><a href="{{ url("receptionist/editprofile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
+                                <td><a href="{{ url("pno/editprofile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
                                 {{-- href="{{ route('admin.employees') }}" --}}
                             </tr>
                             </tbody>

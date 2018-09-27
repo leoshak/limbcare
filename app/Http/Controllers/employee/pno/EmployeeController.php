@@ -17,9 +17,10 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $key = $request->input('key');
+        $employees = Employee::latest()->search($key)->paginate(20);
         return view('employee.pno.employees.index', compact('employees'));
     }
 
