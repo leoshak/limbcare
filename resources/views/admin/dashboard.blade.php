@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-users"></i>Total Doctors</span>
-            <div class="count green">{{ $counts['users'] }}</div>
+            <div class="count green">{{ $counts['doctor'] }}</div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-user-times "></i>Appointments</span>

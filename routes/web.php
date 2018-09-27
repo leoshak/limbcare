@@ -339,7 +339,8 @@ Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' =
 
     //editprofile
     Route::get('editprofile', 'RecepDashboardController@editprofile')->name('editprofile');
-    
+    Route::put('editprofile/{employee}', 'RecepDashboardController@updateProfile')->name('editprofile.update');
+
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');

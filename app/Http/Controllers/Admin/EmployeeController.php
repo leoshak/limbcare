@@ -207,6 +207,10 @@ class EmployeeController extends Controller
         $employee->employeeType = $request->get('empType');
         $employee->save();
 
+        DB::table('users')
+        ->where('email', $employee->email)
+        ->update(['email' => $request->get('email'), 'usertype' => $request->get('empType'), 'name' => $request->get('inputName')]);
+
         $message = 'Successfully updated employee named '.$employee->name.' with id '.$employee->id;
         return redirect()->intended(route('admin.employees'))->with('message', $message);
         // return view('admin.employees.edit');

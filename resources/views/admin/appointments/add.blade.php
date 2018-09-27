@@ -17,7 +17,7 @@
                 {!! Form::button('Check Date', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
-            @if ($errors->any())
+        @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)

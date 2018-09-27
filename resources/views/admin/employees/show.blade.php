@@ -45,7 +45,18 @@
                     {{ $employee->birthday }}
                 </td>
             </tr>
-
+            <tr>
+                <th>Email</th>
+                <td>
+                    {{ $employee->email }}
+                </td>
+            </tr>
+            <tr>
+                <th>Contact Number</th>
+                <td>
+                    {{ $employee->contactNo }}
+                </td>
+            </tr>
             <tr>
                 <th>Initial Salary</th>
                 <td>

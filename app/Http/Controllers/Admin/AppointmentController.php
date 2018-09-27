@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Models\Appointment;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Role\Role;
@@ -77,9 +78,26 @@ class AppointmentController extends Controller
             'time.after' => 'Appointment Time cannot be now or past'
         ];
         $this->validate($request, $validatedData, $customMessages);
+
+        if(\Auth::check()) {
         
-        Appointment::create($request->all());
-            return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
+            Appointment::create($request->all());
+            
+            //add notification to display on employees
+            Notification::create([
+                'user_type' => \Auth::user()->usertype,
+                'user_id' => \Auth::user()->id,
+                'appointment_id' => Appointment::latest()->first()->id,
+                'message' => 'Appointment is requested by ' . \Auth::user()->name,
+                'header' => 'New appointment Request',
+                'status' => 'unread',
+                'action' => 'pending',
+                'date' => Carbon::now()->format('Y.m.d'),
+                'time' => Carbon::now()->format('H.i')
+            ]);
+        }
+
+        return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
     }
     /**
      * Display the specified resource.
@@ -134,6 +152,12 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         $message = 'Successfully deleted appointment named '.$appointment->name.' with id '.$appointment->id;
+        
+        if(\Auth::check()) {
+            $notif = Notification::where('appointment_id','=', $appointment->id);
+            $notif->delete();
+        }
+
         $appointment->delete();
         return redirect()->route('admin.appointments')->with('message', $message);
     }
