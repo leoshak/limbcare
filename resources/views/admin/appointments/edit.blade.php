@@ -27,8 +27,8 @@
                 {!! Form::date('date',  $appointment->date, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('time', 'Time') !!}
-                {!! Form::time('time',  $appointment->time, ['class' => 'form-control']) !!}
+                {{-- {!! Form::label('time', 'Time') !!} --}}
+                {!! Form::hidden('time',  $appointment->time, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('time', 'Select a available time slot:') !!}
