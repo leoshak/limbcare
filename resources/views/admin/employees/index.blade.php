@@ -8,7 +8,46 @@
             <div class="topicbar form-group">
                 {{-- <a href="{{ route('admin.employees.add') }}" class="btn btn-primary">Add Employee</a> --}}
                 {{ link_to_route('admin.employees.add', 'Add Employee', null, ['class' => 'btn btn-primary']) }}
-                {{ link_to_route('admin.employees.report', 'Generate Report', null, ['class' => 'btn btn-info']) }}
+                {{-- {{ link_to_route('admin.employees.report', 'Generate Report', null, ['class' => 'btn btn-info', 'data-toggle' => 'modal', 'data-target' => '#exampleModalLong']) }} --}}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
+                    Generate Report
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            {!! Form::open(array('route' => 'admin.employees.rep', 'enctype' =>'multipart/form-data', 'class' => 'form-inline')) !!}
+                            {!! Form::token() !!}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Download Employees report</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="created_date" class="col-form-label">From:</label>
+                                    {!! Form::date('created_date', null, ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="to_date" class="col-form-label">To:</label>
+                                    {!! Form::date('to_date', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="sort_by" class="col-form-label">Sort By:</label>
+                                    {!! Form::select('sort_by', ['name' => 'name', 'email' => 'email', 'employeeType' => 'Employee Type'], 'name', ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                {!! Form::submit('Generate', ['class' => 'btn btn-info', 'style' => 'margin-top: 10px;']) !!}
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->

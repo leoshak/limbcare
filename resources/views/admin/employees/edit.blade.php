@@ -30,11 +30,11 @@
         </div>
         <div class="form-group">
             {!! Form::label('email', 'Email') !!}
-            {!! Form::email('email',  null, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
+            {!! Form::email('email',  $employee->email, ['class' => 'form-control', 'placeholder'=>'Valid email']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('contactNo', 'Contact Number') !!}
-            {!! Form::text('contactNo',  null, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
+            {!! Form::text('contactNo',  $employee->contactNo, ['class' => 'form-control', 'placeholder'=>'Mobile number']) !!}
         </div>
         <div class="form-group">
           <label for="inputAddress">Address</label>
@@ -52,7 +52,7 @@
         {{-- <button type="submit" class="btn btn-primary">Clear</button> --}}
         <button type="submit" class="btn btn-success">Update</button>
       {{ Form::close() }}
-    </div>
+    </div> 
 @endsection
 
 @section('styles')

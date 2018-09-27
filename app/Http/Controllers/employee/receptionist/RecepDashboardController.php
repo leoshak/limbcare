@@ -4,6 +4,7 @@ namespace App\Http\Controllers\employee\receptionist;
 
 use App\Models\Auth\User\User;
 use App\Models\Employee;
+use App\Models\Notification;
 use Arcanedev\LogViewer\Entities\Log;
 use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
@@ -27,10 +28,36 @@ class RecepDashboardController extends Controller
 
     public function editprofile()
     {
-        $employees = Employee::where('name', auth()->user()->name)->get();
-        $employee = new Employee();
+        $employee = Employee::where('email', auth()->user()->email)->get();
         return view('employee.receptionist.editprofile', compact('employee'));
     }
+
+    public function updateprofile(Request $request, Employee $employee)
+    {
+        $validatedData = [
+            'inputName' => 'required|regex:/^[a-zA-Z ]+$/u|max:255',
+            'empType' => 'required',
+            'inputAddress' => 'required|regex:/^[a-zA-Z0-9 ,\/]+$/'
+        ];
+        
+        $customMessages = [
+            'inputName.regex' => 'Name cannot contain numbers and special characters',
+            'inputAddress.regex' => 'Address cannot contain special characters like . / @'
+        ];
+        
+        $this->validate($request, $validatedData, $customMessages);
+        
+        $employee->name = $request->get('inputName');
+        $employee->email = $request->get('email');
+        $employee->contactNo = $request->get('contactNo');
+        $employee->address = $request->get('inputAddress');
+        $employee->employeeType = $request->get('empType');
+        $employee->save();
+
+        $message = 'Successfully updated your profile';
+        return \Redirect::back()->with('message', $message);
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -50,14 +77,14 @@ class RecepDashboardController extends Controller
                 if (preg_match("/protection/", $middleware, $matches)) $counts['protected_pages']++;
             }
         }
-        $employees = Employee::where('name', auth()->user()->name)->get();
-        $employee = new Employee();
-        foreach ($employees as $emp) {
-            if ($emp == auth()->user()->name) {
-                $employee = $emp;
-            }
-        }
-        return view('employee.receptionist.dashboard', ['counts' => $counts, 'employee' => $employee]);
+        $employees = Employee::where('email', auth()->user()->email)->get();
+        $notifications = Notification::get();
+        // foreach ($employees as $emp) {
+        //     if ($emp == auth()->user()->name) {
+        //         $employee = $emp;
+        //     }
+        // }
+        return view('employee.receptionist.dashboard', ['counts' => $counts, 'employee' => $employees, 'notifications' => $notifications]);
     }
 
 

@@ -75,7 +75,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
-    Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+    Route::post('appointments/checkDate', 'AppointmentController@checkDate')->name('appointments.checkDate');
+    Route::post('appointments/checkDate/store', 'AppointmentController@store')->name('appointments.checkDate.store');
     Route::get('appointments/report', 'AppointmentController@gotoReport')->name('appointments.report');
     Route::post('appointments/rep', 'AppointmentController@generateReport')->name('appointments.rep');
     Route::get('appointments/{appointment}', 'AppointmentController@show')->name('appointments.show');
@@ -347,7 +348,8 @@ Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' =
 
     //editprofile
     Route::get('editprofile', 'RecepDashboardController@editprofile')->name('editprofile');
-    
+    Route::put('editprofile/{employee}', 'RecepDashboardController@updateProfile')->name('editprofile.update');
+
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');

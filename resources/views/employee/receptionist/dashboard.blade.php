@@ -45,34 +45,50 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    @if (isSet($notifications) and $notifications->count() > 0)
+                        <div class="alert alert-info">
+                            <ul>
+                                @foreach ($notifications as $notification)
+                                    {{-- @if($notification) --}}
+                                        <li>
+                                            {{ $notification->header }}
+                                            <a href="" style="color: green;">&nbsp;Approve&nbsp;</a>
+                                            <a href="" style="color: red;">&nbsp;Reject&nbsp;</a>
+                                            <a href="" style="color: yellow;">&nbsp;Ask new date&nbsp;</a>
+                                        </li>
+                                    {{-- @endif --}}
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <table class="table table-striped table-hover">
                         <tbody>
                         <tr>
                             <th>{{ __('views.admin.users.show.table_header_0') }}</th>
-                            <td><img src="\image\emp\profile\{{ $employee->emp_pic }}"  alt="Pic" height="90" width="90" class="user-profile-image "></td>
+                            <td><img src="\image\emp\profile\{{ $employee[0]->emp_pic }}"  alt="Pic" height="90" width="90" class="user-profile-image "></td>
                             {{-- {{ $employee->avatar }} --}}
                         </tr>
             
                         <tr>
                             <th>{{ __('views.admin.users.show.table_header_1') }}</th>
-                            <td>{{ $employee->name }}</td>
+                            <td>{{ $employee[0]->name }}</td>
                         </tr>
             
                         <tr>
                                 <th>Email</th>
-                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee[0]->email }}</td>
                             </tr>
                 
                             <tr>
                                 <th>Contact Number</th>
-                                <td>{{ $employee->contactNo }}</td>
+                                <td>{{ $employee[0]->contactNo }}</td>
                             </tr>
                     
                         <tr>
                             <th>Employee Type</th>
                             <td>
                                 {{-- <a href="mailto:{{ $employee->employeeType }}"> --}}
-                                {{ $employee->employeeType }}
+                                {{ $employee[0]->employeeType }}
                                 {{-- </a> --}}
                             </td>
                         </tr>
@@ -80,20 +96,20 @@
                         <tr>
                             <th>NIC</th>
                             <td>
-                                {{ $employee->nic }}
+                                {{ $employee[0]->nic }}
                             </td>
                         </tr>
             
                         <tr>
                             <th>Address</th>
                             <td>
-                                {{ $employee->address }}
+                                {{ $employee[0]->address }}
                             </td>
                         </tr>
                         <tr>
                             <th>Birthday</th>
                             <td>
-                                {{ $employee->birthday }}
+                                {{ $employee[0]->birthday }}
                             </td>
                         </tr>
             
