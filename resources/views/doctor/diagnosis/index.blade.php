@@ -5,9 +5,7 @@
         @section('title', "Diagnosis Management")
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                <a href="{{ route('admin.diagnosis.add') }}" class="btn btn-primary">Add diagnosis card</a>
-            </div>
+            
             <div class="right-searchbar">
                 <!-- Search form -->
                 <form class="form-inline active-cyan-3">
@@ -37,15 +35,15 @@
                             <td>{{ $diagnosis->service }}</td>
                             <td>{{ $diagnosis->consultant_dr }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.diagnosis.show',[$diagnosis->id]) }}">
+                                <a class="btn btn-xs btn-primary" href="{{ route('doctor.diagnosis.show',[$diagnosis->id]) }}">
                                     <i class="fa fa-eye"></i>
-                                </a>
+                                {{-- </a>
                                 <a class="btn btn-xs btn-info" href="{{ route('admin.diagnosis.edit',[$diagnosis->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-xs btn-danger" href="{{ route('admin.diagnosis.delete',[$diagnosis->id]) }}">
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </a> --}}
                                 
                             </td>
                         </tr>

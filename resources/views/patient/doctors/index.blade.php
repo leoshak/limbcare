@@ -4,17 +4,14 @@
 @php
 use Illuminate\Support\Facades\DB;
 $email=auth()->user()->email;
-
 $IDs = DB::table('patient')->where('email', $email)->get();
 $IDpa = 0;
 foreach($IDs as $ID)
 {
 $IDpa=$ID->id;
-
 }
 $patients = DB::select('select * from doctors ');
 //
-
 @endphp
 @section('content')
     <div class="row">
