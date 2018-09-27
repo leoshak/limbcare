@@ -75,12 +75,7 @@
                             {{ "Doctors" }}
                         </a>
                     </li>
-                    <li class="@if (Request::is('doctor/appointments/add') || Request::is('doctor/appointments/'.$app.'/edit') || Request::is('doctor/appointments/'.$app)) active @endif">
-                        <a href="{{ route('doctor.appointments') }}">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            {{ "Appointments" }}
-                        </a>
-                    </li>
+                    
                     <li>
                         <a href="{{ route('doctor.services') }}">
                             <i class="fa fa-list" aria-hidden="true"></i>
