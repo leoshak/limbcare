@@ -14,7 +14,7 @@
       </div>
     @endif
 
-    {{ Form::open(['route'=>['admin.employees.update', $employee->id],'method' => 'put','class'=>'form-horizontal form-label-left', 'enctype'=>"multipart/form-data"]) }}
+    {{ Form::open(['route'=>['director.employees.update', $employee->id],'method' => 'put','class'=>'form-horizontal form-label-left', 'enctype'=>"multipart/form-data"]) }}
         {{-- <div class="form-group">
             @if ("/storage/public/images/{{ $employee->avator }}")
                 <img src="{{ $employee->avator }}">

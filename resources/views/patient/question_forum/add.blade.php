@@ -59,7 +59,7 @@ foreach($pation as $pations)
         <label for="question">Question *</label>
         <textarea class="form-control" name="question" id="question" cols="30" rows="10" placeholder="question " >{{ old('question') }}</textarea>
     </div>
-    <input type="hidden" id="qu_Type" name="qu_Type" value="pation">
+    <input type="hidden" id="qu_Type" name="qu_Type" value="Patient">
     <input type="hidden" id="qu_Ask" name="qu_Ask" value="{{$IDpa}}">
         <a href="{{ route('patient.question_forum') }}" class="btn btn-danger">Cancel</a>
         <a href="{{ route('patient.question_forum.add') }}" class="btn btn-primary">Clear</a>
