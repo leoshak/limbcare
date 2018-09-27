@@ -451,7 +451,8 @@ Route::group(['prefix' => 'patient', 'as' => 'patient.', 'namespace' => 'patient
 Route::group(['prefix' => 'doctor', 'as' => 'doctor.', 'namespace' => 'doctor', 'middleware' => 'doctor'], function () {
     // Dashboard
     Route::get('/', 'DoctorDashboardController@index')->name('dashboard');
-    
+    Route::get('question_forum/show/{questionsforum}', 'DoctorDashboardController@questionforumshow')->name('question_forum.show');
+   
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
@@ -460,25 +461,28 @@ Route::group(['prefix' => 'doctor', 'as' => 'doctor.', 'namespace' => 'doctor', 
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
     
-    //question
-    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
-    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+
+    Route::get('question_forum', 'DoctorDashboardController@questionforum')->name('question_forum');
+    
+    Route::get('question_forum/add', 'DoctorDashboardController@questionforumadd')->name('question_forum.add');
+    Route::post('question_forum/addquesw', 'DoctorDashboardController@addquesw');
     
     //store
     Route::get('store', 'StoreController@index')->name('store');
     Route::get('store/add', 'StoreController@create')->name('store.add');
     
     //Patient
-    Route::get('patient', 'PatientController@index')->name('patients');
+    Route::get('patient', 'DoctorDashboardController@sentindex')->name('patients');
     //Services
-    Route::get('services', 'ServiceController@index')->name('services');
+    Route::get('services', 'DoctorDashboardController@servicesi')->name('services');
     //doctor
-    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    Route::get('doctors', 'DoctorDashboardController@sentindexsd')->name('doctors');
     
     //Diagnosis
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
-    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    Route::get('diagnosis', 'DoctorDashboardController@indexdais')->name('diagnosis.index');
+    
+    Route::get('diagnosis/{diagnosise}', 'DoctorDashboardController@diagnosisindexss')->name('diagnosis.show');
+
     
 });
 

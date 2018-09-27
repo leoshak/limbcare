@@ -18,7 +18,7 @@
                             <p>Success done your job Questions Forum</p>
                         </div>
                         <div class="modal-footer">
-                        <a href="/patient/question_forum" class="btn btn-primary">Ok</a>
+                        <a href="/doctor/question_forum" class="btn btn-primary">Ok</a>
                         </div>
                     </div>
                 </div>
