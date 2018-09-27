@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-    {!! Form::open(array('route' => 'admin.employees.store','enctype' =>'multipart/form-data')) !!}
+    {!! Form::open(array('route' => 'director.employees.store','enctype' =>'multipart/form-data')) !!}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

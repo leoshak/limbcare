@@ -248,6 +248,8 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
     Route::get('employees/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
+    Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
+    
     // Route::delete('employees/delete', 'EmployeeController@delete')->name('employees.delete');
     Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
     //Appointment
@@ -456,8 +458,10 @@ Route::group(['prefix' => 'doctor', 'as' => 'doctor.', 'namespace' => 'doctor', 
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    Route::get('employees/store', 'EmployeeController@store')->name('employees.store');
+    Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
     
-    //appointment
+    //appointment director.employees.store
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
     
