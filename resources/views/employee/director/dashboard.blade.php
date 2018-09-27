@@ -30,7 +30,6 @@
                 <span class="count green">{{  $counts['question'] }}</span>
             </div>
         </div>
-    </div>
     <!-- /top tiles -->
 
     {{--Carousel--}}
