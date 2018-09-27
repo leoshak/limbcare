@@ -11,7 +11,20 @@
             {!! $errors->first() !!}
         </div>
     @endif
-
+    @php
+    
+    use Illuminate\Support\Facades\DB;
+    $email=auth()->user()->email;
+    
+    $IDs = DB::table('employees')->where('email', $email)->get();
+    $emp = 0;
+            foreach($IDs as $ID)
+            {
+                $emp=$ID->id;
+                
+            }
+    
+    @endphp
     @if(Session::has('message'))
         <div class="alert alert-danger">{{ Session::get('message') }}</div>
     @endif
@@ -24,7 +37,7 @@
           <textarea class="form-control" name="discription" id="discription" cols="30" rows="10" value="" >{{ $Services->description}}</textarea>
         </div>
         <input type="hidden" id="id" name="id" value="{{ $Services->id }}">
-        <input type="hidden" id="uid" name="uid" value="34">
+        <input type="hidden" id="uid" name="uid" value="{{$emp}}">
         <a href="{{ route('admin.services') }}" class="btn btn-danger">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

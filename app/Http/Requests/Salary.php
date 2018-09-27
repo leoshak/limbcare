@@ -25,7 +25,6 @@ class Salary extends FormRequest
     {
         
         return [
-            'emp_name'=>'required|max:191',
             'emp_am'=>'required|numeric|integer|min:0'
             
         ];
@@ -35,10 +34,8 @@ class Salary extends FormRequest
     {
         $de="'";
         return[
-            'emp_name.required'=>'Employee name must be insert!',
-           'bi_am.required'=>'Bill amount must be insert!',
+            'bi_am.required'=>'Bill amount must be insert!',
            
-            'emp_name.max'=>'Pation name may not be greater than 191 characters.!',
             'emp_am.numeric'=>'Salary amount must be number!',
             'emp_am.min'=>'Salary amount may not be negative number!'
         ];

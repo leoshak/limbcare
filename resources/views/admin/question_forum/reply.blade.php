@@ -1,7 +1,20 @@
 @extends('admin.layouts.admin')
 
 @section('title', "Question Forum Management")
-
+@php
+    
+        use Illuminate\Support\Facades\DB;
+        $email=auth()->user()->email;
+        
+        $IDs = DB::table('employees')->where('email', $email)->get();
+        $emp = 0;
+                foreach($IDs as $ID)
+                {
+                    $emp=$ID->id;
+                    
+                }
+        
+        @endphp
 @section('content')
     <div class="row">
         <table class="table table-striped table-hover">
@@ -59,7 +72,7 @@
             
         </table>
         <input type="hidden" id="q_id" name="q_id" value="{{$Questions->id}}">
-        <input type="hidden" id="relier" name="relier" value="1">
+        <input type="hidden" id="relier" name="relier" value="{{$emp}}">
         <a href="{{ route('admin.question_forum') }}" class="btn btn-danger">Questions Forum home</a>
         <button type="submit" class="btn btn-primary">Reply</button>
     </form>

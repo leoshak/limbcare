@@ -29,8 +29,8 @@
                 <textarea class="form-control" name="replye" id="replye" cols="30" rows="10" placeholder="reply " >{{ $replyx->replay }}</textarea>
         </div>
         <div class="form-group">
-                <label for="re_pic">Reply image (optional)</label>
-                <input type="file" class="form-control" name="re_pic" id="re_pic" >
+                <label for="rep_pic">Reply image (optional)</label>
+                <input type="file" class="form-control" name="rep_pic" id="rep_pic" >
         </div>
         <input type="hidden" id="id" name="id" value="{{ $replyx->id }}">
         <a href="{{ route('admin.question_forum') }}" class="btn btn-danger">Cancel</a>

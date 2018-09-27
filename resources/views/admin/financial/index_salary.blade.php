@@ -6,7 +6,7 @@
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
             <div class="topicbar">
-                <a href="{{ route('admin.financial.add_salary') }}" class="btn btn-primary">Add Salary Payment</a>
+                <a href="{{ route('admin.financial.add_salaryindex') }}" class="btn btn-primary">Add Salary Payment</a>
                 <a href="{{ route('admin.financial') }}" class="btn btn-danger">Back to Financial </a>
             </div>
             <div class="right-searchbar">
@@ -33,21 +33,25 @@
                 </thead>
                 <tbody>
                     @foreach ($financials as $financial)
-                        <tr>
+                        <tr>@php
+                                $name='no';
+                                   foreach ($emp as $emps)
+                                   {
+                                       if($emps->id==$financial->emp_id)
+                                       {
+                                           $name=$emps->name;
+                                       }
+                                    }
+                               @endphp
                             <td>{{ $financial->id }}</td>
-                            <td>{{ $financial->emp_name }}</td>
-                            <td>{{ $financial->date }}</td>
+                            <td>{{ $name}}</td>
+                            <td>{{ $financial->created_at }}</td>
                             <td>{{ $financial->amount }}</td>
                             <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showSalary', [$financial->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit_salary', [$financial->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a> --}}
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.delete', $financial->id) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                
                             </td>
                         </tr>
                     @endforeach

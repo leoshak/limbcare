@@ -15,18 +15,18 @@
             </tr>
             @endif
             <tr>
-                <th>Question title</th>
+                <th>Question Title</th>
                 <td>{{$Questions->questionTitle}}</td>
             </tr>
             <tr>
-                <th>Question type</th>
+                <th>Question Type</th>
                 <td>{{$Questions->questionType}}</td>
             </tr>
            
            @foreach($replys as $replyw)
            @if(!strcmp(($replyw->replay_pic),'nophoto')==0)
            <tr>
-                <th>Image foe reply</th>
+                <th>Image for Reply</th>
                 <td><img height="200" width="200" src="\image\reply\pic\{{ $replyw->replay_pic }}" class="user-profile-image"></td>
             </tr>
             @endif

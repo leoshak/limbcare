@@ -40,65 +40,67 @@ class QuestionsForumController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
-    public function store(Qeestionval $request)
+    public function addques(Qeestionval $request,QuestionsForum $ques)
     {
         $lastid=0;
-        $em=$request->qu_type;
-        if($em=="")
-        {
-            $message = 'Nothig select in question type ';
-            return redirect()->intended(route('patient.question_forum.add'))->with('message', $message);
-              
-        }
+        $name='nophoto';
        if(!($request->qu_pic)==0)
        {
         $file=$request ->file('qu_pic');
        $type=$file->guessExtension();
        
-       $Questions=QuestionsForum::all();
+        // DB::insert('INSERT INTO `queston` ( `question_title`, `question_type`, `Queston`, `question_pic`) VALUES  ( ?,?, ?,?)',[ $request['qu_title'],$request['qu_type'],$request['question'],$name]);
+        $ques->questionTitle = $request->get('qu_title');
+        $ques->question = $request->get('question');
+        $ques->questionType = $request->get('qu_Type');
+        $ques->questionAsk = $request->get('qu_Ask');
+        $ques->save();
+        $Questions = DB::select('select * from question ORDER BY id DESC LIMIT 1');
+        $type=$file->guessExtension();
+        $lastid = 0;
         foreach($Questions as $Question)
         {
             $lastid=$Question->id;
-            
+
         }
-        if ($lastid==0)
-        {
-            $lastid=0;
-        }
-        $lastid=$lastid+1;
-        
         $name=$lastid."pic.".$type;
         $file->move('image/question/pic',$name);
-        DB::insert('INSERT INTO `queston` ( `question_title`, `question_type`, `Queston`, `question_pic`) VALUES  ( ?,?, ?,?)',[ $request['qu_title'],$request['qu_type'],$request['question'],$name]);
+        $ques->questionPic=$name;
+        $ques->save();
         return view('patient.question_forum.success');
         }
        
-        DB::insert('INSERT INTO `queston` ( `question_title`, `question_type`, `Queston`) VALUES  ( ?, ?,?)',[ $request['qu_title'],$request['qu_type'],$request['question']]);
+        $ques->questionTitle = $request->get('qu_title');
+        $ques->question = $request->get('question');
+        $ques->questionType = $request->get('qu_Type');
+        $ques->questionAsk = $request->get('qu_Ask');
+        $ques->questionPic=$name;
+        $ques->save(); 
         return view('patient.question_forum.success');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\QuestionForum  $questionForum
-     * @return \Illuminate\Http\Response
-     */
-    public function show(QuestionsForum $questionsforum)
-    {
-        return view('patient.question_forum.show',['questionsforum' => $questionsforum]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\QuestionForum  $questionForum
      * @return \Illuminate\Http\Response
      */
-    public function edit(QuestionsForum $questionsforum)
+    public function showa(QuestionsForum $questionsforum)
     {
-        return view('patient.question_forum.edit',['questionsforum' => $questionsforum]);
+        ['questionsforum' => $questionsforum];
+        $qid=$questionsforum->id;
+        $Question=DB::select('select * from question where id ='.$qid);
+        foreach($Question as $Questions)
+        {
+        $question=$Questions->question;
+        $questionType=$Questions->questionType;
+        $questionAsk=$Questions->questionAsk;
+        $questionTitle=$Questions->questionTitle;
+        }
+         $replys=DB::select('select * from reply where questionId ='.$qid);
+        return view('patient.question_forum.show',compact('replys'),compact('Question'));
+    
     }
 
     /**

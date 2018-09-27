@@ -48,9 +48,9 @@ class EmployeeController extends Controller
         //check for duplicate
         Validator::extend('uniqueEmployeeCheck', function ($attribute, $value, $parameters, $validator) {
             $count = DB::table('employees')->where('email', $value)->count();
-        
-            return $count === 0;
-        });
+            $userCount = DB::table('users')->where('email', $value)->count();
+            return $count === 0 and $userCount === 0;
+        }, 'Employee already in the system');
 
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = [

@@ -115,7 +115,7 @@
                 
                             <tr>
                                 <th></th>
-                                <td><a href="{{ url("receptionist/editprofile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
+                                <td><a href="{{ url("pno/editprofile") }}" class="btn btn-light"><i class="fa fa-user-circle-o"></i> Edit Profile</a></td>
                                 {{-- href="{{ route('admin.employees') }}" --}}
                             </tr>
                             </tbody>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -213,7 +213,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-
+        
     </div>
 @endsection
 

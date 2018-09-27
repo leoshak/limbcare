@@ -13,13 +13,23 @@
     
                 <tr>
                     <th>Date</th>
-                    <td>{{ $financialSalaryPayment->date }}</td>
+                    <td><h5>{{ $financialSalaryPayment->date }}</h5></td>
                 </tr>
     
                 <tr>
                     <th>Employee Name</th>
                     <td>
-                        {{ $financialSalaryPayment->emp_name }}
+                        @php
+                         $name='no';
+                            foreach($emp as $emps)
+                            {
+                                if($financialSalaryPayment->emp_id==$emps->id)
+                                {
+                                    $name=$emps->name;
+                                }
+                            }
+                        @endphp
+                       <h5> {{  $name}}</h5>
                         {{-- </a> --}}
                     </td>
                 </tr>
@@ -27,7 +37,7 @@
                 <tr>
                     <th>Amount</th>
                     <td>
-                        {{ $financialSalaryPayment->amount }}
+                      <h5> Rs. {{ $financialSalaryPayment->amount }}.00</h5>
                     </td>
                 </tr>
                 <tr>

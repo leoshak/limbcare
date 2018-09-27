@@ -17,7 +17,7 @@
 @endif
 <div class="form-group">
         <label for="qu_title">Question title *</label>
-        <input type="text" class="form-control" name="qu_title" id="qu_title" placeholder="what's....." >
+        <input type="text" class="form-control" name="qu_title" id="qu_title" placeholder="what's....." value="{{ old('qu_title') }}">
     </div>
     
     <div class="form-group">
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         <label for="question">Question *</label>
-        <textarea class="form-control" name="question" id="question" cols="30" rows="10" placeholder="question " ></textarea>
+        <textarea class="form-control" name="question" id="question" cols="30" rows="10" placeholder="question " >{{ old('question') }}</textarea>
     </div>
     <input type="hidden" id="qu_Type" name="qu_Type" value="doctor">
     <input type="hidden" id="qu_Ask" name="qu_Ask" value="1">
