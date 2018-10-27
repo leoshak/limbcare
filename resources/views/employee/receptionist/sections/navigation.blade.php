@@ -50,7 +50,7 @@
                 @php ($qf = '') 
                 
                 @if(!empty($employee))
-                    @php ($emp = $employee[0]->id)
+                    @php ($emp = $employee->id)
                 @endif
                 @if(!empty($appointment))
                     @php ($app = $appointment->id)

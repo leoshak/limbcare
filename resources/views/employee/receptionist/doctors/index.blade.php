@@ -1,4 +1,4 @@
-@extends('receptionist.layouts.receptionist')
+@extends('employee.receptionist.layouts.receptionist')
 
 @section('title', "Doctor Management")
 

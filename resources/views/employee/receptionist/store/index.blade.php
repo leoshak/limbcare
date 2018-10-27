@@ -1,4 +1,4 @@
-@extends('receptionist.layouts.receptionist')
+@extends('employee.receptionist.layouts.receptionist')
 @section('content')
 <div class="row title-section">
         <div class="col-12 col-md-8">
@@ -6,7 +6,7 @@
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
             <div class="topicbar">
-                <a href="{{ route('admin.store.add') }}" class="btn btn-primary">Add Item</a>
+                <a href="{{ route('receptionist.store.add') }}" class="btn btn-primary">Add Item</a>
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
@@ -37,15 +37,15 @@
                                 <td>{{ $stores->company }}</td>
                                 <td>{{ $stores->iteam_max }}{{($stores->quantity_type) }}</td>
                                 <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.store.show',[$stores->id]) }}">
+                                {{-- <a class="btn btn-xs btn-primary" href="{{ route('employee.receptionist.store.show',[$stores->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{  route('admin.store.edit',[$stores->id]) }}">
+                                <a class="btn btn-xs btn-info" href="{{  route('employee.receptionist.store.edit',[$stores->id]) }}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.store.delete',[$stores->id]) }}">
+                                <a class="btn btn-xs btn-danger" href="{{ route('employee.receptionist.store.delete',[$stores->id]) }}">
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </a> --}}
                                 
                             </td>
                         </tr>
