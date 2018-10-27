@@ -15,10 +15,12 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::all();
-        return view('employee.receptionist.appointments.index', compact('appointments'));
+        $key = $request->input('key');
+        // $appointments = Appointment::all();
+        $appointments = Appointment::latest()->search($key)->paginate(20);
+        return view('employee.receptionist.appointments.index', compact('appointments', 'key'));
     }
 
     /**
