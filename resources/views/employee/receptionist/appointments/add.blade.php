@@ -1,10 +1,10 @@
-@extends('admin.layouts.admin')
+@extends('employee.receptionist.layouts.receptionist')
 
 @section('title',"Add an Appointment", "Appointment") 
 
 @section('content')
     <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        {!! Form::open(array('route' => 'admin.appointments.store')) !!}
+        {!! Form::open(array('route' => 'receptionist.appointments.store')) !!}
              @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -35,7 +35,7 @@
                 {!! Form::select('type', ['Repair' => 'Repair', 'Checkup' => 'Checkup', 'New'=> 'New'], null, ['placeholder' => 'Choose...', 'class'=> 'form-control']) !!}
             </div>
 
-            <a href="{{ route('admin.appointments') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
+            <a href="{{ route('receptionist.appointments') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
             {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
             {!! Form::button('Add', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
             {{-- <button type="submit" class="btn btn-primary">Add</button> --}}

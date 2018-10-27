@@ -15,10 +15,12 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::all();
-        return view('admin.appointments.index', compact('appointments'));
+        $key = $request->input('key');
+        // $appointments = Appointment::all();
+        $appointments = Appointment::latest()->search($key)->paginate(20);
+        return view('employee.receptionist.appointments.index', compact('appointments', 'key'));
     }
 
     /**
@@ -28,7 +30,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('admin.appointments.add');
+        return view('employee.receptionist.appointments.add');
     }
 
     /**
@@ -68,7 +70,7 @@ class AppointmentController extends Controller
         // }
 
         Appointment::create($request->all());
-            return redirect()->route('admin.appointments')->with('message', 'Appointment added successfully!');
+        return redirect()->route('employee.receptionist.appointments')->with('message', 'Appointment added successfully!');
     }
 
     /**
@@ -79,7 +81,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        return view('admin.appointments.show', ['appointment' => $appointment]);
+        return view('employee.receptionist.appointments.show', ['appointment' => $appointment]);
     }
 
     /**
@@ -90,7 +92,7 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        return view('admin.appointments.edit', ['appointment' => $appointment, 'roles' => Role::get()]);
+        return view('employee.receptionist.appointments.edit', ['appointment' => $appointment, 'roles' => Role::get()]);
     }
 
     /**
@@ -118,7 +120,7 @@ class AppointmentController extends Controller
         $appointment->save();
 
         $message = 'Successfully updated appointment named '.$appointment->name.' with id '.$appointment->id;
-        return redirect()->intended(route('admin.appointments'))->with('message', $message);
+        return redirect()->intended(route('employee.receptionist.appointments'))->with('message', $message);
     }
 
     /**
@@ -131,6 +133,6 @@ class AppointmentController extends Controller
     {
         $message = 'Successfully deleted appointment named '.$appointment->name.' with id '.$appointment->id;
         $appointment->delete();
-        return redirect()->route('admin.appointments')->with('message', $message);
+        return redirect()->route('employee.receptionist.appointments')->with('message', $message);
     }
 }

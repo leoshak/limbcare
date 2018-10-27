@@ -1,4 +1,4 @@
-@extends('receptionist.layouts.receptionist')
+@extends('employee.receptionist.layouts.receptionist')
 @section('content')
     <div class="row title-section">
         <div class="col-12 col-md-8">
