@@ -8,7 +8,7 @@
         <div class=".col-xs-6 .col-lg-4 searchbar-addbt">
             <div class="topicbar">
                 {{-- <a href="{{ route('admin.employees.add') }}" class="btn btn-primary">Add Employee</a> --}}
-                {{ link_to_route('admin.appointments.add', 'Add Appointment', null, ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('receptionist.appointments.add', 'Add Appointment', null, ['class' => 'btn btn-primary']) }}
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->

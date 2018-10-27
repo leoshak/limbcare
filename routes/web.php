@@ -359,6 +359,7 @@ Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' =
     //appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
+    Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
     
     //question
     Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
