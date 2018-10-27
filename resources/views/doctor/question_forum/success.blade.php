@@ -1,4 +1,4 @@
-@extends('doctor.layouts.patient')
+@extends('doctor.layouts.doctor')
 
 @section('title', "Questions Forum Management")
 
@@ -18,7 +18,7 @@
                             <p>Success done your job Questions Forum</p>
                         </div>
                         <div class="modal-footer">
-                        <a href="/admin/question_forum" class="btn btn-primary">Ok</a>
+                        <a href="/doctor/question_forum" class="btn btn-primary">Ok</a>
                         </div>
                     </div>
                 </div>

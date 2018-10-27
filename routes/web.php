@@ -52,7 +52,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::post('storereport', 'StoreController@displayReport');
     
+    Route::post('financial/searchinvoice','FinancialController@searchinvoice');
+    
+    Route::post('financial/searchbillin','FinancialController@searchbillin');
+    Route::post('financial/searchbill','FinancialController@searchbill');
+    Route::post('financial/add_salary/addsalary','FinancialController@salary');
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/add', 'EmployeeController@create')->name('employees.add');
@@ -69,7 +75,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
-    Route::post('appointments/store', 'AppointmentController@store')->name('appointments.store');
+    Route::post('appointments/checkDate', 'AppointmentController@checkDate')->name('appointments.checkDate');
+    Route::post('appointments/checkDate/store', 'AppointmentController@store')->name('appointments.checkDate.store');
     Route::get('appointments/report', 'AppointmentController@gotoReport')->name('appointments.report');
     Route::post('appointments/rep', 'AppointmentController@generateReport')->name('appointments.rep');
     Route::get('appointments/{appointment}', 'AppointmentController@show')->name('appointments.show');
@@ -125,7 +132,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('financial/otherpay/{financialOtherPayment}', 'FinancialController@showOtherPayment')->name('financial.showOtherPay');
     
     Route::get('financial/add_bill', 'FinancialController@addbill')->name('financial.add_bill');
-    Route::get('financial/add_salary', 'FinancialController@addsalary')->name('financial.add_salary');
+    Route::get('financial/add_salary/{emp}', 'FinancialController@addsalary')->name('financial.add_salary');
+    Route::get('financial/add_salaryindex', 'FinancialController@addsalaryindex')->name('financial.add_salaryindex');
     
     Route::get('financial/add_other', 'FinancialController@addother')->name('financial.add_other');
     Route::get('financial/add', 'FinancialController@create')->name('financial.add');
@@ -153,9 +161,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('financial/{financialOtherPay}/updateOtherPay', 'FinancialController@updateOtherPay');
     Route::post('financial/delete/destroy','FinancialController@destroy');
     Route::post('financial/newinvoice/addninvoice', 'FinancialController@newTinvoice');
-    Route::post('financial/addbill','FinancialController@stor');
+    Route::post('financial/add_bill/addbillinvoice/addbill','FinancialController@stor');
     Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
+    Route::get('financial/add_bill/addbillinvoice/{invoice}','FinancialController@billinvoicew')->name('financial.addbillinvoice');
     // Route::get('financial/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     // Route::put('financial/{employee}', 'EmployeeController@update')->name('employees.update');
 
@@ -239,6 +248,8 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
     Route::get('employees/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
     Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
+    Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
+    
     // Route::delete('employees/delete', 'EmployeeController@delete')->name('employees.delete');
     Route::delete('employees/{employee}/delete', 'EmployeeController@destroy')->name('employees.delete');
     //Appointment
@@ -288,7 +299,6 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     Route::get('financial/deleteOtherPay/{financialOtherPay}', 'FinancialController@destroyOtherpayRequest')->name('financial.deleteOtherPay');
     Route::post('financial/deleteOtherPay/destroy','FinancialController@destroyOtherPay');
     Route::post('financial/addbill','FinancialController@stor');
-    Route::post('financial/addsalary','FinancialController@salary');
     Route::post('financial/addother','FinancialController@other');
     Route::get('financial/bill/{financialBill}', 'FinancialController@show')->name('financial.showBill');
     Route::get('financial/salary/{financialSalaryPayment}', 'FinancialController@showSalaryPayment')->name('financial.showSalary');
@@ -300,14 +310,16 @@ Route::group(['prefix' => 'director', 'as' => 'director.', 'namespace' => 'emplo
     //Services
     Route::get('services', 'ServiceController@index')->name('services');
     //Store
-    Route::post('storereport', 'StoreController@displayReport');
+    
 
     Route::get('store', 'StoreController@index')->name('store');
+    
     Route::get('store/edit/{store}', 'StoreController@edit')->name('store.edit');
     Route::get('store/add', 'StoreController@create')->name('store.add');
     Route::get('store/delete/{store}', 'StoreController@destroy')->name('store.delete');
     Route::get('store/{store}', 'StoreController@show')->name('store.show');
 
+    
     Route::post('store/edit/updatestore','StoreController@update');
     Route::post('store/delete/deletestores','StoreController@sedelete');
     Route::post('store/additem','StoreController@store');
@@ -338,7 +350,8 @@ Route::group(['prefix' => 'receptionist', 'as' => 'receptionist.', 'namespace' =
 
     //editprofile
     Route::get('editprofile', 'RecepDashboardController@editprofile')->name('editprofile');
-    
+    Route::put('editprofile/{employee}', 'RecepDashboardController@updateProfile')->name('editprofile.update');
+
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
@@ -403,19 +416,25 @@ Route::group(['prefix' => 'pno', 'as' => 'pno.', 'namespace' => 'employee\pno', 
 });
 Route::group(['prefix' => 'patient', 'as' => 'patient.', 'namespace' => 'patient', 'middleware' => 'patient'], function () {
     // Dashboard
+    Route::get('diagnosis', 'PatientController@patientint')->name('diagnosis.index');
+
     Route::get('/', 'PatientDashboardController@index')->name('dashboard');
     
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
-    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.index');
     
     //appointment
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
     
     //question
-    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
+    Route::get('question_forum', 'PatientController@quindex')->name('question_forum');
     Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+    Route::get('question_forum/show/{questionsforum}', 'QuestionsForumController@showa')->name('question_forum.show');
+    
+    Route::post('question_forum/addques', 'QuestionsForumController@addques');
+    Route::post('searchservice', 'PatientController@searchservice');
     
     //store
     Route::get('store', 'StoreController@index')->name('store');
@@ -424,47 +443,50 @@ Route::group(['prefix' => 'patient', 'as' => 'patient.', 'namespace' => 'patient
     //Patient
     Route::get('patient', 'PatientController@index')->name('patients');
     //Services
-    Route::get('services', 'ServiceController@index')->name('services');
+    Route::get('services', 'PatientController@servicesi')->name('services');
     //doctor
-    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    Route::get('doctors', 'PatientController@doctors')->name('doctors');
     
     //Diagnosis
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
-    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
-    
+  
 });
 Route::group(['prefix' => 'doctor', 'as' => 'doctor.', 'namespace' => 'doctor', 'middleware' => 'doctor'], function () {
     // Dashboard
     Route::get('/', 'DoctorDashboardController@index')->name('dashboard');
-    
+    Route::get('question_forum/show/{questionsforum}', 'DoctorDashboardController@questionforumshow')->name('question_forum.show');
+   
     //Employee
     Route::get('employees', 'EmployeeController@index')->name('employees');
     Route::get('employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    Route::get('employees/store', 'EmployeeController@store')->name('employees.store');
+    Route::put('employees/{employee}', 'EmployeeController@update')->name('employees.update');
     
-    //appointment
+    //appointment director.employees.store
     Route::get('appointments', 'AppointmentController@index')->name('appointments');
     Route::get('appointments/add', 'AppointmentController@create')->name('appointments.add');
     
-    //question
-    Route::get('question_forum', 'QuestionsForumController@index')->name('question_forum');
-    Route::get('question_forum/add', 'QuestionsForumController@create')->name('question_forum.add');
+
+    Route::get('question_forum', 'DoctorDashboardController@questionforum')->name('question_forum');
+    
+    Route::get('question_forum/add', 'DoctorDashboardController@questionforumadd')->name('question_forum.add');
+    Route::post('question_forum/addquesw', 'DoctorDashboardController@addquesw');
     
     //store
     Route::get('store', 'StoreController@index')->name('store');
     Route::get('store/add', 'StoreController@create')->name('store.add');
     
     //Patient
-    Route::get('patient', 'PatientController@index')->name('patients');
+    Route::get('patient', 'DoctorDashboardController@sentindex')->name('patients');
     //Services
-    Route::get('services', 'ServiceController@index')->name('services');
+    Route::get('services', 'DoctorDashboardController@servicesi')->name('services');
     //doctor
-    Route::get('doctors', 'DoctorController@index')->name('doctors');
+    Route::get('doctors', 'DoctorDashboardController@sentindexsd')->name('doctors');
     
     //Diagnosis
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis');
-    Route::get('diagnosis', 'DiagnosisController@index')->name('diagnosis.index');
-    Route::get('diagnosis/add', 'DiagnosisController@create')->name('diagnosis.add');
+    Route::get('diagnosis', 'DoctorDashboardController@indexdais')->name('diagnosis.index');
+    
+    Route::get('diagnosis/{diagnosise}', 'DoctorDashboardController@diagnosisindexss')->name('diagnosis.show');
+
     
 });
 

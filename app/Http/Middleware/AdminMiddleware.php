@@ -16,6 +16,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if(Auth::guest()){
+            return redirect('/')->with('message', 'Guests do not have access to dashboard');
+        }
         // dd(Auth::user()->roles[1]->name);
         foreach (Auth::user()->roles as $role) {
             if ($role->name == 'administrator') {

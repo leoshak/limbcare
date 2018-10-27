@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DocPicColumnToDoctorTable extends Migration
+class ChangeAppointmentTimeColumnType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class DocPicColumnToDoctorTable extends Migration
      */
     public function up()
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->string('doc_pic');
+        Schema::table('appointments', function ($table) {
+            $table->string('time')->change();
         });
     }
 

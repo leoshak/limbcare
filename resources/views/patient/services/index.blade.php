@@ -5,69 +5,59 @@
         @section('title', "Service Management")
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                <a href="{{ route('admin.services') }}" class="btn btn-primary">Add diagnosis card</a>
-            </div>
+            
             <div class="right-searchbar">
-                <!-- Search form -->
-                <form class="form-inline active-cyan-3">
-                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                <form action="searchservice" method="post" class="form-inline active-cyan-3">
+                        {{ csrf_field() }}
+                        <input type="text" placeholder="Search service" name="search" required>
+                        <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
         </div>
     </div>
+    @php
+use Illuminate\Support\Facades\DB;
+$email=auth()->user()->email;
+
+$IDs = DB::table('patient')->where('email', $email)->get();
+$IDpa = 0;
+foreach($IDs as $ID)
+{
+$IDpa=$ID->id;
+
+}
+// $services = DB::select('select * from service ');
+//
+
+@endphp
     <div class="row">
-                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-                        width="100%">
-                    <thead> 
-                    <tr>
-                        <th>ID</th>
-                        <th>Pation name</th>
-                        <th>Srvice</th>
-                        <th></th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>AD06857</td>
-                            <td>2009/05/18</td>
-                            <td>A. Priyadarshani</td>
-                            <td>Repair</td>
-                            <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.services') }}">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.services') }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.services') }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+        
+        @foreach($services as $service)
+            <div class="col-xs-6 col-sm-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-header" style="margin-top: 20px; margin-bottom: 20px;">
+                            <div class="col-xs-6 col-md-4 col-lg-4 vcenter emp-avator" style="height: 90px; width: 90px;" >
+                                <img src="\image\service\item\{{ $service->pic }}" alt="Pic" height="90px" width="90px">
+                            </div>
+                            {{-- <span class="card-img">{{ HTML::image('img/nickfrost.jpg', 'Pic') }}</span> --}}
+                            <div class="col-xs-6 col-md-8 col-lg-8 vcenter emp-details">
+                                <span class="text-primary bg-primary">Service name </span><br />
+                                <span class="text-light bg-success">{{ $service->serviceName }}</span><br />
+                                <span class="text-primary bg-primary">Service type</span><br />
+                                <span class="text-light bg-success">{{ $service->type }}</span><br />
+                                <span class="text-light bg-primary"> Service description</span><br />
+                
+                                <span class="text-light bg-success">{{ $service->description }}</span>
                                 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AD2217</td>
-                            <td>2014/01/12</td>
-                            <td>C. Rathnayake</td>
-                            <td>New</td>
-                            <td>
-                                <a class="btn btn-xs btn-primary" href="">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a class="btn btn-xs btn-info" href="">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        <div class="pull-right">
-        </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        @endforeach
+        
     </div>
 @endsection

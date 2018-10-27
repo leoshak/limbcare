@@ -4,6 +4,7 @@ namespace App\Http\Controllers\employee\director;
 
 use App\Models\Auth\User\User;
 use App\Models\Employee;
+use App\Models\Notification;
 use Arcanedev\LogViewer\Entities\Log;
 use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
@@ -36,6 +37,11 @@ class DirectorDashboardController extends Controller
             'users_unconfirmed' => \DB::table('users')->where('confirmed', false)->count(),
             'users_inactive' => \DB::table('users')->where('active', false)->count(),
             'protected_pages' => 0,
+            'doctor' => \DB::table('doctors')->count(),
+            'patient' => \DB::table('patient')->count(),
+            'employees' => \DB::table('employees')->count(),
+            'question' => \DB::table('question')->count(),//question
+            'appointment' => \DB::table('appointments')->count(),
         ];
 
         foreach (\Route::getRoutes() as $route) {
@@ -43,14 +49,10 @@ class DirectorDashboardController extends Controller
                 if (preg_match("/protection/", $middleware, $matches)) $counts['protected_pages']++;
             }
         }
-        $employees = Employee::where('name', auth()->user()->name)->get();
-        $employee = new Employee();
-        foreach ($employees as $emp) {
-            if ($emp == auth()->user()->name) {
-                $employee = $emp;
-            }
-        }
-        return view('employee.director.dashboard', ['counts' => $counts, 'employee' => $employee]);
+        $employees = Employee::where('email', auth()->user()->email)->get();
+        $notifications = Notification::get();
+        
+        return view('employee.director.dashboard', ['counts' => $counts, 'employee' => $employees, 'notifications' => $notifications]);
     }
 
 

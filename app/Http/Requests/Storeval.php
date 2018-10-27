@@ -18,11 +18,11 @@ class Storeval extends FormRequest
 
     public function rules()
     {
-        
+        $mins=$required['it_max'];
         return [
             'it_name'=>'required|max:191',
             'it_company'=>'required|max:191'
-            ,'it_quantity'=>'required|integer|min:0'
+            ,'it_quantity'=>'required|integer|min:0|max:mins'
             ,'it_max'=>'required|integer|min:0'
             ,'it_min'=>'required|integer|min:0'
             ,'it_pic'=>'required|file|image|mimes:jpeg,png,gif,webp'

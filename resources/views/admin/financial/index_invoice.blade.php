@@ -12,7 +12,7 @@
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form action="searchbill" method="post" class="form-inline active-cyan-3">
+                <form action="searchinvoice" method="post" class="form-inline active-cyan-3">
                         {{ csrf_field() }}
                         <input type="text" placeholder="Search diagnosis" name="search" class="form-control form-control-sm ml-3 w-100" required>
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>

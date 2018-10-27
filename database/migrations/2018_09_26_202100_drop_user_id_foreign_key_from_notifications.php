@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePatientGenderCol extends Migration
+class DropUserIdForeignKeyFromNotifications extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreatePatientGenderCol extends Migration
      */
     public function up()
     {
-        Schema::table('patient', function (Blueprint $table) {
-            $table->string('gender');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
         });
     }
 

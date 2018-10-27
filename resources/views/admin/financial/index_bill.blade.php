@@ -14,7 +14,7 @@
                 <!-- Search form -->
                 <form action="searchbill" method="post" class="form-inline active-cyan-3">
                         {{ csrf_field() }}
-                        <input type="text" placeholder="Search diagnosis" name="search" class="form-control form-control-sm ml-3 w-100" required>
+                        <input type="text" placeholder="Search Bill" name="search" class="form-control form-control-sm ml-3 w-100" required>
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
             </div>
@@ -56,12 +56,7 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showBill', [$bill->id]) }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.financial.edit', [$bill->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.financial.deleteBill', $bill->id) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                
                             </td>
                         </tr>
                     @endforeach

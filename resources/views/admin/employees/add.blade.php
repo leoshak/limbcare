@@ -43,27 +43,27 @@
             </select> --}}
         </div>
         <div class="container">
-                <div class="form-group">
-                    {!! Form::label('birthday', 'Birthday') !!}
-                    {!! Form::date('birthday', null, ['class'=> 'form-control']) !!}
-                    {{-- <div class='input-group date' id='inputBirthday'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div> --}}
-                </div>
-            </div>
-            <div class="container">
             <div class="form-group">
-                    {!! Form::label('emp_pic', 'Profile picture') !!}
-                    {!! Form::file('emp_pic',  ['class'=> 'form-control','accept' =>'image/*']) !!}
-                </div>
-                </div>
+                {!! Form::label('birthday', 'Birthday') !!}
+                {!! Form::date('birthday', null, ['class'=> 'form-control']) !!}
+                {{-- <div class='input-group date' id='inputBirthday'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div> --}}
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                {!! Form::label('emp_pic', 'Profile picture') !!}
+                {!! Form::file('emp_pic',  ['class'=> 'form-control','accept' =>'image/*']) !!}
+            </div>
+        </div>
         <div class="form-group">
-         {!! Form::label('address', 'Address') !!}
-         {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
-          {{-- <textarea class="form-control" name="address" id="address" cols="30" rows="10"></textarea> --}}
+            {!! Form::label('address', 'Address') !!}
+            {!! Form::textarea('address', null, ['class'=> 'form-control']) !!}
+            {{-- <textarea class="form-control" name="address" id="address" cols="30" rows="10"></textarea> --}}
         </div>
         <a href="{{ route('admin.employees') }}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Go Back</a>
         {!! Form::button('Clear', ['type' => 'reset', 'class' => 'btn btn-danger']) !!}
@@ -71,6 +71,9 @@
         {{-- <button type="submit" class="btn btn-primary">Add</button> --}}
       {!! Form::close() !!}
     </div>
+    <div class="container"></div>
+</div>
+</div>
 @endsection
 
 @section('styles')

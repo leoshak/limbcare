@@ -11,7 +11,20 @@
             {!! $errors->first() !!}
         </div>
     @endif
-
+    @php
+    
+    use Illuminate\Support\Facades\DB;
+    $email=auth()->user()->email;
+    
+    $IDs = DB::table('employees')->where('email', $email)->get();
+    $emp = 0;
+            foreach($IDs as $ID)
+            {
+                $emp=$ID->id;
+                
+            }
+    
+    @endphp
     @if(Session::has('message'))
         <div class="alert alert-danger">{{ Session::get('message') }}</div>
     @endif
@@ -32,7 +45,7 @@
               <input type="text" class="form-control"name="min" id="min" value="{{ $stores->iteam_min}}">
             </div>
         <input type="hidden" id="id" name="id" value="{{ $stores->id }}">
-        <input type="hidden" id="empID" name="empID" value="2">
+        <input type="hidden" id="empID" name="empID" value="{{$emp}}">
         <a href="{{ route('admin.store') }}" class="btn btn-danger">Cancel</a>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

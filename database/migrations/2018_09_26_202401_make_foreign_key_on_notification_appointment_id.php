@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PatPicColumnToPatientTable extends Migration
+class MakeForeignKeyOnNotificationAppointmentId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class PatPicColumnToPatientTable extends Migration
      */
     public function up()
     {
-        Schema::table('patient', function (Blueprint $table) {
-            $table->string('pat_pic');
+        Schema::table('notifications', function($table) {
+            $table->integer('appointment_id')->unsigned();
+            $table->foreign('appointment_id')->references('id')->on('appointments');
         });
     }
 

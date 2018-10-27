@@ -5,9 +5,7 @@
         @section('title', "Question Forum Management")
         </div>
         <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                <a href="{{ route('admin.question_forum.add') }}" class="btn btn-primary">Add Question</a>
-            </div>
+            
             <div class="right-searchbar">
                     <form action="searchquestion" method="post" class="form-inline active-cyan-3">
                             {{ csrf_field() }}

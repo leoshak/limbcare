@@ -18,6 +18,7 @@ class CreateReplyTable extends Migration
             $table->text('replay');
             $table->string('replay_pic')->nullable();
             $table->string('replier_ID');
+            $table->string('questionId');
             $table->timestamps();
         });
     }

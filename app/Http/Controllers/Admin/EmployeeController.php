@@ -48,9 +48,9 @@ class EmployeeController extends Controller
         //check for duplicate
         Validator::extend('uniqueEmployeeCheck', function ($attribute, $value, $parameters, $validator) {
             $count = DB::table('employees')->where('email', $value)->count();
-        
-            return $count === 0;
-        });
+            $userCount = DB::table('users')->where('email', $value)->count();
+            return $count === 0 and $userCount === 0;
+        }, 'Employee already in the system');
 
         //'id', 'nic', 'name', 'employeeType', 'address', 'birthday'
         $validatedData = [
@@ -206,6 +206,10 @@ class EmployeeController extends Controller
         $employee->address = $request->get('inputAddress');
         $employee->employeeType = $request->get('empType');
         $employee->save();
+
+        DB::table('users')
+        ->where('email', $employee->email)
+        ->update(['email' => $request->get('email'), 'usertype' => $request->get('empType'), 'name' => $request->get('inputName')]);
 
         $message = 'Successfully updated employee named '.$employee->name.' with id '.$employee->id;
         return redirect()->intended(route('admin.employees'))->with('message', $message);

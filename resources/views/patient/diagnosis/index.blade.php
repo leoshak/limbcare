@@ -1,58 +1,89 @@
 @extends('patient.layouts.patient')
+
+@section('title', "Patient Management")
+@php
+    
+use Illuminate\Support\Facades\DB;
+$email=auth()->user()->email;
+
+$IDs = DB::table('patient')->where('email', $email)->get();
+$IDpa = 0;
+        foreach($IDs as $ID)
+        {
+            $IDpa=$ID->id;
+            
+        }
+        $pation = DB::select('select * from diagnosis where id ='.$IDpa);
+        $patientname='n';
+            $service='n';
+            $consultant_dr='n';
+            $discription='n';
+            $hight='n';
+            $weight='n';
+            $skech='n';
+foreach($pation as $pations)
+        {
+            $patientname=$pations->patientname;
+            $service=$pations->service;
+            $discription=$pations->discription;
+            $consultant_dr=$pations->consultant_dr;
+            $hight=$pations->hight;
+            $weight=$pations->weight;
+            $skech= $diagnosis->skech;
+        }
+
+@endphp
 @section('content')
-    <div class="row title-section">
-        <div class="col-12 col-md-8">
-        @section('title', "Diagnosis Management")
-        </div>
-        <div class="col-8 col-md-4" style="padding-bottom: 15px;">
-            <div class="topicbar">
-                <a href="{{ route('admin.diagnosis.add') }}" class="btn btn-primary">Add diagnosis card</a>
-            </div>
-            <div class="right-searchbar">
-                <!-- Search form -->
-                <form class="form-inline active-cyan-3">
-                    <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="row">
-                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-                        width="100%">
-                    <thead> 
-                    <tr>
-                        <th>ID</th>
-                        <th>Patient name</th>
-                        <th>Service</th>
-                        <th>Doctor name</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($diagnosise as $diagnosis)
-                        <tr> 
-                            <td>{{ $diagnosis->id }}</td>
-                            <td>{{ $diagnosis->patientname }}</td>
-                            <td>{{ $diagnosis->service }}</td>
-                            <td>{{ $diagnosis->consultant_dr }}</td>
-                            <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.diagnosis.show',[$diagnosis->id]) }}">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.diagnosis.edit',[$diagnosis->id]) }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-xs btn-danger" href="{{ route('admin.diagnosis.delete',[$diagnosis->id]) }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                                
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-        <div class="pull-right">
-        </div>
+        <table class="table table-striped table-hover">
+            <tbody>
+            <tr> 
+                <th>{{ __('views.admin.users.show.table_header_0') }}</th>
+                <td><img height="200" width="200" src="\image\diagnosis\sketch\{{ $skech }}" class="user-profile-image"></td>
+            </tr>
+
+            <tr>
+                <th>Patient name</th>
+                <td>{{ $patientname }}</td>
+            </tr>
+
+            <tr>
+                <th>Patient service</th>
+                <td>
+                        {{ $service }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Discription</th>
+                <td>
+                    {{ $discription }}
+                </td>
+            </tr>
+            <tr>
+                <th>Consultant doctor</th>
+                <td>
+                        {{ ($consultant_dr)}}
+                        
+                </td>
+            </tr>
+            <tr>
+                <th>Hight</th>
+                <td>
+                        {{ ($hight)}} cm
+                        
+                </td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>
+                        {{ ($weight)}} kg
+                        
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <a href="{{ route('patient.patients') }}" class="btn btn-danger">Patient home</a>
     </div>
 @endsection

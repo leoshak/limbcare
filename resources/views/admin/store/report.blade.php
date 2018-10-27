@@ -27,7 +27,7 @@
                                 <h3> Quantity Items</h3>
                                 <div class="clearfix"></div>
                             </div>
-                            <form action="/storereport" method="post">
+                            <form action="storereport" method="post">
 
                                 {{ csrf_field() }}
 
@@ -51,16 +51,19 @@
                             @foreach($storeR as $stores)
                             <div class="col-md-12 col-sm-12 col-xs-6">
                                 <div>
+                                    <h3>Iteam name</h3>
                                     <h4>{{ $stores->iteamname }}</h4>
                                     @php
                                     $max=$stores->iteam_max;
                                     $now=$stores->iteam_quantity;
                                     $percentage=$now/$max*100;
+                                    $numberAsString = number_format($percentage, 2);
                                     @endphp
                                     <div class="">
                                             <div class="progress mb-2">
-                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{$percentage}}%" aria-valuenow="{{$percentage}}" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
+                                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width:{{$numberAsString}}%" aria-valuenow="{{$numberAsString}}" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
+                                                <span class="text-primary bg-primary">{{$numberAsString}}%</span>
                                     </div>
                                 </div>
   

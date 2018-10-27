@@ -12,7 +12,7 @@
             </div>
             <div class="right-searchbar">
                 <!-- Search form -->
-                <form action="searchbill" method="post" class="form-inline active-cyan-3">
+                <form action="searchbillin" method="post" class="form-inline active-cyan-3">
                         {{ csrf_field() }}
                         <input type="text" placeholder="Search diagnosis" name="search" class="form-control form-control-sm ml-3 w-100" required>
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -43,8 +43,8 @@
                             <td>{{ $Invoice->amount }}</td>
                             <td>{{ $Invoice->remaining_amount }}</td>
                             <td>
-                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.showinvoice', [$Invoice->id]) }}">
-                                    <i class="fa fa-eye"></i>
+                                <a class="btn btn-xs btn-primary" href="{{ route('admin.financial.addbillinvoice', [$Invoice->id]) }}">
+                                    <i class="fa fa-plus"></i>
                                 </a>
                                 
                             </td>
