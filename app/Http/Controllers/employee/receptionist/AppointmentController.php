@@ -33,6 +33,30 @@ class AppointmentController extends Controller
         return view('employee.receptionist.appointments.add');
     }
 
+    public function checkDate(Request $request)
+    {
+        //check for duplicate
+        $count = DB::table('appointments')->where('date', $request->date)->count();
+        $allocateValidateMessage ='This day('.$request->date.') do not have available time slots to allocate, 
+        please allocate another day! ';
+        Validator::extend('checkDateSlot', function ($attribute, $value, $parameters, $validator) {
+            return $parameters[0] !== "13";
+        }, $allocateValidateMessage);
+
+        $validatedData = [
+            'date' => "required|date_format:Y-m-d|after:today|checkDateSlot:{$count}",
+        ];
+
+        $customMessages = [
+            'date.after' => 'Appointment Date can not be today, tomorrow onward',
+        ];
+
+        $this->validate($request, $validatedData, $customMessages);
+
+        $appointments = Appointment::where('date', $request->date)->pluck('time');
+        return view('employee.receptionist.appointments.add')->with(['message' => 13 - $count . 'time slots are available.', 'appointments' => $appointments]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
