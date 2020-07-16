@@ -20,7 +20,7 @@
     "jcarousel": "^0.3.5",
     "jquery": "^3.2.1",
     "laravel-mix": "0.*",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "pace-progress": "^1.0.2",
     "select2": "^4.0.3",
     "vue": "^2.5.17"
